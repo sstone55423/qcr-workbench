@@ -1,0 +1,379 @@
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@layer base {
+  :root {
+    --background: 210 20% 99%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    --primary: 222 47% 31%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 220 20% 10%;
+    --muted: 210 15% 96%;
+    --muted-foreground: 215 14% 46%;
+    --accent: 210 20% 96%;
+    --accent-foreground: 220 20% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 16% 90%;
+    --input: 214 16% 90%;
+    --ring: 222 47% 31%;
+    --chart-1: 222 47% 45%;
+    --chart-2: 160 50% 40%;
+    --chart-3: 280 45% 50%;
+    --chart-4: 35 80% 55%;
+    --chart-5: 350 65% 55%;
+    --radius: 0.5rem;
+    --font-heading: 'Source Serif 4', Georgia, serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Source Serif 4', Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222 20% 8%;
+    --foreground: 210 20% 95%;
+    --card: 222 18% 11%;
+    --card-foreground: 210 20% 95%;
+    --popover: 222 18% 11%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 215 60% 60%;
+    --primary-foreground: 222 20% 8%;
+    --secondary: 222 15% 16%;
+    --secondary-foreground: 210 20% 95%;
+    --muted: 222 15% 16%;
+    --muted-foreground: 215 14% 55%;
+    --accent: 222 15% 16%;
+    --accent-foreground: 210 20% 95%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 222 15% 18%;
+    --input: 222 15% 18%;
+    --ring: 215 60% 60%;
+    --chart-1: 215 60% 60%;
+    --chart-2: 160 50% 45%;
+    --chart-3: 280 45% 55%;
+    --chart-4: 35 80% 60%;
+    --chart-5: 350 65% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}
+
+/* Color themes — theme-scholar is the default (no class). Each overrides accent tokens
+   for light mode, with a .dark variant below it. */
+@layer base {
+  .theme-harbor {
+    --primary: 190 60% 30%;
+    --ring: 190 60% 30%;
+    --chart-1: 190 60% 38%;
+    --chart-2: 160 50% 40%;
+    --chart-3: 210 55% 50%;
+  }
+  .dark.theme-harbor {
+    --primary: 187 65% 55%;
+    --primary-foreground: 200 30% 8%;
+    --ring: 187 65% 55%;
+    --chart-1: 187 65% 55%;
+  }
+
+  .theme-indigo {
+    --primary: 245 58% 47%;
+    --ring: 245 58% 47%;
+    --accent: 245 40% 95%;
+    --chart-1: 245 58% 55%;
+    --chart-2: 280 45% 55%;
+    --chart-3: 200 60% 50%;
+  }
+  .dark.theme-indigo {
+    --primary: 243 75% 70%;
+    --primary-foreground: 245 30% 10%;
+    --ring: 243 75% 70%;
+    --chart-1: 243 75% 70%;
+  }
+
+  .theme-violet {
+    --primary: 275 70% 45%;
+    --ring: 275 70% 45%;
+    --accent: 285 45% 95%;
+    --chart-1: 275 70% 52%;
+    --chart-2: 320 70% 55%;
+    --chart-3: 250 60% 55%;
+  }
+  .dark.theme-violet {
+    --primary: 280 85% 70%;
+    --primary-foreground: 275 30% 10%;
+    --ring: 280 85% 70%;
+    --chart-1: 280 85% 70%;
+    --chart-2: 320 80% 65%;
+  }
+
+  .theme-neon {
+    --background: 265 30% 98%;
+    --primary: 266 85% 45%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 110 90% 38%;
+    --accent: 110 90% 92%;
+    --accent-foreground: 130 90% 15%;
+    --chart-1: 266 85% 55%;
+    --chart-2: 110 90% 40%;
+    --chart-3: 300 90% 55%;
+    --chart-4: 150 90% 38%;
+    --chart-5: 330 90% 55%;
+  }
+  .dark.theme-neon {
+    --background: 268 35% 7%;
+    --card: 268 30% 10%;
+    --popover: 268 30% 10%;
+    --primary: 110 100% 54%;
+    --primary-foreground: 120 100% 6%;
+    --secondary: 268 25% 16%;
+    --muted: 268 25% 15%;
+    --accent: 266 60% 24%;
+    --accent-foreground: 270 90% 90%;
+    --border: 268 25% 20%;
+    --input: 268 25% 20%;
+    --ring: 110 100% 54%;
+    --chart-1: 110 100% 54%;
+    --chart-2: 275 95% 68%;
+    --chart-3: 180 100% 50%;
+    --chart-4: 320 100% 65%;
+    --chart-5: 55 100% 55%;
+  }
+
+  /* ── Dark-optimized themes ──────────────────────────────────────────────
+     Designed for dark mode: each dark variant sets a deep custom background
+     and a 5-color categorical chart palette chosen for high separability on
+     dark surfaces (used by network community colors and multi-series charts).
+     Light variants are provided so the light/dark toggle still works. */
+
+  /* Midnight — cool deep navy, bright cyan accent */
+  .theme-midnight {
+    --primary: 200 80% 40%;
+    --ring: 200 80% 40%;
+    --accent: 200 45% 94%;
+    --chart-1: 200 80% 45%;
+    --chart-2: 165 60% 40%;
+    --chart-3: 255 60% 58%;
+    --chart-4: 35 85% 52%;
+    --chart-5: 330 70% 55%;
+  }
+  .dark.theme-midnight {
+    --background: 215 40% 8%;
+    --foreground: 205 30% 95%;
+    --card: 215 35% 11%;
+    --card-foreground: 205 30% 95%;
+    --popover: 215 35% 11%;
+    --popover-foreground: 205 30% 95%;
+    --primary: 190 90% 55%;
+    --primary-foreground: 215 45% 8%;
+    --secondary: 215 30% 17%;
+    --muted: 215 30% 16%;
+    --muted-foreground: 210 25% 63%;
+    --accent: 200 45% 22%;
+    --accent-foreground: 195 90% 88%;
+    --border: 215 30% 20%;
+    --input: 215 30% 20%;
+    --ring: 190 90% 55%;
+    --chart-1: 190 90% 58%;
+    --chart-2: 150 70% 55%;
+    --chart-3: 265 85% 72%;
+    --chart-4: 35 95% 62%;
+    --chart-5: 330 85% 66%;
+  }
+
+  /* Ember — warm charcoal, amber/orange accent */
+  .theme-ember {
+    --primary: 24 80% 45%;
+    --ring: 24 80% 45%;
+    --accent: 30 60% 94%;
+    --chart-1: 24 85% 52%;
+    --chart-2: 350 75% 55%;
+    --chart-3: 45 85% 48%;
+    --chart-4: 175 55% 40%;
+    --chart-5: 300 55% 55%;
+  }
+  .dark.theme-ember {
+    --background: 20 18% 8%;
+    --foreground: 30 20% 94%;
+    --card: 20 16% 11%;
+    --card-foreground: 30 20% 94%;
+    --popover: 20 16% 11%;
+    --popover-foreground: 30 20% 94%;
+    --primary: 28 95% 58%;
+    --primary-foreground: 20 30% 8%;
+    --secondary: 20 14% 17%;
+    --muted: 20 14% 16%;
+    --muted-foreground: 25 15% 63%;
+    --accent: 24 45% 24%;
+    --accent-foreground: 30 90% 88%;
+    --border: 20 14% 20%;
+    --input: 20 14% 20%;
+    --ring: 28 95% 58%;
+    --chart-1: 28 95% 60%;
+    --chart-2: 350 85% 66%;
+    --chart-3: 45 90% 58%;
+    --chart-4: 175 65% 52%;
+    --chart-5: 300 70% 68%;
+  }
+
+  /* Aurora — deep indigo-slate, vivid green/teal/violet palette */
+  .theme-aurora {
+    --primary: 160 70% 36%;
+    --ring: 160 70% 36%;
+    --accent: 160 45% 93%;
+    --chart-1: 160 70% 42%;
+    --chart-2: 190 65% 45%;
+    --chart-3: 275 60% 55%;
+    --chart-4: 320 65% 55%;
+    --chart-5: 45 85% 50%;
+  }
+  .dark.theme-aurora {
+    --background: 230 30% 9%;
+    --foreground: 210 25% 95%;
+    --card: 230 26% 12%;
+    --card-foreground: 210 25% 95%;
+    --popover: 230 26% 12%;
+    --popover-foreground: 210 25% 95%;
+    --primary: 155 85% 55%;
+    --primary-foreground: 230 30% 9%;
+    --secondary: 230 22% 18%;
+    --muted: 230 22% 17%;
+    --muted-foreground: 220 20% 63%;
+    --accent: 160 40% 22%;
+    --accent-foreground: 150 80% 85%;
+    --border: 230 22% 21%;
+    --input: 230 22% 21%;
+    --ring: 155 85% 55%;
+    --chart-1: 155 85% 58%;
+    --chart-2: 185 90% 55%;
+    --chart-3: 265 85% 72%;
+    --chart-4: 320 80% 68%;
+    --chart-5: 45 90% 60%;
+  }
+}

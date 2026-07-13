@@ -1,0 +1,17 @@
+{
+  "name": "QCR Workbench",
+  "short_name": "QCR",
+  "description": "Local-first, privacy-preserving workbench for FAIR-based quantitative cyber risk analysis. All data stays encrypted on your device.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2A4074",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    }
+  ]
+}
