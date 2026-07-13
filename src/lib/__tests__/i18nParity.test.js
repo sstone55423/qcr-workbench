@@ -48,14 +48,14 @@ describe('i18n dictionary parity', () => {
 
 describe('translate with lazy dictionaries', () => {
   it('serves English synchronously', () => {
-    expect(translate('en', 'nav.import')).toBe('Import');
+    expect(translate('en', 'nav.scenarios')).toBe('Scenarios');
   });
 
   it('falls back to English before a language is loaded, then serves it after', async () => {
     // Fresh module state isn't guaranteed here (other tests may have loaded
     // languages), so just verify the post-load behavior matches the dict.
     await loadLanguage('es');
-    expect(translate('es', 'nav.import')).toBe(es['nav.import']);
+    expect(translate('es', 'nav.scenarios')).toBe(es['nav.scenarios']);
   });
 
   it('interpolates {vars}', () => {
