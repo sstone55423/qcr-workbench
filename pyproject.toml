@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qcr-workbench"
+version = "0.1.0"
+description = "A Quantitative Cyber Risk Workbench built with Streamlit."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26,<3",
+  "pandas>=2.1,<3",
+  "plotly>=5.18,<7",
+  "streamlit>=1.36,<2",
+  "streamlit-shadcn-ui==0.1.19",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+
+[tool.setuptools.packages.find]
+include = ["qcr_core*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

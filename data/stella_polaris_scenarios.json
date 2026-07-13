@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ransomware", "name": "Ransomware Disrupts Manufacturing",
+    "description": "A financially motivated actor encrypts manufacturing and business systems, interrupting production and triggering recovery, notification, and customer-impact costs.",
+    "asset": "Manufacturing execution and enterprise systems", "threat": "Ransomware affiliate", "effect": "Production outage and data compromise", "owner": "VP, Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.7, "maximum": 1.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 350000, "most_likely": 1300000, "maximum": 4800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 800000, "maximum": 3500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Recovery takes 3–12 production days.", "Cyber insurance recoveries are excluded.", "A material data-theft claim is a secondary loss."]
+  },
+  {
+    "id": "bec", "name": "Business Email Compromise",
+    "description": "An attacker impersonates an executive or supplier and induces finance staff to redirect a high-value payment.",
+    "asset": "Treasury payments and supplier master data", "threat": "Financially motivated fraud group", "effect": "Fraudulent payment and investigation", "owner": "Chief Financial Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 8, "maximum": 20, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.01, "most_likely": 0.04, "maximum": 0.12, "unit": "probability"},
+      "primary_loss": {"minimum": 25000, "most_likely": 180000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 50000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"}
+    },
+    "assumptions": ["Only attempts reaching payment-authorized staff are counted.", "Bank recovery is reflected in primary-loss estimates.", "Regulatory action is unlikely but possible."]
+  },
+  {
+    "id": "cloud-exposure", "name": "Cloud Document Exposure",
+    "description": "A configuration or sharing error exposes regulated design, quality, or customer documents to unauthorized parties.",
+    "asset": "Cloud collaboration repositories", "threat": "External opportunist or unintended recipient", "effect": "Confidentiality breach", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 4, "maximum": 12, "unit": "exposures/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.18, "maximum": 0.4, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 90000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 250000, "maximum": 1800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.08, "most_likely": 0.25, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Exposure must include sensitive content to become a loss event.", "Primary loss includes forensics and review.", "Secondary loss includes customer claims and regulatory response."]
+  },
+  {
+    "id": "third-party-logistics", "name": "Third-Party Logistics Outage",
+    "description": "A cyber incident at a logistics provider prevents inbound materials or outbound medical-component shipments.",
+    "asset": "Logistics and distribution services", "threat": "Cyber disruption at critical supplier", "effect": "Shipping outage and contractual impact", "owner": "VP, Supply Chain",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.4, "maximum": 1.2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.5, "maximum": 0.8, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 600000, "maximum": 2800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 50000, "most_likely": 450000, "maximum": 2200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.35, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["The event lasts 2–10 business days.", "Alternate carriers provide limited capacity.", "Secondary loss includes service credits and customer attrition."]
+  },
+  {
+    "id": "shadow-ai", "name": "Shadow AI Data Leakage",
+    "description": "An employee submits confidential product, quality, or customer data to an unapproved generative AI service.",
+    "asset": "Product designs, quality records, and customer information", "threat": "Well-intentioned employee using unsanctioned AI", "effect": "Loss of confidentiality and contractual breach", "owner": "Chief Technology Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 6, "most_likely": 24, "maximum": 80, "unit": "submissions/year"},
+      "vulnerability": {"minimum": 0.01, "most_likely": 0.04, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 75000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 300000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.03, "most_likely": 0.12, "maximum": 0.4, "unit": "probability"}
+    },
+    "assumptions": ["Only submissions containing material confidential data are loss events.", "Provider retention and model-training terms vary.", "Secondary losses include IP and customer-contract claims."]
+  }
+]
+
