@@ -17,5 +17,5 @@
     "types": []
   },
   "include": ["src/lib/qcr/**/*.js", "src/hooks/**/*.js", "src/pages/**/*.jsx", "src/types/**/*.d.ts"],
-  "exclude": ["node_modules", "dist", "src/components/ui"]
+  "exclude": ["node_modules", "dist", "src/components/ui", "**/__tests__"]
 } 
