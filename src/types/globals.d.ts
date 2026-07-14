@@ -21,3 +21,9 @@ declare module '*.md?raw' {
   const content: string;
   export default content;
 }
+
+// Vite's glob import (used for lazy-loaded translated docs)
+interface ImportMeta {
+  glob: (pattern: string, options?: { query?: string; import?: string; eager?: boolean }) =>
+    Record<string, () => Promise<string>>;
+}

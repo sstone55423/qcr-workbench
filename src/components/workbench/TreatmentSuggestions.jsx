@@ -53,11 +53,11 @@ export default function TreatmentSuggestions({ scenario, expected, treatments, o
 
   const use = (i) => {
     const { rationale, ...draft } = suggestions[i];
-    logAudit(
-      scenario.project_id,
-      'ai',
-      `AI-suggested treatment "${draft.name}" (by ${provenance?.label || 'AI'}) opened for review on "${scenario.name}"`,
-    );
+    logAudit(scenario.project_id, 'ai', 'auditMsg.treatmentSuggested', {
+      treatment: draft.name,
+      label: provenance?.label || 'AI',
+      scenario: scenario.name,
+    });
     onUse(draft);
     setSuggestions((list) => list.filter((_, j) => j !== i));
   };

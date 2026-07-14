@@ -56,8 +56,35 @@ export default {
   // audit
   "audit.empty": "Действия ещё не записаны. Действия, выполняемые с этого момента (правки сценариев, запуски симуляций, изменения мер, генерации ИИ, экспорт), будут появляться здесь автоматически.",
   "audit.exportDoc": "Экспорт Doc",
+  "audit.exportedStamp": "Экспортировано: {date}",
+  "audit.exportTitle": "Журнал аудита — {name}",
   "audit.exportTxt": "Экспорт TXT",
   "audit.subtitle": "Запись всех действий в этом проекте с отметками времени — правок сценариев, симуляций, мер, генераций ИИ и экспортов — для документирования методологии.",
+  "audit.totalEvents": "Всего событий: {count}",
+
+  // auditCat — category badge labels; the stored category codes stay English
+  "auditCat.ai": "ИИ",
+  "auditCat.assumptions": "допущения",
+  "auditCat.report": "отчёт",
+  "auditCat.scenario": "сценарий",
+  "auditCat.simulation": "симуляция",
+  "auditCat.treatment": "мера",
+
+  // auditMsg — audit-trail entries; events persist {key, params} and render
+  // in the viewer's language (old events persisted as English text still show)
+  "auditMsg.assumptionsUpdated": "Обновлены допущения для \"{name}\"",
+  "auditMsg.fairUpdated": "Обновлены оценки FAIR для \"{name}\" (результаты симуляции очищены)",
+  "auditMsg.narrativeDrafted": "ИИ подготовил черновик нарратива для \"{name}\" ({label})",
+  "auditMsg.reportDownloaded": "Загружен отчёт для руководства по \"{name}\"",
+  "auditMsg.samplesLoaded": "Загружено примеров сценариев Stella Polaris: {count}",
+  "auditMsg.scenarioCreated": "Создан сценарий \"{name}\"",
+  "auditMsg.scenarioDeleted": "Удалён сценарий \"{name}\"",
+  "auditMsg.scenarioUpdated": "Обновлён сценарий \"{name}\"",
+  "auditMsg.simulationRun": "Запущена симуляция Монте-Карло для \"{name}\" (итераций: {iterations}, зерно {seed})",
+  "auditMsg.treatmentAdded": "Мера \"{treatment}\" добавлена к \"{scenario}\"",
+  "auditMsg.treatmentDeleted": "Мера \"{treatment}\" удалена из \"{scenario}\"",
+  "auditMsg.treatmentSuggested": "Предложенная ИИ мера \"{treatment}\" ({label}) открыта для проверки в \"{scenario}\"",
+  "auditMsg.treatmentUpdated": "Обновлена мера \"{treatment}\" в \"{scenario}\"",
 
   // br
   "br.backupDownloaded": "Резервная копия загружена",

@@ -56,8 +56,35 @@ export default {
   // audit
   "audit.empty": "Henüz kaydedilmiş bir işlem yok. Bundan sonra yapılan işlemler (senaryo düzenlemeleri, simülasyon çalıştırmaları, önlem değişiklikleri, yapay zekâ üretimleri, dışa aktarmalar) burada otomatik olarak görünecektir.",
   "audit.exportDoc": "Doc Dışa Aktar",
+  "audit.exportedStamp": "Dışa aktarıldı: {date}",
+  "audit.exportTitle": "Denetim Günlüğü — {name}",
   "audit.exportTxt": "TXT Dışa Aktar",
   "audit.subtitle": "Metodoloji dokümantasyonu için bu projede yapılan her işlemin zaman damgalı kaydı — senaryo düzenlemeleri, simülasyonlar, önlemler, yapay zekâ üretimleri ve dışa aktarmalar.",
+  "audit.totalEvents": "Toplam olay sayısı: {count}",
+
+  // auditCat — category badge labels; the stored category codes stay English
+  "auditCat.ai": "yapay zekâ",
+  "auditCat.assumptions": "varsayımlar",
+  "auditCat.report": "rapor",
+  "auditCat.scenario": "senaryo",
+  "auditCat.simulation": "simülasyon",
+  "auditCat.treatment": "önlem",
+
+  // auditMsg — audit-trail entries; events persist {key, params} and render
+  // in the viewer's language (old events persisted as English text still show)
+  "auditMsg.assumptionsUpdated": "\"{name}\" için varsayımlar güncellendi",
+  "auditMsg.fairUpdated": "\"{name}\" için FAIR tahminleri güncellendi (simülasyon sonuçları temizlendi)",
+  "auditMsg.narrativeDrafted": "\"{name}\" için yapay zekâ anlatı taslağı {label} tarafından oluşturuldu",
+  "auditMsg.reportDownloaded": "\"{name}\" için yönetici raporu indirildi",
+  "auditMsg.samplesLoaded": "{count} Stella Polaris örnek senaryosu yüklendi",
+  "auditMsg.scenarioCreated": "\"{name}\" senaryosu oluşturuldu",
+  "auditMsg.scenarioDeleted": "\"{name}\" senaryosu silindi",
+  "auditMsg.scenarioUpdated": "\"{name}\" senaryosu güncellendi",
+  "auditMsg.simulationRun": "\"{name}\" için Monte Carlo simülasyonu çalıştırıldı ({iterations} yineleme, tohum {seed})",
+  "auditMsg.treatmentAdded": "\"{scenario}\" senaryosuna \"{treatment}\" önlemi eklendi",
+  "auditMsg.treatmentDeleted": "\"{scenario}\" senaryosundan \"{treatment}\" önlemi silindi",
+  "auditMsg.treatmentSuggested": "Yapay zekânın önerdiği \"{treatment}\" önlemi ({label} tarafından) \"{scenario}\" üzerinde incelemeye açıldı",
+  "auditMsg.treatmentUpdated": "\"{scenario}\" üzerindeki \"{treatment}\" önlemi güncellendi",
 
   // br
   "br.backupDownloaded": "Yedek indirildi",

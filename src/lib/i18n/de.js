@@ -56,8 +56,35 @@ export default {
   // audit
   "audit.empty": "Noch keine Aktionen erfasst. Ab jetzt durchgeführte Aktionen (Szenario-Änderungen, Simulationsläufe, Maßnahmen-Änderungen, KI-Generierungen, Exporte) erscheinen hier automatisch.",
   "audit.exportDoc": "Doc exportieren",
+  "audit.exportedStamp": "Exportiert: {date}",
+  "audit.exportTitle": "Prüfprotokoll — {name}",
   "audit.exportTxt": "TXT exportieren",
   "audit.subtitle": "Eine zeitgestempelte Aufzeichnung jeder Aktion in diesem Projekt — Szenario-Änderungen, Simulationen, Maßnahmen, KI-Generierungen und Exporte — zur Dokumentation der Methodik.",
+  "audit.totalEvents": "Ereignisse gesamt: {count}",
+
+  // auditCat — category badge labels; the stored category codes stay English
+  "auditCat.ai": "KI",
+  "auditCat.assumptions": "Annahmen",
+  "auditCat.report": "Bericht",
+  "auditCat.scenario": "Szenario",
+  "auditCat.simulation": "Simulation",
+  "auditCat.treatment": "Maßnahme",
+
+  // auditMsg — audit-trail entries; events persist {key, params} and render
+  // in the viewer's language (old events persisted as English text still show)
+  "auditMsg.assumptionsUpdated": "Annahmen für \"{name}\" aktualisiert",
+  "auditMsg.fairUpdated": "FAIR-Schätzungen für \"{name}\" aktualisiert (Simulationsergebnisse gelöscht)",
+  "auditMsg.narrativeDrafted": "KI-Narrativ für \"{name}\" von {label} entworfen",
+  "auditMsg.reportDownloaded": "Management-Bericht für \"{name}\" heruntergeladen",
+  "auditMsg.samplesLoaded": "{count} Stella-Polaris-Beispielszenarien geladen",
+  "auditMsg.scenarioCreated": "Szenario \"{name}\" erstellt",
+  "auditMsg.scenarioDeleted": "Szenario \"{name}\" gelöscht",
+  "auditMsg.scenarioUpdated": "Szenario \"{name}\" aktualisiert",
+  "auditMsg.simulationRun": "Monte-Carlo-Simulation für \"{name}\" ausgeführt ({iterations} Iterationen, Seed {seed})",
+  "auditMsg.treatmentAdded": "Maßnahme \"{treatment}\" zu \"{scenario}\" hinzugefügt",
+  "auditMsg.treatmentDeleted": "Maßnahme \"{treatment}\" aus \"{scenario}\" gelöscht",
+  "auditMsg.treatmentSuggested": "KI-vorgeschlagene Maßnahme \"{treatment}\" (von {label}) zur Prüfung für \"{scenario}\" geöffnet",
+  "auditMsg.treatmentUpdated": "Maßnahme \"{treatment}\" in \"{scenario}\" aktualisiert",
 
   // br
   "br.backupDownloaded": "Sicherung heruntergeladen",

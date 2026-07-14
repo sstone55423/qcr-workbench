@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookOpen, Database, Sparkles, Key, ExternalLink, Zap, ShieldCheck, FileText, LifeBuoy } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -11,9 +11,25 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle
 } from '@/components/ui/dialog';
 // The canonical docs, imported as raw markdown so the Help dialogs always render
-// the same source the repo ships.
+// the same source the repo ships. Translations live in docs/i18n/ as separate
+// lazy chunks (each notes that the English original is authoritative) and are
+// swapped in when a non-English language is active; English is the fallback.
 import privacyDoc from '../../DATA-PRIVACY.md?raw';
 import governanceDoc from '../../AI-GOVERNANCE.md?raw';
+
+const privacyTranslations = import.meta.glob('../../docs/i18n/DATA-PRIVACY.*.md', { query: '?raw', import: 'default' });
+const governanceTranslations = import.meta.glob('../../docs/i18n/AI-GOVERNANCE.*.md', { query: '?raw', import: 'default' });
+
+// Resolves a doc in the given language, falling back to the English original.
+async function loadDoc(loaders, language, fallback) {
+  const loader = loaders[Object.keys(loaders).find((k) => k.endsWith(`.${language}.md`)) || ''];
+  if (!loader) return fallback;
+  try {
+    return await loader();
+  } catch {
+    return fallback; // chunk fetch failed (e.g. offline before first use)
+  }
+}
 
 const sections = [
   { icon: BookOpen, titleKey: 'help.s1Title', contentKey: 'help.s1' },
@@ -26,9 +42,18 @@ const sections = [
 ];
 
 export default function Help() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [govOpen, setGovOpen] = useState(false);
+  const [privacyText, setPrivacyText] = useState(privacyDoc);
+  const [govText, setGovText] = useState(governanceDoc);
+
+  useEffect(() => {
+    let stale = false;
+    loadDoc(privacyTranslations, language, privacyDoc).then((text) => { if (!stale) setPrivacyText(text); });
+    loadDoc(governanceTranslations, language, governanceDoc).then((text) => { if (!stale) setGovText(text); });
+    return () => { stale = true; };
+  }, [language]);
 
   return (
     <div className="max-w-3xl mx-auto p-8">
@@ -104,7 +129,7 @@ export default function Help() {
             <DialogTitle>{t('help.s7Title')}</DialogTitle>
           </DialogHeader>
           <div className="prose prose-sm dark:prose-invert max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{privacyDoc}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{privacyText}</ReactMarkdown>
           </div>
         </DialogContent>
       </Dialog>
@@ -115,7 +140,7 @@ export default function Help() {
             <DialogTitle>{t('help.aiGovTitle')}</DialogTitle>
           </DialogHeader>
           <div className="prose prose-sm dark:prose-invert max-w-none prose-table:text-xs">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{governanceDoc}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{govText}</ReactMarkdown>
           </div>
         </DialogContent>
       </Dialog>

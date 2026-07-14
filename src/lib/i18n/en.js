@@ -56,8 +56,35 @@ export default {
   // audit
   "audit.empty": "No actions recorded yet. Actions taken from now on (scenario edits, simulation runs, treatment changes, AI generations, exports) will appear here automatically.",
   "audit.exportDoc": "Export Doc",
+  "audit.exportedStamp": "Exported: {date}",
+  "audit.exportTitle": "Audit Log — {name}",
   "audit.exportTxt": "Export TXT",
   "audit.subtitle": "A timestamped record of every action taken in this project — scenario edits, simulations, treatments, AI generations, and exports — for methodology documentation.",
+  "audit.totalEvents": "Total events: {count}",
+
+  // auditCat — category badge labels; the stored category codes stay English
+  "auditCat.ai": "AI",
+  "auditCat.assumptions": "assumptions",
+  "auditCat.report": "report",
+  "auditCat.scenario": "scenario",
+  "auditCat.simulation": "simulation",
+  "auditCat.treatment": "treatment",
+
+  // auditMsg — audit-trail entries; events persist {key, params} and render
+  // in the viewer's language (old events persisted as English text still show)
+  "auditMsg.assumptionsUpdated": "Updated assumptions for \"{name}\"",
+  "auditMsg.fairUpdated": "Updated FAIR estimates for \"{name}\" (simulation results cleared)",
+  "auditMsg.narrativeDrafted": "AI narrative drafted for \"{name}\" by {label}",
+  "auditMsg.reportDownloaded": "Downloaded executive report for \"{name}\"",
+  "auditMsg.samplesLoaded": "Loaded {count} Stella Polaris sample scenario(s)",
+  "auditMsg.scenarioCreated": "Created scenario \"{name}\"",
+  "auditMsg.scenarioDeleted": "Deleted scenario \"{name}\"",
+  "auditMsg.scenarioUpdated": "Updated scenario \"{name}\"",
+  "auditMsg.simulationRun": "Ran Monte Carlo simulation for \"{name}\" ({iterations} iterations, seed {seed})",
+  "auditMsg.treatmentAdded": "Added treatment \"{treatment}\" to \"{scenario}\"",
+  "auditMsg.treatmentDeleted": "Deleted treatment \"{treatment}\" from \"{scenario}\"",
+  "auditMsg.treatmentSuggested": "AI-suggested treatment \"{treatment}\" (by {label}) opened for review on \"{scenario}\"",
+  "auditMsg.treatmentUpdated": "Updated treatment \"{treatment}\" on \"{scenario}\"",
 
   // br
   "br.backupDownloaded": "Backup downloaded",

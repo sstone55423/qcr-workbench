@@ -56,8 +56,35 @@ export default {
   // audit
   "audit.empty": "Aucune action consignée pour l'instant. Les actions effectuées à partir de maintenant (modifications de scénarios, exécutions de simulations, changements de traitements, générations IA, exports) apparaîtront ici automatiquement.",
   "audit.exportDoc": "Exporter Doc",
+  "audit.exportedStamp": "Exporté le : {date}",
+  "audit.exportTitle": "Journal d'audit — {name}",
   "audit.exportTxt": "Exporter TXT",
   "audit.subtitle": "Un registre horodaté de chaque action effectuée dans ce projet — modifications de scénarios, simulations, traitements, générations IA et exports — pour documenter la méthodologie.",
+  "audit.totalEvents": "Nombre total d'événements : {count}",
+
+  // auditCat — category badge labels; the stored category codes stay English
+  "auditCat.ai": "IA",
+  "auditCat.assumptions": "hypothèses",
+  "auditCat.report": "rapport",
+  "auditCat.scenario": "scénario",
+  "auditCat.simulation": "simulation",
+  "auditCat.treatment": "traitement",
+
+  // auditMsg — audit-trail entries; events persist {key, params} and render
+  // in the viewer's language (old events persisted as English text still show)
+  "auditMsg.assumptionsUpdated": "Hypothèses mises à jour pour \"{name}\"",
+  "auditMsg.fairUpdated": "Estimations FAIR mises à jour pour \"{name}\" (résultats de simulation effacés)",
+  "auditMsg.narrativeDrafted": "Synthèse IA rédigée pour \"{name}\" par {label}",
+  "auditMsg.reportDownloaded": "Rapport exécutif téléchargé pour \"{name}\"",
+  "auditMsg.samplesLoaded": "{count} scénario(s) d'exemple Stella Polaris chargé(s)",
+  "auditMsg.scenarioCreated": "Scénario \"{name}\" créé",
+  "auditMsg.scenarioDeleted": "Scénario \"{name}\" supprimé",
+  "auditMsg.scenarioUpdated": "Scénario \"{name}\" mis à jour",
+  "auditMsg.simulationRun": "Simulation Monte Carlo exécutée pour \"{name}\" ({iterations} itérations, graine {seed})",
+  "auditMsg.treatmentAdded": "Traitement \"{treatment}\" ajouté à \"{scenario}\"",
+  "auditMsg.treatmentDeleted": "Traitement \"{treatment}\" supprimé de \"{scenario}\"",
+  "auditMsg.treatmentSuggested": "Traitement suggéré par l'IA \"{treatment}\" (par {label}) ouvert pour revue sur \"{scenario}\"",
+  "auditMsg.treatmentUpdated": "Traitement \"{treatment}\" mis à jour sur \"{scenario}\"",
 
   // br
   "br.backupDownloaded": "Sauvegarde téléchargée",

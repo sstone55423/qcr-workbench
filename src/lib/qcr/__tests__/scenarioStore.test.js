@@ -39,6 +39,10 @@ let project;
 
 beforeEach(async () => {
   lockVault();
+  // Let fire-and-forget audit writes from the previous test land (they were
+  // encrypted under the old vault key) before wiping the stores, so they can't
+  // leak undecryptable records into this test's fresh vault.
+  await new Promise((resolve) => setTimeout(resolve, 0));
   __idbState.stores.records.clear();
   __idbState.stores.meta.clear();
   await createVault('test-passphrase');
@@ -120,6 +124,19 @@ describe('sample data loader', () => {
     expect(ransomware.fair.primary_loss.unit).toBe('«units.usdPerEvent»');
     // The numbers themselves are untouched by localization.
     expect(ransomware.fair.primary_loss.maximum).toBe(4800000);
+  });
+});
+
+describe('audit trail', () => {
+  it('persists language-neutral message keys and params, not rendered text', async () => {
+    await createScenario(project.id, { name: 'Audited', fair: fair() });
+    await new Promise((resolve) => setTimeout(resolve, 0)); // logAudit is fire-and-forget
+    const events = await db.entities.AuditEvent.filter({ project_id: project.id });
+    const created = events.find((e) => e.message_key === 'auditMsg.scenarioCreated');
+    expect(created).toBeTruthy();
+    expect(created.category).toBe('scenario');
+    expect(created.message_params).toEqual({ name: 'Audited' });
+    expect(created.details).toBeUndefined();
   });
 });
 

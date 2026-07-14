@@ -18,7 +18,7 @@ export async function createScenario(projectId, data) {
     ai_narrative: null,
     ...data,
   });
-  logAudit(projectId, 'scenario', `Created scenario "${record.name}"`);
+  logAudit(projectId, 'scenario', 'auditMsg.scenarioCreated', { name: record.name });
   return record;
 }
 
@@ -26,7 +26,7 @@ export async function createScenario(projectId, data) {
 // the FAIR model and results untouched.
 export async function updateScenarioMeta(scenario, patch) {
   const record = await db.entities.Scenario.update(scenario.id, patch);
-  logAudit(scenario.project_id, 'scenario', `Updated scenario "${record.name}"`);
+  logAudit(scenario.project_id, 'scenario', 'auditMsg.scenarioUpdated', { name: record.name });
   return record;
 }
 
@@ -39,7 +39,7 @@ export async function updateScenarioFair(scenario, fair) {
     simulation: null,
     ai_narrative: null,
   });
-  logAudit(scenario.project_id, 'assumptions', `Updated FAIR estimates for "${scenario.name}" (simulation results cleared)`);
+  logAudit(scenario.project_id, 'assumptions', 'auditMsg.fairUpdated', { name: scenario.name });
   return record;
 }
 
@@ -50,7 +50,7 @@ export async function updateScenarioAssumptions(scenario, assumptions) {
     assumptions,
     ai_narrative: null,
   });
-  logAudit(scenario.project_id, 'assumptions', `Updated assumptions for "${scenario.name}"`);
+  logAudit(scenario.project_id, 'assumptions', 'auditMsg.assumptionsUpdated', { name: scenario.name });
   return record;
 }
 
@@ -64,24 +64,24 @@ export async function saveSimulation(scenario, params, summary, histogram, excee
       computed_at: new Date().toISOString(),
     },
   });
-  logAudit(
-    scenario.project_id,
-    'simulation',
-    `Ran Monte Carlo simulation for "${scenario.name}" (${params.iterations.toLocaleString()} iterations, seed ${params.seed})`,
-  );
+  logAudit(scenario.project_id, 'simulation', 'auditMsg.simulationRun', {
+    name: scenario.name,
+    iterations: params.iterations.toLocaleString(),
+    seed: params.seed,
+  });
   return record;
 }
 
 export async function saveAiNarrative(scenario, aiNarrative) {
   const record = await db.entities.Scenario.update(scenario.id, { ai_narrative: aiNarrative });
-  logAudit(scenario.project_id, 'ai', `AI narrative drafted for "${scenario.name}" by ${aiNarrative?.provenance?.label || 'AI'}`);
+  logAudit(scenario.project_id, 'ai', 'auditMsg.narrativeDrafted', { name: scenario.name, label: aiNarrative?.provenance?.label || 'AI' });
   return record;
 }
 
 export async function deleteScenario(scenario) {
   await db.entities.Treatment.deleteMany({ scenario_id: scenario.id });
   await db.entities.Scenario.delete(scenario.id);
-  logAudit(scenario.project_id, 'scenario', `Deleted scenario "${scenario.name}"`);
+  logAudit(scenario.project_id, 'scenario', 'auditMsg.scenarioDeleted', { name: scenario.name });
 }
 
 export async function createTreatment(scenario, data) {
@@ -91,20 +91,20 @@ export async function createTreatment(scenario, data) {
     project_id: scenario.project_id,
     ...data,
   });
-  logAudit(scenario.project_id, 'treatment', `Added treatment "${record.name}" to "${scenario.name}"`);
+  logAudit(scenario.project_id, 'treatment', 'auditMsg.treatmentAdded', { treatment: record.name, scenario: scenario.name });
   return record;
 }
 
 export async function updateTreatment(scenario, treatmentId, patch) {
   validateTreatment(patch);
   const record = await db.entities.Treatment.update(treatmentId, patch);
-  logAudit(scenario.project_id, 'treatment', `Updated treatment "${record.name}" on "${scenario.name}"`);
+  logAudit(scenario.project_id, 'treatment', 'auditMsg.treatmentUpdated', { treatment: record.name, scenario: scenario.name });
   return record;
 }
 
 export async function deleteTreatment(scenario, treatment) {
   await db.entities.Treatment.delete(treatment.id);
-  logAudit(scenario.project_id, 'treatment', `Deleted treatment "${treatment.name}" from "${scenario.name}"`);
+  logAudit(scenario.project_id, 'treatment', 'auditMsg.treatmentDeleted', { treatment: treatment.name, scenario: scenario.name });
 }
 
 // Renders a bundled sample's user-facing text (name, scoping fields,
@@ -155,6 +155,6 @@ export async function loadSampleScenarios(projectId, t = null) {
       };
     }),
   );
-  logAudit(projectId, 'scenario', `Loaded ${records.length} Stella Polaris sample scenario(s)`);
+  logAudit(projectId, 'scenario', 'auditMsg.samplesLoaded', { count: records.length });
   return records;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useProject } from '@/lib/ProjectContext';
 import { useI18n } from '@/lib/I18nContext';
 import { db } from '@/lib/localdb/store';
-import { exportAuditTxt, exportAuditDoc } from '@/lib/auditLog';
+import { exportAuditTxt, exportAuditDoc, resolveAuditMessage } from '@/lib/auditLog';
 import NoProject from '@/components/NoProject';
 import { ClipboardList, Download, FileText, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -41,11 +41,11 @@ export default function AuditLog() {
         </div>
         <div className="flex gap-2 shrink-0 ml-4">
           <Button variant="outline" size="sm" className="gap-2" disabled={!events?.length}
-            onClick={() => exportAuditTxt(currentProject, chronological)}>
+            onClick={() => exportAuditTxt(currentProject, chronological, t)}>
             <Download className="w-3.5 h-3.5" /> {t('audit.exportTxt')}
           </Button>
           <Button variant="outline" size="sm" className="gap-2" disabled={!events?.length}
-            onClick={() => exportAuditDoc(currentProject, chronological)}>
+            onClick={() => exportAuditDoc(currentProject, chronological, t)}>
             <FileText className="w-3.5 h-3.5" /> {t('audit.exportDoc')}
           </Button>
         </div>
@@ -64,8 +64,8 @@ export default function AuditLog() {
               <span className="text-xs text-muted-foreground tabular-nums whitespace-nowrap mt-0.5">
                 {new Date(e.created_date).toLocaleString()}
               </span>
-              <Badge variant="secondary" className="shrink-0 text-[10px]">{e.category}</Badge>
-              <span className="text-sm flex-1">{e.details}</span>
+              <Badge variant="secondary" className="shrink-0 text-[10px]">{t(`auditCat.${e.category}`)}</Badge>
+              <span className="text-sm flex-1">{resolveAuditMessage(e, t)}</span>
             </div>
           ))}
         </div>

@@ -41,7 +41,7 @@ export default function Report() {
 
   const handleDownload = () => {
     downloadText(`${scenario.sample_id || scenario.id}-risk-report.md`, markdown, 'text/markdown');
-    logAudit(currentProject?.id || scenario.project_id, 'report', `Downloaded executive report for "${scenario.name}"`);
+    logAudit(currentProject?.id || scenario.project_id, 'report', 'auditMsg.reportDownloaded', { name: scenario.name });
   };
 
   return (

@@ -56,8 +56,35 @@ export default {
   // audit
   "audit.empty": "Aún no hay acciones registradas. Las acciones realizadas a partir de ahora (ediciones de escenarios, ejecuciones de simulación, cambios de tratamientos, generaciones de IA, exportaciones) aparecerán aquí automáticamente.",
   "audit.exportDoc": "Exportar Doc",
+  "audit.exportedStamp": "Exportado: {date}",
+  "audit.exportTitle": "Registro de auditoría — {name}",
   "audit.exportTxt": "Exportar TXT",
   "audit.subtitle": "Un registro con marca de tiempo de cada acción realizada en este proyecto — ediciones de escenarios, simulaciones, tratamientos, generaciones de IA y exportaciones — para documentar la metodología.",
+  "audit.totalEvents": "Total de eventos: {count}",
+
+  // auditCat — category badge labels; the stored category codes stay English
+  "auditCat.ai": "IA",
+  "auditCat.assumptions": "supuestos",
+  "auditCat.report": "informe",
+  "auditCat.scenario": "escenario",
+  "auditCat.simulation": "simulación",
+  "auditCat.treatment": "tratamiento",
+
+  // auditMsg — audit-trail entries; events persist {key, params} and render
+  // in the viewer's language (old events persisted as English text still show)
+  "auditMsg.assumptionsUpdated": "Supuestos actualizados para «{name}»",
+  "auditMsg.fairUpdated": "Estimaciones FAIR actualizadas para «{name}» (resultados de simulación borrados)",
+  "auditMsg.narrativeDrafted": "Narrativa de IA redactada para «{name}» por {label}",
+  "auditMsg.reportDownloaded": "Informe ejecutivo descargado para «{name}»",
+  "auditMsg.samplesLoaded": "Se cargaron {count} escenario(s) de ejemplo de Stella Polaris",
+  "auditMsg.scenarioCreated": "Escenario «{name}» creado",
+  "auditMsg.scenarioDeleted": "Escenario «{name}» eliminado",
+  "auditMsg.scenarioUpdated": "Escenario «{name}» actualizado",
+  "auditMsg.simulationRun": "Simulación Monte Carlo ejecutada para «{name}» ({iterations} iteraciones, semilla {seed})",
+  "auditMsg.treatmentAdded": "Tratamiento «{treatment}» añadido a «{scenario}»",
+  "auditMsg.treatmentDeleted": "Tratamiento «{treatment}» eliminado de «{scenario}»",
+  "auditMsg.treatmentSuggested": "Tratamiento sugerido por IA «{treatment}» (por {label}) abierto para revisión en «{scenario}»",
+  "auditMsg.treatmentUpdated": "Tratamiento «{treatment}» actualizado en «{scenario}»",
 
   // br
   "br.backupDownloaded": "Copia descargada",
