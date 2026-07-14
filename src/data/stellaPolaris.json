@@ -63,6 +63,71 @@
       "secondary_loss_probability": {"minimum": 0.03, "most_likely": 0.12, "maximum": 0.4, "unit": "probability"}
     },
     "assumptions": ["Only submissions containing material confidential data are loss events.", "Provider retention and model-training terms vary.", "Secondary losses include IP and customer-contract claims."]
+  },
+  {
+    "id": "insider-ip-theft", "name": "Departing Engineer Takes Design IP",
+    "description": "An engineer leaving for a competitor exfiltrates proprietary component designs and process documentation before their access is revoked.",
+    "asset": "Component designs and manufacturing process IP", "threat": "Departing employee with legitimate access", "effect": "Trade-secret loss and competitive harm", "owner": "VP, Engineering",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 2, "maximum": 6, "unit": "departures with access/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.4, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 400000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 350000, "maximum": 3000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["Only departures with access to material design IP are counted.", "Primary loss covers investigation, legal action, and lost development advantage.", "Secondary loss includes customer-contract exposure if designs reach a competitor."]
+  },
+  {
+    "id": "ot-intrusion", "name": "OT Network Intrusion Halts Production",
+    "description": "An attacker pivots from IT into the operational technology network; production is stopped while control systems are validated as safe before restart.",
+    "asset": "Plant OT/ICS network and production line controllers", "threat": "Targeted intruder reaching the OT network", "effect": "Precautionary production shutdown and revalidation", "owner": "VP, Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.7, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 500000, "most_likely": 2000000, "maximum": 8000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 900000, "maximum": 5000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Any confirmed OT intrusion forces a shutdown until controllers are revalidated.", "Restart requires quality revalidation of in-process medical components.", "Secondary loss covers customer penalties and expedited-shipping recovery costs."]
+  },
+  {
+    "id": "supply-chain-software", "name": "Compromised Vendor Software Update",
+    "description": "A trusted vendor's signed software update ships with malicious code, giving an attacker a foothold across the systems where it is installed.",
+    "asset": "Enterprise and engineering software estate", "threat": "Software supply-chain attacker", "effect": "Widespread foothold requiring enterprise response", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.3, "most_likely": 0.6, "maximum": 0.9, "unit": "probability"},
+      "primary_loss": {"minimum": 200000, "most_likely": 900000, "maximum": 4000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 50000, "most_likely": 500000, "maximum": 3000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["A threat event is a malicious update reaching a product we run.", "Vulnerability reflects the chance the update is installed before the compromise is disclosed.", "Primary loss covers enterprise-wide investigation, rebuild, and downtime."]
+  },
+  {
+    "id": "credential-stuffing", "name": "Customer Portal Account Takeover",
+    "description": "Credential-stuffing operators replay passwords leaked from other services against the distributor ordering portal and take over customer accounts.",
+    "asset": "Distributor ordering portal and customer accounts", "threat": "Credential-stuffing operators using leaked passwords", "effect": "Account takeover, fraudulent orders, and customer notification", "owner": "Chief Information Security Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 4, "most_likely": 12, "maximum": 40, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.08, "maximum": 0.2, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 350000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 120000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.45, "unit": "probability"}
+    },
+    "assumptions": ["A loss event is a campaign that takes over at least one active customer account.", "Primary loss covers fraud reversal, forced resets, and incident handling.", "Secondary loss includes customer attrition and contractual notification duties."]
+  },
+  {
+    "id": "unpatched-exposure", "name": "Unpatched Internet-Facing System Breach",
+    "description": "An opportunistic attacker exploits a known vulnerability in an internet-facing application before the patch is applied, reaching regulated quality and customer records.",
+    "asset": "Internet-facing quality management application", "threat": "Opportunistic attacker scanning for known vulnerabilities", "effect": "Regulated data breach and remediation", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 10, "unit": "exploitable windows/year"},
+      "vulnerability": {"minimum": 0.03, "most_likely": 0.1, "maximum": 0.3, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 250000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 50000, "most_likely": 400000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["A threat event is a critical vulnerability exposed to the internet before patching.", "Vulnerability reflects the chance it is exploited within the patch window.", "Secondary loss includes regulatory response and customer claims."]
   }
 ]
 

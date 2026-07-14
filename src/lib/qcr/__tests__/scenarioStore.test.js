@@ -93,13 +93,13 @@ describe('invalidation rules', () => {
 });
 
 describe('sample data loader', () => {
-  it('loads the five Stella Polaris scenarios and is idempotent', async () => {
+  it('loads the ten Stella Polaris scenarios and is idempotent', async () => {
     const first = await loadSampleScenarios(project.id);
-    expect(first).toHaveLength(5);
+    expect(first).toHaveLength(10);
     const again = await loadSampleScenarios(project.id);
     expect(again).toHaveLength(0);
     const all = await db.entities.Scenario.filter({ project_id: project.id });
-    expect(all).toHaveLength(5);
+    expect(all).toHaveLength(10);
     const ransomware = all.find(s => s.sample_id === 'ransomware');
     expect(ransomware.fair.primary_loss.maximum).toBe(4800000);
     expect(ransomware.assumptions).toHaveLength(3);
