@@ -5,7 +5,7 @@
 import { samplePert } from '@/lib/qcr/estimates';
 import { RNG, percentile } from '@/lib/qcr/random';
 
-export const ITERATION_CHOICES = [1000, 5000, 10000, 20000, 50000];
+export const ITERATION_CHOICES = [1000, 5000, 10000, 20000, 50000, 100000, 1000000];
 export const DEFAULT_ITERATIONS = 20000;
 export const DEFAULT_SEED = 42;
 
