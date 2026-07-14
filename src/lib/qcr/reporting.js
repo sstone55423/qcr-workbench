@@ -1,5 +1,8 @@
 // Executive-facing report — line-for-line port of v0 reporting.py, with an
-// optional AI-narrative appendix (disclosed and provenance-stamped).
+// optional AI-narrative appendix (disclosed and provenance-stamped). All prose
+// lives in the xr.* dictionary keys; markdown structure (headings, table pipes,
+// blockquote, emphasis) stays here so translators only ever see text.
+import { translate } from '@/lib/i18n';
 
 export function formatCurrency(value) {
   return '$' + Math.round(value).toLocaleString('en-US');
@@ -7,78 +10,66 @@ export function formatCurrency(value) {
 
 const pct1 = (value) => (value * 100).toFixed(1) + '%';
 
-export function executiveSummary(scenario, expected, simulation = null, treatment = null, aiNarrative = null) {
+// Callers pass the UI's t so the report renders (and downloads) in the active
+// language; the default keeps pure-function callers and tests in English.
+const enT = (key, vars) => translate('en', key, vars);
+
+export function executiveSummary(scenario, expected, simulation = null, treatment = null, aiNarrative = null, t = enT) {
   const c = formatCurrency;
   const lines = [
-    `# Quantitative Cyber Risk Report: ${scenario.name}`,
+    `# ${t('xr.title', { name: scenario.name })}`,
     '',
-    `**Risk statement:** ${scenario.description}`,
-    `**Accountable owner:** ${scenario.owner}`,
+    t('xr.riskStatement', { description: scenario.description }),
+    t('xr.owner', { owner: scenario.owner }),
     '',
-    '## Financial exposure',
+    `## ${t('xr.exposureTitle')}`,
     '',
-    `The modeled annualized loss expectancy is **${c(expected.ale)}**, ` +
-      `based on ${expected.lef.toFixed(2)} expected loss events per year and ` +
-      `${c(expected.lossMagnitude)} expected loss per event.`,
+    t('xr.exposureBody', { ale: c(expected.ale), lef: expected.lef.toFixed(2), lm: c(expected.lossMagnitude) }),
   ];
   if (simulation) {
     const tailMultiple = expected.ale ? simulation.percentile_95 / expected.ale : 0;
     lines.push(
       '',
-      `Monte Carlo analysis estimates a 95th-percentile annual loss of **${c(simulation.percentile_95)}**.`,
+      t('xr.mcP95', { p95: c(simulation.percentile_95) }),
       '',
-      '### How to interpret the difference',
+      `### ${t('xr.interpretTitle')}`,
       '',
-      'The annualized loss expectancy and the 95th percentile answer different questions. ' +
-        'ALE is the long-run average loss across many years; it is the appropriate comparison to the simulated mean. ' +
-        'The 95th percentile is a tail-risk threshold: only 5% of simulated years produce a larger loss.',
+      t('xr.interpretBody'),
       '',
-      '| Measure | Annual loss | Interpretation |',
+      `| ${t('xr.colMeasure')} | ${t('xr.colAnnualLoss')} | ${t('xr.colInterpretation')} |`,
       '|---|---:|---|',
-      `| Deterministic ALE | ${c(expected.ale)} | Long-run expected loss |`,
-      `| Simulated mean | ${c(simulation.mean)} | Monte Carlo estimate of average loss |`,
-      `| Simulated median | ${c(simulation.median)} | Half of simulated years are below this value |`,
-      `| 90th percentile | ${c(simulation.percentile_90)} | 10% of simulated years are higher |`,
-      `| 95th percentile | ${c(simulation.percentile_95)} | 5% of simulated years are higher |`,
-      `| 99th percentile | ${c(simulation.percentile_99)} | 1% of simulated years are higher |`,
+      `| ${t('xr.rowAle')} | ${c(expected.ale)} | ${t('xr.rowAleNote')} |`,
+      `| ${t('xr.rowMean')} | ${c(simulation.mean)} | ${t('xr.rowMeanNote')} |`,
+      `| ${t('xr.rowMedian')} | ${c(simulation.median)} | ${t('xr.rowMedianNote')} |`,
+      `| ${t('xr.rowP90')} | ${c(simulation.percentile_90)} | ${t('xr.rowP90Note')} |`,
+      `| ${t('xr.rowP95')} | ${c(simulation.percentile_95)} | ${t('xr.rowP95Note')} |`,
+      `| ${t('xr.rowP99')} | ${c(simulation.percentile_99)} | ${t('xr.rowP99Note')} |`,
       '',
-      `The 95th-percentile loss is **${tailMultiple.toFixed(1)}× the ALE**, reflecting uncertainty in event frequency and loss magnitude, ` +
-        'the possibility of multiple events in one year, and infrequent high-cost outcomes. ' +
-        `The model also estimates a **${pct1(simulation.probability_of_zero_loss)} probability of no loss event** in a given year. ` +
-        'This combination of many low- or no-loss years and a small number of severe years creates a right-skewed distribution.',
+      t('xr.tailBody', { multiple: tailMultiple.toFixed(1), zero: pct1(simulation.probability_of_zero_loss) }),
     );
   }
   if (treatment) {
     lines.push(
       '',
-      '## Proposed treatment',
+      `## ${t('xr.treatmentTitle')}`,
       '',
-      `Treatment reduces expected annual loss by **${c(treatment.riskReduction)}**; net annual benefit is **${c(treatment.netBenefit)}**.`,
+      t('xr.treatmentBody', { reduction: c(treatment.riskReduction), net: c(treatment.netBenefit) }),
     );
   }
-  lines.push('', '## Key assumptions', '', ...(scenario.assumptions || []).map((item) => `- ${item}`));
+  lines.push('', `## ${t('xr.assumptionsTitle')}`, '', ...(scenario.assumptions || []).map((item) => `- ${item}`));
   if (aiNarrative?.text) {
     const p = aiNarrative.provenance || {};
     lines.push(
       '',
-      '## AI-assisted narrative',
+      `## ${t('xr.aiTitle')}`,
       '',
-      '> **Disclosure:** The narrative below was drafted by an AI model from the computed results above and reviewed by the report owner. ' +
-        'All quantitative figures in this report are deterministic calculations, not AI output.',
+      `> ${t('xr.aiDisclosure')}`,
       '',
       aiNarrative.text,
       '',
-      `*Drafted by ${p.label || p.provider || 'AI'}${p.model ? ` (${p.model})` : ''}${p.at ? ` on ${p.at}` : ''}.*`,
+      `*${t('xr.aiProvenance', { label: p.label || p.provider || 'AI', model: p.model || '—', date: p.at || '—' })}*`,
     );
   }
-  lines.push(
-    '',
-    '---',
-    '',
-    '*Methodology: Factor Analysis of Information Risk (FAIR™), the open international ' +
-      'standard for quantifying information risk. FAIR™ is stewarded by the ' +
-      '[FAIR Institute](https://www.fairinstitute.org/). This report was produced with ' +
-      'independent software not affiliated with or endorsed by the FAIR Institute.*',
-  );
+  lines.push('', '---', '', `*${t('xr.methodology')}*`);
   return lines.join('\n');
 }

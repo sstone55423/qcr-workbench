@@ -2,7 +2,13 @@
 // prompts embed the already-computed numbers; nothing AI-written enters the
 // model without an explicit user action; every output carries provenance.
 import { invokeAI, getLastAIRun } from '@/lib/ai';
+import { translate } from '@/lib/i18n';
 import { formatCurrency } from '@/lib/qcr/reporting';
+
+// The AI's prose already follows the UI language (invokeAI appends a language
+// directive); this default keeps the section labels English for callers that
+// don't pass the UI's t.
+const enT = (key, vars) => translate('en', key, vars);
 
 // Small stable hash of the inputs a narrative was drafted from, so the UI can
 // tell when it has gone stale relative to the current model.
@@ -23,7 +29,7 @@ const NARRATIVE_SCHEMA = {
   required: ['narrative', 'key_risks', 'recommended_actions'],
 };
 
-export async function draftExecutiveNarrative({ scenario, expected, simulation, comparison }) {
+export async function draftExecutiveNarrative({ scenario, expected, simulation, comparison, t = enT }) {
   const facts = [
     `Scenario: ${scenario.name} — ${scenario.description}`,
     `Asset: ${scenario.asset}; Threat: ${scenario.threat}; Effect: ${scenario.effect}; Owner: ${scenario.owner}`,
@@ -50,7 +56,7 @@ export async function draftExecutiveNarrative({ scenario, expected, simulation, 
   const run = getLastAIRun();
   const bullets = (items, title) => (items?.length ? `\n\n**${title}:**\n${items.map((x) => `- ${x}`).join('\n')}` : '');
   return {
-    text: `${result.narrative}${bullets(result.key_risks, 'Key risks')}${bullets(result.recommended_actions, 'Recommended actions')}`,
+    text: `${result.narrative}${bullets(result.key_risks, t('ai.keyRisks'))}${bullets(result.recommended_actions, t('ai.recommendedActions'))}`,
     provenance: run,
     inputs_hash: inputsHash(scenario, scenario.simulation?.params),
   };

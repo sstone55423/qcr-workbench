@@ -20,14 +20,15 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 
 // Sensible neutral starting estimates for a hand-created scenario; the user
-// refines them on the Assumptions step.
-const DEFAULT_FAIR = {
-  threat_event_frequency: { minimum: 0.1, most_likely: 1, maximum: 5, unit: 'events/year' },
-  vulnerability: { minimum: 0.05, most_likely: 0.2, maximum: 0.5, unit: 'probability' },
-  primary_loss: { minimum: 10000, most_likely: 100000, maximum: 1000000, unit: 'USD/event' },
-  secondary_loss: { minimum: 0, most_likely: 25000, maximum: 500000, unit: 'USD/event' },
-  secondary_loss_probability: { minimum: 0.05, most_likely: 0.2, maximum: 0.5, unit: 'probability' },
-};
+// refines them on the Assumptions step. Units render in the UI, so they are
+// stamped in the active language at creation time.
+const defaultFair = (t) => ({
+  threat_event_frequency: { minimum: 0.1, most_likely: 1, maximum: 5, unit: t('units.eventsPerYear') },
+  vulnerability: { minimum: 0.05, most_likely: 0.2, maximum: 0.5, unit: t('units.probability') },
+  primary_loss: { minimum: 10000, most_likely: 100000, maximum: 1000000, unit: t('units.usdPerEvent') },
+  secondary_loss: { minimum: 0, most_likely: 25000, maximum: 500000, unit: t('units.usdPerEvent') },
+  secondary_loss_probability: { minimum: 0.05, most_likely: 0.2, maximum: 0.5, unit: t('units.probability') },
+});
 
 export default function Scenarios() {
   const { currentProject } = useProject();
@@ -46,7 +47,7 @@ export default function Scenarios() {
   const handleCreate = async (form) => {
     setSaving(true);
     try {
-      const created = await createScenario(currentProject.id, { ...form, fair: structuredClone(DEFAULT_FAIR) });
+      const created = await createScenario(currentProject.id, { ...form, fair: defaultFair(t) });
       setShowCreate(false);
       reload();
       navigate(`/scenarios/${created.id}/scoping`);
@@ -85,7 +86,7 @@ export default function Scenarios() {
   const handleLoadSamples = async () => {
     setLoadingSamples(true);
     try {
-      const added = await loadSampleScenarios(currentProject.id);
+      const added = await loadSampleScenarios(currentProject.id, t);
       toast({
         title: added.length > 0
           ? t('scenarios.samplesLoaded', { count: added.length })

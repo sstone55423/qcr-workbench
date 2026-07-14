@@ -50,7 +50,7 @@ export default function AINarrativePanel({ scenario, expected, simulation, compa
   const handleGenerate = async () => {
     setGenerating(true);
     try {
-      const draft = await draftExecutiveNarrative({ scenario, expected, simulation, comparison });
+      const draft = await draftExecutiveNarrative({ scenario, expected, simulation, comparison, t });
       await saveAiNarrative(scenario, draft);
       reload();
     } catch (err) {

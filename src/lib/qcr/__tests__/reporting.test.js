@@ -59,6 +59,16 @@ describe('executiveSummary', () => {
     expect(report).toContain('Drafted by Claude (claude-x) on 2026-07-13');
   });
 
+  it('renders through a supplied translator', () => {
+    const fakeT = (key) => `«${key}»`;
+    const report = executiveSummary(scenario, expected, simulation, null, null, fakeT);
+    expect(report).toContain('# «xr.title»');
+    expect(report).toContain('## «xr.exposureTitle»');
+    expect(report).toContain('| «xr.colMeasure» | «xr.colAnnualLoss» | «xr.colInterpretation» |');
+    expect(report).toContain('*«xr.methodology»*');
+    expect(report).not.toContain('Financial exposure');
+  });
+
   it('always credits the FAIR Institute in a methodology footer', () => {
     const report = executiveSummary(scenario, expected);
     expect(report).toContain('FAIR™');

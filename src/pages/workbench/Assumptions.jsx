@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { useI18n } from '@/lib/I18nContext';
 import { FAIR_FACTORS } from '@/lib/qcr/models';
-import { updateScenarioFair, updateScenarioAssumptions } from '@/lib/qcr/scenarioStore';
+import { updateScenarioFair, updateScenarioAssumptions, localizeSample } from '@/lib/qcr/scenarioStore';
 import sampleScenarios from '@/data/stellaPolaris.json';
 import EstimateEditor from '@/components/workbench/EstimateEditor';
 import AssumptionSuggestions from '@/components/workbench/AssumptionSuggestions';
@@ -59,8 +59,9 @@ export default function Assumptions() {
 
   const handleReset = () => {
     if (!sample) return;
-    setFair(structuredClone(sample.fair));
-    setAssumptions([...sample.assumptions]);
+    const localized = localizeSample(sample, t);
+    setFair(structuredClone(localized.fair));
+    setAssumptions([...localized.assumptions]);
   };
 
   const addAssumption = () => {

@@ -107,22 +107,53 @@ export async function deleteTreatment(scenario, treatment) {
   logAudit(scenario.project_id, 'treatment', `Deleted treatment "${treatment.name}" from "${scenario.name}"`);
 }
 
-// Loads the bundled Stella Polaris demonstration scenarios into a project.
-// Scenarios already loaded there (matched by sample_id) are skipped, so the
-// action is idempotent.
-export async function loadSampleScenarios(projectId) {
+// Renders a bundled sample's user-facing text (name, scoping fields,
+// assumptions, estimate units) through the UI translator. Applied at load and
+// reset time only: once loaded, samples are ordinary user data and keep the
+// language they were loaded in — switching the UI language later does not
+// rewrite them (delete and reload to get another language). Without t (tests,
+// missing keys) the English JSON passes through unchanged.
+export function localizeSample(sample, t) {
+  if (!t) return sample;
+  const k = (field) => t(`samples.${sample.id}.${field}`);
+  const fair = structuredClone(sample.fair);
+  fair.threat_event_frequency.unit = k('unitTef');
+  fair.vulnerability.unit = t('units.probability');
+  fair.secondary_loss_probability.unit = t('units.probability');
+  fair.primary_loss.unit = t('units.usdPerEvent');
+  fair.secondary_loss.unit = t('units.usdPerEvent');
+  return {
+    ...sample,
+    fair,
+    name: k('name'),
+    description: k('description'),
+    asset: k('asset'),
+    threat: k('threat'),
+    effect: k('effect'),
+    owner: k('owner'),
+    assumptions: [k('a1'), k('a2'), k('a3')],
+  };
+}
+
+// Loads the bundled Stella Polaris demonstration scenarios into a project,
+// translated into the active UI language when t is provided. Scenarios already
+// loaded there (matched by sample_id) are skipped, so the action is idempotent.
+export async function loadSampleScenarios(projectId, t = null) {
   const existing = await db.entities.Scenario.filter({ project_id: projectId });
   const present = new Set(existing.map(s => s.sample_id).filter(Boolean));
   const fresh = sampleScenarios.filter(s => !present.has(s.id));
   if (fresh.length === 0) return [];
   const records = await db.entities.Scenario.bulkCreate(
-    fresh.map(({ id, ...rest }) => ({
-      ...rest,
-      project_id: projectId,
-      sample_id: id,
-      simulation: null,
-      ai_narrative: null,
-    })),
+    fresh.map((sample) => {
+      const { id, ...rest } = localizeSample(sample, t);
+      return {
+        ...rest,
+        project_id: projectId,
+        sample_id: id,
+        simulation: null,
+        ai_narrative: null,
+      };
+    }),
   );
   logAudit(projectId, 'scenario', `Loaded ${records.length} Stella Polaris sample scenario(s)`);
   return records;

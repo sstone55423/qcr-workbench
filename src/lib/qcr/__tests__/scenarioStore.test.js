@@ -104,6 +104,23 @@ describe('sample data loader', () => {
     expect(ransomware.fair.primary_loss.maximum).toBe(4800000);
     expect(ransomware.assumptions).toHaveLength(3);
   });
+
+  it('stores translated text and units when loaded with a translator', async () => {
+    const fakeT = (key) => `«${key}»`;
+    await loadSampleScenarios(project.id, fakeT);
+    const all = await db.entities.Scenario.filter({ project_id: project.id });
+    const ransomware = all.find(s => s.sample_id === 'ransomware');
+    expect(ransomware.name).toBe('«samples.ransomware.name»');
+    expect(ransomware.owner).toBe('«samples.ransomware.owner»');
+    expect(ransomware.assumptions).toEqual([
+      '«samples.ransomware.a1»', '«samples.ransomware.a2»', '«samples.ransomware.a3»',
+    ]);
+    expect(ransomware.fair.threat_event_frequency.unit).toBe('«samples.ransomware.unitTef»');
+    expect(ransomware.fair.vulnerability.unit).toBe('«units.probability»');
+    expect(ransomware.fair.primary_loss.unit).toBe('«units.usdPerEvent»');
+    // The numbers themselves are untouched by localization.
+    expect(ransomware.fair.primary_loss.maximum).toBe(4800000);
+  });
 });
 
 describe('backup roundtrip', () => {

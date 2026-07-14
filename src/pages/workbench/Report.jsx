@@ -37,7 +37,7 @@ export default function Report() {
     : treatmentId === 'best' ? best
     : compared.find((x) => x.treatment.id === treatmentId) || best;
 
-  const markdown = executiveSummary(scenario, expected, simulation, selected?.comparison || null, scenario.ai_narrative);
+  const markdown = executiveSummary(scenario, expected, simulation, selected?.comparison || null, scenario.ai_narrative, t);
 
   const handleDownload = () => {
     downloadText(`${scenario.sample_id || scenario.id}-risk-report.md`, markdown, 'text/markdown');
