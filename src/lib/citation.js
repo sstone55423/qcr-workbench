@@ -13,6 +13,11 @@ export const APP_KOFI_URL = 'https://ko-fi.com/biblioinsightlab';
 
 export const APP_SUPPORT_EMAIL = 'support@biblio-insight-lab.org';
 
+// The methodology's home: FAIR™ (Factor Analysis of Information Risk) is
+// stewarded by the FAIR Institute. Credited on the FAIR step, the Help page,
+// and in every exported report.
+export const FAIR_INSTITUTE_URL = 'https://www.fairinstitute.org/';
+
 export const CITATION_APA =
   `Stone, S. T. (${APP_YEAR}). ${APP_NAME}: A local-first quantitative cyber risk workbench (Version ${APP_VERSION}) [Computer software]. ${APP_URL}`;
 

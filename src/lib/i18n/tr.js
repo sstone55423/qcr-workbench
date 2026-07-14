@@ -134,6 +134,8 @@ export default {
   "expectedLoss.vulnerabilityHint": "Bir tehdit olayının kayıp olayına dönüşme olasılığı",
 
   // fair
+  "fair.attribution": "Metodoloji: FAIR™ (Factor Analysis of Information Risk), FAIR Institute tarafından yürütülen açık bir standarttır.",
+  "fair.attributionLink": "Daha fazla bilgi: fairinstitute.org",
   "fair.colFactor": "Faktör",
   "fair.colMaximum": "Maksimum",
   "fair.colMinimum": "Minimum",
@@ -156,6 +158,8 @@ export default {
   // help
   "help.aiGovLink": "Yapay zekâ yönetişimi ve sorumlu yapay zekâ notlarını okuyun",
   "help.aiGovTitle": "Yapay Zekâ Yönetişimi ve Sorumlu Yapay Zekâ Notları",
+  "help.fairCredit": "FAIR™ modeli, FAIR Institute tarafından yürütülen açık bir uluslararası standarttır.",
+  "help.fairLink": "FAIR Institute'u ziyaret edin",
   "help.s1": "**Bir proje oluşturun**, ardından senaryolar ekleyin — veya keşfetmek için **Stella Polaris örneklerini** yükleyin. Her senaryo 7 adımlı bir iş akışını izler:\n\n**1. Kapsam** — varlığı, tehdidi, etkiyi ve sahibi adlandırın.\n**2. FAIR modeli** — sıklık ve büyüklük ayrıştırmasını görün.\n**3. Varsayımlar** — beş üç noktalı tahmini kalibre edin.\n**4. Beklenen kayıp** — hesaplama iziyle birlikte deterministik ALE.\n**5. Simülasyon** — Monte Carlo yıllık kayıp dağılımı ve aşım eğrisi.\n**6. Önlemler** — kontrolleri maliyet ve risk azaltımına göre karşılaştırın.\n**7. Rapor** — yönetim kuruluna hazır bir Markdown özeti indirin.",
   "help.s1Title": "Başlarken",
   "help.s2": "Her şey bu cihazdaki **şifreli bir kasada** durur (IndexedDB, AES-GCM-256, anahtar parolanızdan türetilir). Bir **proje**; senaryoları, önlemleri ve bir denetim izini gruplar. Birden fazla kasa deposu tutabilir (ör. müşteri başına bir tane) ve kilit ekranından bunlar arasında geçiş yapabilirsiniz. Unutulan bir parola **tasarım gereği kurtarılamaz** — düzenli olarak yedek dışa aktarın.",

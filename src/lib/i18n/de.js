@@ -134,6 +134,8 @@ export default {
   "expectedLoss.vulnerabilityHint": "Wahrscheinlichkeit, dass ein Bedrohungsereignis zu einem Verlustereignis wird",
 
   // fair
+  "fair.attribution": "Methodik: FAIR™ (Factor Analysis of Information Risk), ein offener Standard, betreut vom FAIR Institute.",
+  "fair.attributionLink": "Mehr erfahren auf fairinstitute.org",
   "fair.colFactor": "Faktor",
   "fair.colMaximum": "Maximum",
   "fair.colMinimum": "Minimum",
@@ -156,6 +158,8 @@ export default {
   // help
   "help.aiGovLink": "KI-Governance- und Verantwortungs-Hinweise lesen",
   "help.aiGovTitle": "KI-Governance & Hinweise zu verantwortungsvoller KI",
+  "help.fairCredit": "Das FAIR™-Modell ist ein offener internationaler Standard, betreut vom FAIR Institute.",
+  "help.fairLink": "Zum FAIR Institute",
   "help.s1": "**Erstellen Sie ein Projekt** und fügen Sie dann Szenarien hinzu — oder laden Sie die **Stella-Polaris-Beispiele** zum Erkunden. Jedes Szenario durchläuft einen 7-Schritte-Workflow:\n\n**1. Scoping** — benennen Sie Asset, Bedrohung, Auswirkung und Verantwortlichen.\n**2. FAIR-Modell** — sehen Sie die Zerlegung in Häufigkeit und Schadenshöhe.\n**3. Annahmen** — kalibrieren Sie fünf Dreipunktschätzungen.\n**4. Erwarteter Verlust** — die deterministische ALE mit ihrem Berechnungsnachweis.\n**5. Simulation** — Monte-Carlo-Jahresverlustverteilung und Überschreitungskurve.\n**6. Maßnahmen** — vergleichen Sie Kontrollen nach Kosten vs. Risikoreduktion.\n**7. Bericht** — laden Sie eine vorstandsgerechte Markdown-Zusammenfassung herunter.",
   "help.s1Title": "Erste Schritte",
   "help.s2": "Alles liegt in einem **verschlüsselten Tresor** auf diesem Gerät (IndexedDB, AES-GCM-256, Schlüssel aus Ihrer Passphrase abgeleitet). Ein **Projekt** bündelt Szenarien, Maßnahmen und ein Prüfprotokoll. Sie können mehrere Tresore führen (z. B. pro Kunde) und im Sperrbildschirm zwischen ihnen wechseln. Eine vergessene Passphrase ist **konstruktionsbedingt nicht wiederherstellbar** — exportieren Sie regelmäßig Sicherungen.",

@@ -58,4 +58,13 @@ describe('executiveSummary', () => {
     expect(report).toContain('Narrative body.');
     expect(report).toContain('Drafted by Claude (claude-x) on 2026-07-13');
   });
+
+  it('always credits the FAIR Institute in a methodology footer', () => {
+    const report = executiveSummary(scenario, expected);
+    expect(report).toContain('FAIR™');
+    expect(report).toContain('https://www.fairinstitute.org/');
+    // The footer is the last section, after any optional appendix.
+    const withNarrative = executiveSummary(scenario, expected, null, null, { text: 'Body.', provenance: {} });
+    expect(withNarrative.trim().endsWith('the FAIR Institute.*')).toBe(true);
+  });
 });

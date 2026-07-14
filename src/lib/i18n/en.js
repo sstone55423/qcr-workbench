@@ -134,6 +134,8 @@ export default {
   "expectedLoss.vulnerabilityHint": "Probability a threat event becomes a loss event",
 
   // fair
+  "fair.attribution": "Methodology: FAIR™ (Factor Analysis of Information Risk), an open standard stewarded by the FAIR Institute.",
+  "fair.attributionLink": "Learn more at fairinstitute.org",
   "fair.colFactor": "Factor",
   "fair.colMaximum": "Maximum",
   "fair.colMinimum": "Minimum",
@@ -156,6 +158,8 @@ export default {
   // help
   "help.aiGovLink": "Read the AI governance & responsible-AI notes",
   "help.aiGovTitle": "AI Governance & Responsible-AI Notes",
+  "help.fairCredit": "The FAIR™ model is an open international standard stewarded by the FAIR Institute.",
+  "help.fairLink": "Visit the FAIR Institute",
   "help.s1": "**Create a project**, then add scenarios — or load the **Stella Polaris samples** to explore. Each scenario walks a 7-step workflow:\n\n**1. Scoping** — name the asset, threat, effect, and owner.\n**2. FAIR model** — see the frequency and magnitude decomposition.\n**3. Assumptions** — calibrate five three-point estimates.\n**4. Expected loss** — the deterministic ALE with its calculation trace.\n**5. Simulation** — Monte Carlo annual-loss distribution and exceedance curve.\n**6. Treatments** — compare controls by cost vs. risk reduction.\n**7. Report** — download a board-ready Markdown summary.",
   "help.s1Title": "Getting started",
   "help.s2": "Everything lives in an **encrypted vault** on this device (IndexedDB, AES-GCM-256, key derived from your passphrase). A **project** groups scenarios, treatments, and an audit trail. You can keep several vault stores (e.g. per client) and switch between them from the lock screen. A forgotten passphrase is **unrecoverable by design** — export backups regularly.",

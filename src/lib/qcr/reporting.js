@@ -71,5 +71,14 @@ export function executiveSummary(scenario, expected, simulation = null, treatmen
       `*Drafted by ${p.label || p.provider || 'AI'}${p.model ? ` (${p.model})` : ''}${p.at ? ` on ${p.at}` : ''}.*`,
     );
   }
+  lines.push(
+    '',
+    '---',
+    '',
+    '*Methodology: Factor Analysis of Information Risk (FAIR™), the open international ' +
+      'standard for quantifying information risk. FAIR™ is stewarded by the ' +
+      '[FAIR Institute](https://www.fairinstitute.org/). This report was produced with ' +
+      'independent software not affiliated with or endorsed by the FAIR Institute.*',
+  );
   return lines.join('\n');
 }

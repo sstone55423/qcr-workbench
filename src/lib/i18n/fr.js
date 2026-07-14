@@ -134,6 +134,8 @@ export default {
   "expectedLoss.vulnerabilityHint": "Probabilité qu'un événement de menace devienne un événement de perte",
 
   // fair
+  "fair.attribution": "Méthodologie : FAIR™ (Factor Analysis of Information Risk), un standard ouvert géré par le FAIR Institute.",
+  "fair.attributionLink": "En savoir plus sur fairinstitute.org",
   "fair.colFactor": "Facteur",
   "fair.colMaximum": "Maximum",
   "fair.colMinimum": "Minimum",
@@ -156,6 +158,8 @@ export default {
   // help
   "help.aiGovLink": "Lire les notes de gouvernance de l'IA et d'IA responsable",
   "help.aiGovTitle": "Gouvernance de l'IA et notes sur l'IA responsable",
+  "help.fairCredit": "Le modèle FAIR™ est un standard international ouvert géré par le FAIR Institute.",
+  "help.fairLink": "Visiter le FAIR Institute",
   "help.s1": "**Créez un projet**, puis ajoutez des scénarios — ou chargez les **exemples Stella Polaris** pour explorer. Chaque scénario suit un flux de travail en 7 étapes :\n\n**1. Cadrage** — nommez l'actif, la menace, l'effet et le responsable.\n**2. Modèle FAIR** — visualisez la décomposition en fréquence et magnitude.\n**3. Hypothèses** — calibrez cinq estimations à trois points.\n**4. Perte attendue** — l'ALE déterministe avec sa trace de calcul.\n**5. Simulation** — distribution Monte Carlo des pertes annuelles et courbe de dépassement.\n**6. Traitements** — comparez les contrôles selon leur coût et la réduction du risque.\n**7. Rapport** — téléchargez une synthèse Markdown prête pour la direction.",
   "help.s1Title": "Premiers pas",
   "help.s2": "Tout est conservé dans un **coffre chiffré** sur cet appareil (IndexedDB, AES-GCM-256, clé dérivée de votre phrase secrète). Un **projet** regroupe des scénarios, des traitements et un journal d'audit. Vous pouvez gérer plusieurs coffres (p. ex. un par client) et passer de l'un à l'autre depuis l'écran de verrouillage. Une phrase secrète oubliée est **irrécupérable par conception** — exportez des sauvegardes régulièrement.",

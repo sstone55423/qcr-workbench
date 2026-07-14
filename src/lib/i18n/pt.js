@@ -134,6 +134,8 @@ export default {
   "expectedLoss.vulnerabilityHint": "Probabilidade de um evento de ameaça se tornar um evento de perda",
 
   // fair
+  "fair.attribution": "Metodologia: FAIR™ (Factor Analysis of Information Risk), um padrão aberto mantido pelo FAIR Institute.",
+  "fair.attributionLink": "Saiba mais em fairinstitute.org",
   "fair.colFactor": "Fator",
   "fair.colMaximum": "Máximo",
   "fair.colMinimum": "Mínimo",
@@ -156,6 +158,8 @@ export default {
   // help
   "help.aiGovLink": "Ler as notas de governança de IA e IA responsável",
   "help.aiGovTitle": "Governança de IA e notas de IA responsável",
+  "help.fairCredit": "O modelo FAIR™ é um padrão internacional aberto mantido pelo FAIR Institute.",
+  "help.fairLink": "Visite o FAIR Institute",
   "help.s1": "**Crie um projeto** e depois adicione cenários — ou carregue os **exemplos Stella Polaris** para explorar. Cada cenário percorre um fluxo de trabalho de 7 etapas:\n\n**1. Escopo** — nomeie o ativo, a ameaça, o efeito e o responsável.\n**2. Modelo FAIR** — veja a decomposição em frequência e magnitude.\n**3. Premissas** — calibre cinco estimativas de três pontos.\n**4. Perda esperada** — a ALE determinística com seu rastreamento de cálculo.\n**5. Simulação** — distribuição de perda anual de Monte Carlo e curva de excedência.\n**6. Tratamentos** — compare controles por custo vs. redução de risco.\n**7. Relatório** — baixe um resumo em Markdown pronto para a diretoria.",
   "help.s1Title": "Primeiros passos",
   "help.s2": "Tudo fica em um **cofre criptografado** neste dispositivo (IndexedDB, AES-GCM-256, chave derivada da sua senha). Um **projeto** agrupa cenários, tratamentos e uma trilha de auditoria. Você pode manter vários cofres (por exemplo, um por cliente) e alternar entre eles na tela de bloqueio. Uma senha esquecida é **irrecuperável por design** — exporte backups regularmente.",

@@ -31,8 +31,14 @@ your device.
    guide, downloadable, with an optional AI-drafted narrative (labeled and
    provenance-stamped).
 
-Five sample scenarios (the fictional *Stella Polaris Medical Components*
+Ten sample scenarios (the fictional *Stella Polaris Medical Components*
 portfolio) load with one click.
+
+The methodology follows [FAIR™ (Factor Analysis of Information
+Risk)](https://www.fairinstitute.org/), the open international standard for
+quantifying information risk, stewarded by the [FAIR
+Institute](https://www.fairinstitute.org/). This project is independent and
+not affiliated with or endorsed by the FAIR Institute.
 
 ## Architecture
 

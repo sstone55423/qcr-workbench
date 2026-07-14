@@ -3,8 +3,9 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { useI18n } from '@/lib/I18nContext';
 import { expectedLoss, decompositionRows } from '@/lib/qcr/fair';
 import { formatCurrency } from '@/lib/qcr/format';
+import { FAIR_INSTITUTE_URL } from '@/lib/citation';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Repeat, Banknote } from 'lucide-react';
+import { ArrowRight, Repeat, Banknote, ExternalLink } from 'lucide-react';
 
 // Step 2 — FAIR decomposition: frequency and magnitude sides of the model
 // plus the five-factor estimate table (port of v0 page 02).
@@ -66,7 +67,18 @@ export default function FairDecomposition() {
         </table>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <p className="text-xs text-muted-foreground">
+          {t('fair.attribution')}{' '}
+          <a
+            href={FAIR_INSTITUTE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline inline-flex items-center gap-1"
+          >
+            {t('fair.attributionLink')} <ExternalLink className="w-3 h-3" />
+          </a>
+        </p>
         <Button asChild className="gap-2">
           <Link to={`/scenarios/${scenario.id}/assumptions`}>
             {t('fair.next')} <ArrowRight className="w-4 h-4" />

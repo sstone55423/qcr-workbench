@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm';
 import Copyright from '@/components/Copyright';
 import Citation from '@/components/Citation';
 import ReportIssue from '@/components/ReportIssue';
-import { APP_FUNDING_URL, APP_KOFI_URL } from '@/lib/citation';
+import { APP_FUNDING_URL, APP_KOFI_URL, FAIR_INSTITUTE_URL } from '@/lib/citation';
 import { useI18n } from '@/lib/I18nContext';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle
@@ -55,6 +55,19 @@ export default function Help() {
                 <FileText className="w-3.5 h-3.5" />
                 {t('help.s7Link')}
               </button>
+            )}
+            {s.contentKey === 'help.s5' && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                {t('help.fairCredit')}{' '}
+                <a
+                  href={FAIR_INSTITUTE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                >
+                  {t('help.fairLink')} <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </p>
             )}
             {s.contentKey === 'help.s3' && (
               <button
