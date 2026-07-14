@@ -2,6 +2,8 @@
 export default {
   // ai
   "ai.accept": "Accept",
+  "ai.copied": "Narrative copied to clipboard",
+  "ai.copy": "Copy narrative",
   "ai.disclosure": "AI-generated — may be inaccurate. All risk figures are deterministic calculations; this text is a labeled draft to review before use.",
   "ai.generate": "Draft narrative",
   "ai.generateFailed": "AI generation failed",

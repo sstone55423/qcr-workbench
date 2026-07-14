@@ -2,6 +2,8 @@
 export default {
   // ai
   "ai.accept": "Aceptar",
+  "ai.copied": "Narrativa copiada al portapapeles",
+  "ai.copy": "Copiar narrativa",
   "ai.disclosure": "Generado por IA — puede contener imprecisiones. Todas las cifras de riesgo son cálculos deterministas; este texto es un borrador etiquetado para revisar antes de usarlo.",
   "ai.generate": "Redactar narrativa",
   "ai.generateFailed": "La generación con IA falló",

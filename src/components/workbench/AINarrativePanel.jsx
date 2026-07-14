@@ -7,7 +7,7 @@ import { saveAiNarrative } from '@/lib/qcr/scenarioStore';
 import AIDisclosure from '@/components/AIDisclosure';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { Sparkles, Loader2, AlertTriangle } from 'lucide-react';
+import { Sparkles, Loader2, AlertTriangle, Copy, Check } from 'lucide-react';
 
 // Generates (and regenerates) the AI-drafted executive narrative, persists it
 // on the scenario, and renders it with disclosure + provenance. The narrative
@@ -17,6 +17,7 @@ export default function AINarrativePanel({ scenario, expected, simulation, compa
   const { toast } = useToast();
   const [generating, setGenerating] = useState(false);
   const [aiAvailable, setAiAvailable] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     let stale = false;
@@ -26,6 +27,25 @@ export default function AINarrativePanel({ scenario, expected, simulation, compa
 
   const narrative = scenario.ai_narrative;
   const isStale = narrative && narrative.inputs_hash !== inputsHash(scenario, scenario.simulation?.params);
+
+  const provenanceLine = narrative && t('ai.provenance', {
+    label: narrative.provenance?.label || 'AI',
+    model: narrative.provenance?.model || '—',
+    date: narrative.provenance?.at ? new Date(narrative.provenance.at).toLocaleString() : '—',
+  });
+
+  // Copies the whole narrative with its provenance line, so the AI disclosure
+  // travels with the text wherever it is pasted.
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(`${narrative.text}\n\n— ${provenanceLine}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+      toast({ title: t('ai.copied') });
+    } catch {
+      toast({ title: t('cite.copyFailed'), variant: 'destructive' });
+    }
+  };
 
   const handleGenerate = async () => {
     setGenerating(true);
@@ -46,10 +66,17 @@ export default function AINarrativePanel({ scenario, expected, simulation, compa
         <h3 className="text-sm font-medium flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-primary" /> {t('ai.narrativeTitle')}
         </h3>
-        <Button variant="outline" size="sm" onClick={handleGenerate} disabled={generating || aiAvailable === null} className="gap-2">
-          {generating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
-          {generating ? t('ai.generating') : narrative ? t('ai.regenerate') : t('ai.generate')}
-        </Button>
+        <div className="flex gap-1.5">
+          {narrative && (
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleCopy} title={t('ai.copy')} aria-label={t('ai.copy')}>
+              {copied ? <Check className="w-3.5 h-3.5 text-primary" /> : <Copy className="w-3.5 h-3.5" />}
+            </Button>
+          )}
+          <Button variant="outline" size="sm" onClick={handleGenerate} disabled={generating || aiAvailable === null} className="gap-2">
+            {generating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+            {generating ? t('ai.generating') : narrative ? t('ai.regenerate') : t('ai.generate')}
+          </Button>
+        </div>
       </div>
 
       {aiAvailable === null && !narrative && (
@@ -71,13 +98,7 @@ export default function AINarrativePanel({ scenario, expected, simulation, compa
           <div className="text-sm leading-relaxed [&_p]:my-2 [&_ul]:my-2 [&_ul]:pl-5 [&_ul]:list-disc [&_li]:my-0.5">
             <ReactMarkdown>{narrative.text}</ReactMarkdown>
           </div>
-          <p className="text-xs text-muted-foreground">
-            {t('ai.provenance', {
-              label: narrative.provenance?.label || 'AI',
-              model: narrative.provenance?.model || '—',
-              date: narrative.provenance?.at ? new Date(narrative.provenance.at).toLocaleString() : '—',
-            })}
-          </p>
+          <p className="text-xs text-muted-foreground">{provenanceLine}</p>
         </>
       )}
     </div>

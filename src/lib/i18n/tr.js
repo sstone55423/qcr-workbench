@@ -2,6 +2,8 @@
 export default {
   // ai
   "ai.accept": "Kabul et",
+  "ai.copied": "Anlatı panoya kopyalandı",
+  "ai.copy": "Anlatıyı kopyala",
   "ai.disclosure": "Yapay zekâ tarafından üretildi — hatalı olabilir. Tüm risk rakamları deterministik hesaplamalardır; bu metin, kullanmadan önce gözden geçirilmesi gereken etiketli bir taslaktır.",
   "ai.generate": "Anlatı taslağı oluştur",
   "ai.generateFailed": "Yapay zekâ üretimi başarısız",

@@ -2,6 +2,8 @@
 export default {
   // ai
   "ai.accept": "Accepter",
+  "ai.copied": "Synthèse copiée dans le presse-papiers",
+  "ai.copy": "Copier la synthèse",
   "ai.disclosure": "Généré par IA — peut être inexact. Tous les chiffres de risque sont des calculs déterministes ; ce texte est un brouillon étiqueté à relire avant utilisation.",
   "ai.generate": "Rédiger la synthèse",
   "ai.generateFailed": "Échec de la génération IA",

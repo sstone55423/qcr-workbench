@@ -2,6 +2,8 @@
 export default {
   // ai
   "ai.accept": "Übernehmen",
+  "ai.copied": "Narrativ in die Zwischenablage kopiert",
+  "ai.copy": "Narrativ kopieren",
   "ai.disclosure": "KI-generiert — kann ungenau sein. Alle Risikokennzahlen sind deterministische Berechnungen; dieser Text ist ein gekennzeichneter Entwurf, der vor der Verwendung zu prüfen ist.",
   "ai.generate": "Narrativ entwerfen",
   "ai.generateFailed": "KI-Generierung fehlgeschlagen",
