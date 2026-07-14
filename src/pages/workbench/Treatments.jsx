@@ -3,10 +3,12 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { useI18n } from '@/lib/I18nContext';
 import useTreatments from '@/hooks/useTreatments';
 import { compareTreatment } from '@/lib/qcr/treatments';
+import { expectedLoss } from '@/lib/qcr/fair';
 import { createTreatment, updateTreatment, deleteTreatment } from '@/lib/qcr/scenarioStore';
 import { formatCurrency, formatPercent } from '@/lib/qcr/format';
 import MetricCardRow from '@/components/workbench/MetricCardRow';
 import TreatmentForm from '@/components/workbench/TreatmentForm';
+import TreatmentSuggestions from '@/components/workbench/TreatmentSuggestions';
 import ChartCard from '@/components/charts/ChartCard';
 import TreatmentComparisonBar from '@/components/charts/TreatmentComparisonBar';
 import { Button } from '@/components/ui/button';
@@ -23,18 +25,22 @@ export default function Treatments() {
   const { t } = useI18n();
   const { toast } = useToast();
   const [showCreate, setShowCreate] = useState(false);
+  const [draft, setDraft] = useState(null);
   const [editTarget, setEditTarget] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [saving, setSaving] = useState(false);
 
   const selected = treatments.find((x) => x.id === selectedId) || treatments[0] || null;
   const comparison = selected ? compareTreatment(scenario.fair, selected) : null;
+  const expected = expectedLoss(scenario.fair);
+
+  const closeCreate = () => { setShowCreate(false); setDraft(null); };
 
   const handleCreate = async (form) => {
     setSaving(true);
     try {
       const created = await createTreatment(scenario, form);
-      setShowCreate(false);
+      closeCreate();
       setSelectedId(created.id);
       reload();
     } catch (err) {
@@ -146,6 +152,13 @@ export default function Treatments() {
         </>
       )}
 
+      <TreatmentSuggestions
+        scenario={scenario}
+        expected={expected}
+        treatments={treatments}
+        onUse={(suggested) => { setDraft(suggested); setShowCreate(true); }}
+      />
+
       <div className="flex justify-end">
         <Button asChild className="gap-2">
           <Link to={`/scenarios/${scenario.id}/report`}>
@@ -154,7 +167,7 @@ export default function Treatments() {
         </Button>
       </div>
 
-      <TreatmentForm open={showCreate} treatment={null} onClose={() => setShowCreate(false)} onSubmit={handleCreate} saving={saving} />
+      <TreatmentForm open={showCreate} treatment={null} draft={draft} onClose={closeCreate} onSubmit={handleCreate} saving={saving} />
       <TreatmentForm open={!!editTarget} treatment={editTarget} onClose={() => setEditTarget(null)} onSubmit={handleEdit} saving={saving} />
     </div>
   );

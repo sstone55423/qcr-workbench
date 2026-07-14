@@ -25,13 +25,19 @@ const DEFAULTS = {
   secondary_loss_reduction: 0.1,
 };
 
-export default function TreatmentForm({ open, treatment, onClose, onSubmit, saving }) {
+// `draft` optionally pre-fills create mode (e.g. an AI-suggested treatment the
+// user chose to review); the user still adjusts and explicitly saves it.
+export default function TreatmentForm({ open, treatment, draft = null, onClose, onSubmit, saving }) {
   const { t } = useI18n();
   const [form, setForm] = useState(DEFAULTS);
 
   useEffect(() => {
-    if (open) setForm(treatment ? { ...treatment } : { ...DEFAULTS, name: t('treatments.defaultName') });
-  }, [open, treatment, t]);
+    if (open) {
+      setForm(treatment ? { ...treatment }
+        : draft ? { ...DEFAULTS, ...draft }
+        : { ...DEFAULTS, name: t('treatments.defaultName') });
+    }
+  }, [open, treatment, draft, t]);
 
   return (
     <Dialog open={open} onOpenChange={(o) => { if (!o) onClose(); }}>

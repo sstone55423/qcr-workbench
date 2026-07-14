@@ -13,8 +13,11 @@ export default {
   "ai.noSuggestions": "Diesmal keine neuen Vorschläge.",
   "ai.provenance": "Entworfen von {label} ({model}) am {date}. Im Prüfprotokoll erfasst.",
   "ai.regenerate": "Neu entwerfen",
+  "ai.reviewAdd": "Prüfen & hinzufügen",
   "ai.suggest": "Annahmen vorschlagen",
+  "ai.suggestTreatments": "Maßnahmen vorschlagen",
   "ai.suggestionsHint": "Die KI kann Scoping-Annahmen vorschlagen — jede einzelne erfordert Ihre ausdrückliche Bestätigung.",
+  "ai.treatmentsHint": "Die KI kann Maßnahmenkandidaten vorschlagen — prüfen und passen Sie jeden Entwurf im Formular an, bevor Sie ihn hinzufügen.",
 
   // aip
   "aip.activeProvider": "Aktiver Anbieter",

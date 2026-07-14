@@ -13,8 +13,11 @@ export default {
   "ai.noSuggestions": "Bu sefer yeni öneri yok.",
   "ai.provenance": "{label} ({model}) tarafından {date} tarihinde taslak olarak oluşturuldu. Denetim günlüğüne kaydedildi.",
   "ai.regenerate": "Yeniden taslak oluştur",
+  "ai.reviewAdd": "İncele ve ekle",
   "ai.suggest": "Varsayım öner",
+  "ai.suggestTreatments": "Önlem öner",
   "ai.suggestionsHint": "Yapay zekâ kapsam varsayımları önerebilir — her biri sizin açık onayınızı gerektirir.",
+  "ai.treatmentsHint": "Yapay zekâ aday önlemler önerebilir — eklemeden önce her taslağı formda inceleyip ayarlayın.",
 
   // aip
   "aip.activeProvider": "Etkin Sağlayıcı",

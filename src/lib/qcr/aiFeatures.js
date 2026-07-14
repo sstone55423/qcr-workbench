@@ -86,3 +86,68 @@ export async function suggestScenarioAssumptions({ scenario }) {
   const result = await invokeAI({ prompt, jsonSchema: SUGGESTIONS_SCHEMA });
   return { suggestions: result.suggestions || [], provenance: getLastAIRun() };
 }
+
+const reduction = (what) => ({
+  type: 'number',
+  description: `Fraction between 0 and 1 by which the control reduces ${what}`,
+});
+
+const TREATMENT_SUGGESTIONS_SCHEMA = {
+  type: 'object',
+  properties: {
+    suggestions: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: 'Short name of the control or control package' },
+          rationale: { type: 'string', description: 'One or two sentences: why this control fits the scenario and what drives its reductions' },
+          annual_cost: { type: 'number', description: 'Rough total annual cost in USD (licenses, staffing, operations)' },
+          frequency_reduction: reduction('threat event frequency'),
+          vulnerability_reduction: reduction('the probability a threat event becomes a loss event'),
+          primary_loss_reduction: reduction('primary loss per event'),
+          secondary_loss_reduction: reduction('secondary loss per event'),
+        },
+        required: [
+          'name', 'rationale', 'annual_cost',
+          'frequency_reduction', 'vulnerability_reduction', 'primary_loss_reduction', 'secondary_loss_reduction',
+        ],
+      },
+    },
+  },
+  required: ['suggestions'],
+};
+
+// Draft candidate treatments for the scenario. The drafts are starting points
+// only: they open pre-filled in the treatment form for the analyst to review
+// and adjust, and the treatment economics are always recomputed
+// deterministically from whatever the analyst actually saves.
+export async function suggestScenarioTreatments({ scenario, expected, treatments }) {
+  const prompt =
+    'You are helping a CISO shortlist risk treatments (security controls) for the FAIR quantitative cyber risk ' +
+    'scenario below. Suggest 3-4 realistic candidate treatments. For each, draft a rough annual cost in USD and the ' +
+    'fraction (0 to 1) by which it plausibly reduces each FAIR factor. These are draft starting points a human ' +
+    'analyst will review and adjust — be conservative, and let the rationale say what drives the reductions. ' +
+    'Do not repeat existing treatments.\n\n' +
+    `Scenario: ${scenario.name} — ${scenario.description}\n` +
+    `Asset: ${scenario.asset}; Threat: ${scenario.threat}; Effect: ${scenario.effect}\n` +
+    `Computed baseline (do not recompute): annualized loss expectancy ${formatCurrency(expected.ale)}, ` +
+    `${expected.lef.toFixed(2)} loss events/year expected, ${formatCurrency(expected.lossMagnitude)} per event.\n` +
+    `Key assumptions: ${scenario.assumptions?.length ? scenario.assumptions.join(' | ') : '(none)'}\n` +
+    `Existing treatments: ${treatments?.length ? treatments.map((x) => x.name).join(' | ') : '(none)'}`;
+
+  const result = await invokeAI({ prompt, jsonSchema: TREATMENT_SUGGESTIONS_SCHEMA });
+  const clamp01 = (x) => Math.min(Math.max(Number(x) || 0, 0), 1);
+  const suggestions = (result.suggestions || [])
+    .map((s) => ({
+      name: String(s.name || '').trim(),
+      rationale: String(s.rationale || '').trim(),
+      annual_cost: Math.max(0, Math.round(Number(s.annual_cost) || 0)),
+      frequency_reduction: clamp01(s.frequency_reduction),
+      vulnerability_reduction: clamp01(s.vulnerability_reduction),
+      primary_loss_reduction: clamp01(s.primary_loss_reduction),
+      secondary_loss_reduction: clamp01(s.secondary_loss_reduction),
+    }))
+    .filter((s) => s.name);
+  return { suggestions, provenance: getLastAIRun() };
+}

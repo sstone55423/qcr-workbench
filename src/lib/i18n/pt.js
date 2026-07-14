@@ -13,8 +13,11 @@ export default {
   "ai.noSuggestions": "Nenhuma sugestão nova desta vez.",
   "ai.provenance": "Redigido por {label} ({model}) em {date}. Gravado no registro de auditoria.",
   "ai.regenerate": "Redigir novamente",
+  "ai.reviewAdd": "Revisar e adicionar",
   "ai.suggest": "Sugerir premissas",
+  "ai.suggestTreatments": "Sugerir tratamentos",
   "ai.suggestionsHint": "A IA pode propor premissas de escopo — cada uma precisa da sua aceitação explícita.",
+  "ai.treatmentsHint": "A IA pode propor tratamentos candidatos — revise e ajuste cada rascunho no formulário antes de adicioná-lo.",
 
   // aip
   "aip.activeProvider": "Provedor ativo",

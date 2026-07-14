@@ -13,8 +13,11 @@ export default {
   "ai.noSuggestions": "No new suggestions this time.",
   "ai.provenance": "Drafted by {label} ({model}) on {date}. Recorded in the audit log.",
   "ai.regenerate": "Redraft",
+  "ai.reviewAdd": "Review & add",
   "ai.suggest": "Suggest assumptions",
+  "ai.suggestTreatments": "Suggest treatments",
   "ai.suggestionsHint": "AI can propose scoping assumptions — each one needs your explicit acceptance.",
+  "ai.treatmentsHint": "AI can propose candidate treatments — review and adjust each draft in the form before adding it.",
 
   // aip
   "aip.activeProvider": "Active Provider",

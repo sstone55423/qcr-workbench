@@ -13,8 +13,11 @@ export default {
   "ai.noSuggestions": "Aucune nouvelle suggestion cette fois-ci.",
   "ai.provenance": "Rédigé par {label} ({model}) le {date}. Consigné dans le journal d'audit.",
   "ai.regenerate": "Rédiger à nouveau",
+  "ai.reviewAdd": "Vérifier et ajouter",
   "ai.suggest": "Suggérer des hypothèses",
+  "ai.suggestTreatments": "Suggérer des traitements",
   "ai.suggestionsHint": "L'IA peut proposer des hypothèses de cadrage — chacune nécessite votre acceptation explicite.",
+  "ai.treatmentsHint": "L'IA peut proposer des traitements candidats — vérifiez et ajustez chaque brouillon dans le formulaire avant de l'ajouter.",
 
   // aip
   "aip.activeProvider": "Fournisseur actif",

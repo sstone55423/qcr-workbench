@@ -38,6 +38,7 @@ nothing, and the user selects and credentials every model that is used.
 |---|---|---|
 | Executive narrative draft | Scenario scoping text + computed figures | Stored with provenance + inputs hash; rendered with disclosure; appended to report export under an explicit disclosure heading |
 | Assumption suggestions | Scenario scoping text + existing assumptions | Staged; each suggestion requires explicit user acceptance |
+| Treatment suggestions | Scenario scoping text + computed baseline figures + existing treatment names | Staged; accepting a suggestion opens it pre-filled in the treatment form for the analyst to review, adjust, and explicitly save (audit-logged); treatment economics are always recomputed deterministically from what is saved |
 
 ## What AI is **not** used for
 
