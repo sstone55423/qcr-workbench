@@ -362,7 +362,7 @@ export default {
   "simulation.emptyGuidance": "Yıllık kayıp dağılımını ve kayıp aşım eğrisini görmek için simülasyonu çalıştırın. Aynı tohum her zaman aynı sonuçları yeniden üretir.",
   "simulation.exceedanceSubtitle": "Yıllık kaybın bir eşiği aşma olasılığı",
   "simulation.exceedanceTitle": "Kayıp aşım eğrisi",
-  "simulation.histogramSubtitle": "Kayıp aralığı başına simüle edilen yıl sayısı",
+  "simulation.histogramSubtitle": "Aralık başına kayıplı yıl sayısı — kayıpsız yıllar hariç; en üst %1 son çubukta gruplanır",
   "simulation.histogramTitle": "Yıllık kayıp dağılımı",
   "simulation.intro": "Monte Carlo örneklemesi, beş tahmindeki belirsizliği yayar: simüle edilen her yıl, Poisson dağılımından bir kayıp olayı sayısı ve olay başına bir kayıp çeker.",
   "simulation.iterations": "Yineleme sayısı",

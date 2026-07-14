@@ -362,7 +362,7 @@ export default {
   "simulation.emptyGuidance": "Run the simulation to see the annual loss distribution and the loss exceedance curve. The same seed always reproduces the same results.",
   "simulation.exceedanceSubtitle": "Probability that annual loss exceeds a threshold",
   "simulation.exceedanceTitle": "Loss exceedance curve",
-  "simulation.histogramSubtitle": "Simulated years per loss bucket",
+  "simulation.histogramSubtitle": "Loss years per bucket — zero-loss years excluded; the top 1% of years are grouped into the last bar",
   "simulation.histogramTitle": "Annual loss distribution",
   "simulation.intro": "Monte Carlo sampling propagates the uncertainty in all five estimates: each simulated year draws a Poisson number of loss events and a per-event loss.",
   "simulation.iterations": "Iterations",

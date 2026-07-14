@@ -362,7 +362,7 @@ export default {
   "simulation.emptyGuidance": "Execute a simulação para ver a distribuição de perda anual e a curva de excedência de perdas. A mesma semente sempre reproduz os mesmos resultados.",
   "simulation.exceedanceSubtitle": "Probabilidade de a perda anual exceder um limiar",
   "simulation.exceedanceTitle": "Curva de excedência de perdas",
-  "simulation.histogramSubtitle": "Anos simulados por faixa de perda",
+  "simulation.histogramSubtitle": "Anos com perda por faixa — anos sem perda excluídos; o 1% superior é agrupado na última barra",
   "simulation.histogramTitle": "Distribuição de perda anual",
   "simulation.intro": "A amostragem de Monte Carlo propaga a incerteza das cinco estimativas: cada ano simulado sorteia um número de Poisson de eventos de perda e uma perda por evento.",
   "simulation.iterations": "Iterações",

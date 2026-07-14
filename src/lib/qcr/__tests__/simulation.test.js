@@ -66,11 +66,29 @@ describe('exceedanceCurve', () => {
 });
 
 describe('histogramBins', () => {
-  it('buckets every sample exactly once', () => {
+  it('buckets every loss year exactly once, excluding zero-loss years', () => {
     const r = simulateAnnualLoss(model, 2000, 42);
     const { binWidth, counts } = histogramBins(r.annualLosses, 60);
     expect(counts).toHaveLength(60);
     expect(binWidth).toBeGreaterThan(0);
-    expect(counts.reduce((a, b) => a + b, 0)).toBe(2000);
+    const lossYears = Array.from(r.annualLosses).filter((x) => x > 0).length;
+    expect(lossYears).toBeLessThan(2000); // the model produces zero-loss years
+    expect(counts.reduce((a, b) => a + b, 0)).toBe(lossYears);
+  });
+
+  it('caps the domain at P99 so one outlier year cannot squash the bins', () => {
+    const losses = new Float64Array(1000);
+    for (let i = 0; i < 999; i++) losses[i] = 100 + i; // dense cluster ~100–1099
+    losses[999] = 1e9; // single extreme outlier
+    const { binWidth, counts } = histogramBins(losses, 60);
+    expect(binWidth * 60).toBeLessThan(2000); // domain tracks the cluster, not the outlier
+    expect(counts.at(-1)).toBeGreaterThanOrEqual(1); // outlier lands in the overflow bin
+    expect(counts.reduce((a, b) => a + b, 0)).toBe(1000);
+  });
+
+  it('returns empty bins when no year has a loss', () => {
+    const { binWidth, counts } = histogramBins(new Float64Array(500), 60);
+    expect(binWidth).toBe(1);
+    expect(counts.every((c) => c === 0)).toBe(true);
   });
 });

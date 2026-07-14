@@ -362,7 +362,7 @@ export default {
   "simulation.emptyGuidance": "Ejecuta la simulación para ver la distribución de la pérdida anual y la curva de excedencia de pérdidas. La misma semilla siempre reproduce los mismos resultados.",
   "simulation.exceedanceSubtitle": "Probabilidad de que la pérdida anual supere un umbral",
   "simulation.exceedanceTitle": "Curva de excedencia de pérdidas",
-  "simulation.histogramSubtitle": "Años simulados por intervalo de pérdida",
+  "simulation.histogramSubtitle": "Años con pérdida por intervalo — se excluyen los años sin pérdida; el 1 % superior se agrupa en la última barra",
   "simulation.histogramTitle": "Distribución de la pérdida anual",
   "simulation.intro": "El muestreo Monte Carlo propaga la incertidumbre de las cinco estimaciones: cada año simulado extrae un número de eventos de pérdida según una distribución de Poisson y una pérdida por evento.",
   "simulation.iterations": "Iteraciones",

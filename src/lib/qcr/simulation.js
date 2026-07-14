@@ -70,17 +70,22 @@ export function exceedanceCurve(annualLosses, points = 100) {
   return { thresholds, probabilities };
 }
 
-// Equal-width histogram over [0, max]; returns bin width and counts so the
-// persisted summary stays a few KB instead of the raw loss array.
+// Equal-width histogram over the loss years only; returns bin width and
+// counts so the persisted summary stays a few KB instead of the raw loss
+// array. Zero-loss years are excluded (their share is reported separately as
+// probability_of_zero_loss) and the domain is capped at the 99th percentile
+// of loss years, with the last bin collecting everything above the cap —
+// otherwise the zero spike and a single outlier year squash every other bin
+// into an unreadable sliver on the far left.
 export function histogramBins(annualLosses, bins = 60) {
-  const n = annualLosses.length;
-  let max = 0;
-  for (let i = 0; i < n; i++) if (annualLosses[i] > max) max = annualLosses[i];
-  const top = Math.max(max, 1);
+  const losses = annualLosses.filter((x) => x > 0);
+  const n = losses.length;
+  if (n === 0) return { binWidth: 1, counts: new Array(bins).fill(0) };
+  const top = Math.max(percentile(losses, 99), 1);
   const binWidth = top / bins;
   const counts = new Array(bins).fill(0);
   for (let i = 0; i < n; i++) {
-    const idx = Math.min(Math.floor(annualLosses[i] / binWidth), bins - 1);
+    const idx = Math.min(Math.floor(losses[i] / binWidth), bins - 1);
     counts[idx] += 1;
   }
   return { binWidth, counts };

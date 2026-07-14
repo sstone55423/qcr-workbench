@@ -362,7 +362,7 @@ export default {
   "simulation.emptyGuidance": "Lancez la simulation pour voir la distribution des pertes annuelles et la courbe de dépassement de perte. La même graine reproduit toujours les mêmes résultats.",
   "simulation.exceedanceSubtitle": "Probabilité que la perte annuelle dépasse un seuil",
   "simulation.exceedanceTitle": "Courbe de dépassement de perte",
-  "simulation.histogramSubtitle": "Années simulées par tranche de perte",
+  "simulation.histogramSubtitle": "Années avec perte par tranche — années sans perte exclues ; le 1 % supérieur est regroupé dans la dernière barre",
   "simulation.histogramTitle": "Distribution des pertes annuelles",
   "simulation.intro": "L'échantillonnage Monte Carlo propage l'incertitude des cinq estimations : chaque année simulée tire un nombre d'événements de perte selon une loi de Poisson et une perte par événement.",
   "simulation.iterations": "Itérations",

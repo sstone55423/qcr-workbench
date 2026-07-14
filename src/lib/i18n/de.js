@@ -362,7 +362,7 @@ export default {
   "simulation.emptyGuidance": "Führen Sie die Simulation aus, um die Jahresverlustverteilung und die Verlustüberschreitungskurve zu sehen. Derselbe Seed reproduziert immer dieselben Ergebnisse.",
   "simulation.exceedanceSubtitle": "Wahrscheinlichkeit, dass der Jahresverlust einen Schwellenwert überschreitet",
   "simulation.exceedanceTitle": "Verlustüberschreitungskurve",
-  "simulation.histogramSubtitle": "Simulierte Jahre pro Verlustklasse",
+  "simulation.histogramSubtitle": "Verlustjahre pro Klasse — Jahre ohne Verlust ausgeschlossen; das oberste 1 % ist im letzten Balken zusammengefasst",
   "simulation.histogramTitle": "Jahresverlustverteilung",
   "simulation.intro": "Monte-Carlo-Stichproben propagieren die Unsicherheit aller fünf Schätzungen: Jedes simulierte Jahr zieht eine Poisson-verteilte Anzahl von Verlustereignissen und einen Verlust pro Ereignis.",
   "simulation.iterations": "Iterationen",
