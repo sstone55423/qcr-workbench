@@ -1,5 +1,20 @@
 // English (canonical dictionary — every key here must exist in all locales).
 export default {
+  // learn-more & inline tooltips
+  "assumptions.ciTooltip": "A 90% confidence interval is a range you’re 90% sure contains the true value (a 5th–95th percentile span). The tool converts it into the min / most-likely / max estimate for you.",
+  "fair.factorTefHelp": "How often a threat actor is expected to attempt to act against this asset in a year — the rate of attempts, before accounting for whether they succeed.",
+  "fair.factorVulnerabilityHelp": "The probability that a threat attempt succeeds — that the attacker’s capability exceeds your resistive controls.",
+  "fair.factorPrimaryLossHelp": "Direct loss from the event itself — response, replacement, lost productivity, and other first-party costs.",
+  "fair.factorSecondaryLossHelp": "Losses driven by others’ reactions to the event — fines, legal claims, notification, and reputation costs.",
+  "fair.factorSlpHelp": "How likely a primary event is to trigger secondary losses — the share of events that draw a stakeholder reaction.",
+  "learn.classifiedFrom": "Identified automatically from the scenario name. Rename the scenario to include a clearer term for a better match.",
+  "learn.comingSoon": "A deeper analysis of this compromise type is coming soon.",
+  "learn.inDepthTitle": "In depth",
+  "learn.incidentsSoon": "References to recent real-world incidents of this type are coming soon.",
+  "learn.incidentsTitle": "Recent incidents",
+  "learn.typeLabel": "Compromise type",
+  "learn.unclassified": "not matched to a specific type",
+  "workbench.learnMore": "Learn more",
   // ai
   "ai.accept": "Accept",
   "ai.copied": "Narrative copied to clipboard",

@@ -1,5 +1,20 @@
 // tr — keys marked in pending-translation.json still carry English fills.
 export default {
+  // learn-more & inline tooltips
+  "assumptions.ciTooltip": "%90 güven aralığı, gerçek değerin bulunduğundan %90 emin olduğunuz bir aralıktır (5.–95. yüzdelik dilim aralığı). Araç bunu sizin için minimum / en olası / maksimum tahminine dönüştürür.",
+  "fair.factorTefHelp": "Bir tehdit aktörünün bir yıl içinde bu varlığa karşı harekete geçmeyi ne sıklıkta deneyeceği — başarılı olup olmadığına bakılmaksızın deneme oranı.",
+  "fair.factorVulnerabilityHelp": "Bir tehdit girişiminin başarılı olma olasılığı — saldırganın yeteneğinin direnç kontrollerinizi aşması.",
+  "fair.factorPrimaryLossHelp": "Olayın kendisinden kaynaklanan doğrudan kayıp — müdahale, değiştirme, kaybedilen üretkenlik ve diğer birinci taraf maliyetleri.",
+  "fair.factorSecondaryLossHelp": "Üçüncü tarafların olaya tepkilerinden kaynaklanan kayıplar — para cezaları, hukuki talepler, bildirim ve itibar maliyetleri.",
+  "fair.factorSlpHelp": "Birincil bir olayın ikincil kayıpları tetikleme olasılığı — paydaş tepkisi çeken olayların oranı.",
+  "learn.classifiedFrom": "Senaryo adından otomatik olarak belirlendi. Daha iyi bir eşleşme için senaryoyu daha açık bir terim içerecek şekilde yeniden adlandırın.",
+  "learn.comingSoon": "Bu ihlal türüne ilişkin daha ayrıntılı bir analiz yakında geliyor.",
+  "learn.inDepthTitle": "Ayrıntılı",
+  "learn.incidentsSoon": "Bu türden yakın zamandaki gerçek olaylara ilişkin referanslar yakında geliyor.",
+  "learn.incidentsTitle": "Son olaylar",
+  "learn.typeLabel": "İhlal türü",
+  "learn.unclassified": "belirli bir türle eşleşmedi",
+  "workbench.learnMore": "Daha fazla bilgi",
   // ai
   "ai.accept": "Kabul et",
   "ai.copied": "Anlatı panoya kopyalandı",

@@ -1,5 +1,20 @@
 // pt — keys marked in pending-translation.json still carry English fills.
 export default {
+  // learn-more & inline tooltips
+  "assumptions.ciTooltip": "Um intervalo de confiança de 90 % é uma faixa em que você tem 90 % de certeza de que o valor real se encontra (a amplitude do percentil 5 ao 95). A ferramenta a converte na estimativa de mínimo / mais provável / máximo.",
+  "fair.factorTefHelp": "Com que frequência se espera que um agente de ameaça tente agir contra este ativo em um ano — a taxa de tentativas, antes de considerar se têm êxito.",
+  "fair.factorVulnerabilityHelp": "A probabilidade de uma tentativa de ameaça ter êxito — de a capacidade do atacante superar seus controles de resistência.",
+  "fair.factorPrimaryLossHelp": "Perda direta do próprio evento — resposta, substituição, produtividade perdida e outros custos de primeira parte.",
+  "fair.factorSecondaryLossHelp": "Perdas causadas pelas reações de terceiros ao evento — multas, ações judiciais, notificações e custos de reputação.",
+  "fair.factorSlpHelp": "Qual a probabilidade de um evento primário desencadear perdas secundárias — a parcela de eventos que provocam reação das partes interessadas.",
+  "learn.classifiedFrom": "Identificado automaticamente a partir do nome do cenário. Renomeie o cenário incluindo um termo mais claro para uma correspondência melhor.",
+  "learn.comingSoon": "Em breve, uma análise mais aprofundada deste tipo de comprometimento.",
+  "learn.inDepthTitle": "Em profundidade",
+  "learn.incidentsSoon": "Em breve, referências a incidentes reais recentes deste tipo.",
+  "learn.incidentsTitle": "Incidentes recentes",
+  "learn.typeLabel": "Tipo de comprometimento",
+  "learn.unclassified": "sem correspondência a um tipo específico",
+  "workbench.learnMore": "Saiba mais",
   // ai
   "ai.accept": "Aceitar",
   "ai.copied": "Narrativa copiada para a área de transferência",

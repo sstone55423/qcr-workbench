@@ -3,13 +3,14 @@ import { useI18n } from '@/lib/I18nContext';
 import { ciToEstimate } from '@/lib/qcr/calibration';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import InfoTip from '@/components/InfoTip';
 import { Target } from 'lucide-react';
 
 // Three number inputs (min / most likely / max) for one FAIR factor —
 // the React equivalent of v0's edit_estimate helper — plus a calibrated-
 // estimator entry mode: a 90% confidence interval that fills the three
 // points so the distribution's 5th–95th percentile range matches.
-export default function EstimateEditor({ labelKey, estimate, onChange }) {
+export default function EstimateEditor({ labelKey, helpKey, estimate, onChange }) {
   const { t } = useI18n();
   const [ciOpen, setCiOpen] = useState(false);
   const [ciLower, setCiLower] = useState('');
@@ -40,7 +41,10 @@ export default function EstimateEditor({ labelKey, estimate, onChange }) {
   return (
     <div className="border border-border rounded-xl p-4">
       <div className="flex items-baseline justify-between mb-3">
-        <h4 className="text-sm font-medium">{t(labelKey)}</h4>
+        <h4 className="text-sm font-medium flex items-center gap-1.5">
+          {t(labelKey)}
+          {helpKey && <InfoTip text={t(helpKey)} className="self-center" />}
+        </h4>
         {estimate.unit && <span className="text-xs text-muted-foreground">{estimate.unit}</span>}
       </div>
       <div className="grid grid-cols-3 gap-3">
@@ -74,13 +78,16 @@ export default function EstimateEditor({ labelKey, estimate, onChange }) {
         />
       </div>
       {!ciOpen ? (
-        <button
-          type="button"
-          onClick={() => setCiOpen(true)}
-          className="mt-3 inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
-        >
-          <Target className="w-3.5 h-3.5" /> {t('assumptions.ciToggle')}
-        </button>
+        <div className="mt-3 flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => setCiOpen(true)}
+            className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+          >
+            <Target className="w-3.5 h-3.5" /> {t('assumptions.ciToggle')}
+          </button>
+          <InfoTip text={t('assumptions.ciTooltip')} />
+        </div>
       ) : (
         <div className="mt-3 border-t border-border pt-3 space-y-2">
           <p className="text-xs text-muted-foreground">{t('assumptions.ciHint')}</p>

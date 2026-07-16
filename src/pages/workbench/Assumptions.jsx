@@ -19,6 +19,14 @@ const FACTOR_LABELS = {
   secondary_loss_probability: 'fair.factorSlp',
 };
 
+const FACTOR_HELP = {
+  threat_event_frequency: 'fair.factorTefHelp',
+  vulnerability: 'fair.factorVulnerabilityHelp',
+  primary_loss: 'fair.factorPrimaryLossHelp',
+  secondary_loss: 'fair.factorSecondaryLossHelp',
+  secondary_loss_probability: 'fair.factorSlpHelp',
+};
+
 // Step 3 — assumptions: edit the five three-point estimates (invalidates the
 // persisted simulation, like v0 page 03) and maintain the scoping-assumption
 // text list.
@@ -84,6 +92,7 @@ export default function Assumptions() {
           <EstimateEditor
             key={factor}
             labelKey={FACTOR_LABELS[factor]}
+            helpKey={FACTOR_HELP[factor]}
             estimate={fair[factor]}
             onChange={(next) => setFair((f) => ({ ...f, [factor]: next }))}
           />

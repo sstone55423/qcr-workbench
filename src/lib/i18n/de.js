@@ -1,5 +1,20 @@
 // de — keys marked in pending-translation.json still carry English fills.
 export default {
+  // learn-more & inline tooltips
+  "assumptions.ciTooltip": "Ein 90-%-Konfidenzintervall ist ein Bereich, in dem der wahre Wert mit 90 % Wahrscheinlichkeit liegt (die Spanne vom 5. bis 95. Perzentil). Das Tool wandelt ihn für Sie in die Schätzung aus Minimum / wahrscheinlichstem Wert / Maximum um.",
+  "fair.factorTefHelp": "Wie oft ein Bedrohungsakteur pro Jahr voraussichtlich versucht, gegen dieses Asset vorzugehen — die Häufigkeit der Versuche, unabhängig davon, ob sie erfolgreich sind.",
+  "fair.factorVulnerabilityHelp": "Die Wahrscheinlichkeit, dass ein Bedrohungsversuch gelingt — dass die Fähigkeit des Angreifers Ihre Schutzmaßnahmen übersteigt.",
+  "fair.factorPrimaryLossHelp": "Direkter Verlust durch das Ereignis selbst — Reaktion, Ersatz, entgangene Produktivität und weitere Erstschadenkosten.",
+  "fair.factorSecondaryLossHelp": "Verluste durch die Reaktionen Dritter auf das Ereignis — Bußgelder, Rechtsansprüche, Benachrichtigungen und Reputationskosten.",
+  "fair.factorSlpHelp": "Wie wahrscheinlich ein primäres Ereignis Sekundärverluste auslöst — der Anteil der Ereignisse, die eine Reaktion von Beteiligten hervorrufen.",
+  "learn.classifiedFrom": "Automatisch anhand des Szenarionamens erkannt. Benennen Sie das Szenario mit einem klareren Begriff um, um eine bessere Zuordnung zu erhalten.",
+  "learn.comingSoon": "Eine ausführlichere Analyse dieses Kompromittierungstyps folgt in Kürze.",
+  "learn.inDepthTitle": "Im Detail",
+  "learn.incidentsSoon": "Verweise auf aktuelle reale Vorfälle dieses Typs folgen in Kürze.",
+  "learn.incidentsTitle": "Aktuelle Vorfälle",
+  "learn.typeLabel": "Kompromittierungstyp",
+  "learn.unclassified": "keinem bestimmten Typ zugeordnet",
+  "workbench.learnMore": "Mehr erfahren",
   // ai
   "ai.accept": "Übernehmen",
   "ai.copied": "Narrativ in die Zwischenablage kopiert",

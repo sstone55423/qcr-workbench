@@ -1,5 +1,20 @@
 // fr — keys marked in pending-translation.json still carry English fills.
 export default {
+  // learn-more & inline tooltips
+  "assumptions.ciTooltip": "Un intervalle de confiance à 90 % est une plage dans laquelle vous êtes sûr à 90 % que se trouve la valeur réelle (l’étendue du 5e au 95e centile). L’outil le convertit en estimation minimum / plus probable / maximum.",
+  "fair.factorTefHelp": "À quelle fréquence un acteur malveillant est censé tenter d’agir contre cet actif en un an — le taux de tentatives, avant de savoir si elles réussissent.",
+  "fair.factorVulnerabilityHelp": "La probabilité qu’une tentative aboutisse — que la capacité de l’attaquant dépasse vos contrôles de résistance.",
+  "fair.factorPrimaryLossHelp": "Perte directe due à l’événement lui-même — réponse, remplacement, perte de productivité et autres coûts de première partie.",
+  "fair.factorSecondaryLossHelp": "Pertes dues aux réactions de tiers à l’événement — amendes, actions en justice, notifications et coûts de réputation.",
+  "fair.factorSlpHelp": "La probabilité qu’un événement primaire déclenche des pertes secondaires — la part des événements qui suscitent une réaction des parties prenantes.",
+  "learn.classifiedFrom": "Identifié automatiquement à partir du nom du scénario. Renommez le scénario avec un terme plus clair pour une meilleure correspondance.",
+  "learn.comingSoon": "Une analyse plus approfondie de ce type de compromission arrive bientôt.",
+  "learn.inDepthTitle": "En détail",
+  "learn.incidentsSoon": "Des références à des incidents réels récents de ce type arrivent bientôt.",
+  "learn.incidentsTitle": "Incidents récents",
+  "learn.typeLabel": "Type de compromission",
+  "learn.unclassified": "non associé à un type précis",
+  "workbench.learnMore": "En savoir plus",
   // ai
   "ai.accept": "Accepter",
   "ai.copied": "Synthèse copiée dans le presse-papiers",

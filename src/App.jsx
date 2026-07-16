@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Toaster } from "@/components/ui/toaster"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 // Access is controlled entirely by the local encrypted vault (VaultProvider +
@@ -38,6 +39,7 @@ const AppRoutes = () => {
       <VaultProvider>
         <I18nProvider>
         <ProjectProvider>
+          <TooltipProvider delayDuration={200}>
           <Suspense fallback={<PageLoading />}>
           <Routes>
             <Route element={<AppLayout />}>
@@ -60,6 +62,7 @@ const AppRoutes = () => {
             <Route path="*" element={<PageNotFound />} />
           </Routes>
           </Suspense>
+          </TooltipProvider>
         </ProjectProvider>
         </I18nProvider>
       </VaultProvider>
