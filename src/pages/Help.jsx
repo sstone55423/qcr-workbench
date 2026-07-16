@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Database, Sparkles, Key, ExternalLink, Zap, ShieldCheck, FileText, LifeBuoy } from 'lucide-react';
+import { BookOpen, Database, Sparkles, Key, ExternalLink, Zap, ShieldCheck, FileText, LifeBuoy, GraduationCap } from 'lucide-react';
+import { setTutorialState } from '@/lib/tutorial';
+import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Copyright from '@/components/Copyright';
@@ -61,6 +63,17 @@ export default function Help() {
       <p className="text-sm text-muted-foreground mb-8">{t('help.subtitle')}</p>
 
       <div className="space-y-6">
+        <div className="border border-primary/30 bg-primary/5 rounded-xl p-5">
+          <div className="flex items-center gap-2 mb-1.5">
+            <GraduationCap className="w-4 h-4 text-primary" />
+            <h2 className="text-sm font-medium">{t('tut.helpTitle')}</h2>
+          </div>
+          <p className="text-sm text-muted-foreground mb-3">{t('tut.helpDesc')}</p>
+          <Button size="sm" onClick={() => setTutorialState({ active: true, step: 0 })} className="gap-2">
+            <GraduationCap className="w-4 h-4" /> {t('tut.start')}
+          </Button>
+        </div>
+
         {sections.map((s, i) => (
           <div key={i} className="border border-border rounded-xl p-5">
             <div className="flex items-center gap-2 mb-3">

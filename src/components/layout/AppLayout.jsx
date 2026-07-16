@@ -4,6 +4,7 @@ import Sidebar from '@/components/layout/Sidebar';
 import WelcomeNotice from '@/components/WelcomeNotice';
 import UnloadGuard from '@/components/UnloadGuard';
 import AutoLock from '@/components/AutoLock';
+import TutorialGuide from '@/components/tutorial/TutorialGuide';
 
 export default function AppLayout() {
   return (
@@ -15,6 +16,7 @@ export default function AppLayout() {
       <WelcomeNotice />
       <UnloadGuard />
       <AutoLock />
+      <TutorialGuide />
     </div>
   );
 }
