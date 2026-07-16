@@ -81,6 +81,8 @@ export default {
   "auditMsg.scenarioDeleted": "Deleted scenario \"{name}\"",
   "auditMsg.scenarioUpdated": "Updated scenario \"{name}\"",
   "auditMsg.simulationRun": "Ran Monte Carlo simulation for \"{name}\" ({iterations} iterations, seed {seed})",
+  "auditMsg.toleranceCleared": "Cleared the project risk tolerance",
+  "auditMsg.toleranceSet": "Set risk tolerance: {probability} chance of exceeding {threshold} per year",
   "auditMsg.treatmentAdded": "Added treatment \"{treatment}\" to \"{scenario}\"",
   "auditMsg.treatmentDeleted": "Deleted treatment \"{treatment}\" from \"{scenario}\"",
   "auditMsg.treatmentSuggested": "AI-suggested treatment \"{treatment}\" (by {label}) opened for review on \"{scenario}\"",
@@ -236,6 +238,7 @@ export default {
   // nav
   "nav.auditLog": "Audit Log",
   "nav.help": "Help",
+  "nav.portfolio": "Portfolio",
   "nav.scenarios": "Scenarios",
   "nav.settings": "Settings",
 
@@ -268,6 +271,23 @@ export default {
   "od.webllmNote": "One-time download, then it works offline. After setup, choose Built-in AI (on-device) as the active provider above.",
   "od.webllmTitle": "Built-in AI (downloads a small model)",
   "od.webllmUnsupported": "Needs WebGPU — use Chrome or Edge on a device with a modern graphics chip.",
+
+  // portfolio
+  "portfolio.aleChartSubtitle": "Deterministic annualized loss expectancy per scenario — the top bar is the portfolio's biggest risk",
+  "portfolio.aleChartTitle": "Scenarios ranked by ALE",
+  "portfolio.empty": "Nothing to aggregate yet. Add scenarios (or load the samples) and the portfolio view builds itself.",
+  "portfolio.exceedanceSubtitle": "Probability that the combined annual loss across all scenarios exceeds a threshold",
+  "portfolio.exceedanceTitle": "Portfolio loss exceedance",
+  "portfolio.goScenarios": "Go to scenarios",
+  "portfolio.independenceNote": "Modeling assumption: scenario losses are independent (no common-cause events across scenarios). Results are recomputed on demand from the current scenarios and never stored.",
+  "portfolio.scenarioCount": "Scenarios",
+  "portfolio.shareOfTotal": "{share} of total",
+  "portfolio.simSubtitle": "Each scenario is simulated with a stable per-scenario seed and the annual losses are summed year by year.",
+  "portfolio.simTitle": "Portfolio simulation",
+  "portfolio.subtitle": "Aggregate exposure across all scenarios in “{project}”",
+  "portfolio.title": "Portfolio",
+  "portfolio.topRisk": "Top risk",
+  "portfolio.totalAle": "Total deterministic ALE",
 
   // qb
   "qb.backupNow": "Back up now",
@@ -464,6 +484,11 @@ export default {
   "scoping.riskStatementText": "A {threat} affects {asset}, causing {effect}.",
   "scoping.threat": "Threat actor",
 
+  // sensitivity
+  "sensitivity.baselineLabel": "Baseline ALE: {value}",
+  "sensitivity.subtitle": "ALE swing when each factor moves from its minimum to its maximum with the others held at their means — the widest bar is the assumption doing the most work",
+  "sensitivity.title": "Sensitivity (tornado)",
+
   // settings
   "settings.appearance": "Appearance",
   "settings.autoLock": "Auto-lock",
@@ -523,6 +548,20 @@ export default {
   "stepper.simulation": "Simulation",
   "stepper.stepOf": "Step {n} of {total}",
   "stepper.treatments": "Treatments",
+
+  // tolerance
+  "tolerance.clear": "Clear",
+  "tolerance.cleared": "Risk tolerance cleared",
+  "tolerance.desc": "State the appetite: the acceptable chance, in any given year, of losing more than a threshold amount. Simulated results are checked against it.",
+  "tolerance.invalid": "Enter a threshold above 0 and a probability between 0 and 100.",
+  "tolerance.notSet": "No risk tolerance defined for this project yet.",
+  "tolerance.probability": "Acceptable chance of exceeding it (%/year)",
+  "tolerance.save": "Save tolerance",
+  "tolerance.saved": "Risk tolerance saved",
+  "tolerance.statusExceeds": "Outside appetite: estimated {actual} chance of annual loss above {threshold} (appetite: {appetite}).",
+  "tolerance.statusWithin": "Within appetite: estimated {actual} chance of annual loss above {threshold} (appetite: {appetite}).",
+  "tolerance.threshold": "Annual loss threshold (USD)",
+  "tolerance.title": "Risk tolerance",
 
   // treatments
   "treatments.annualCost": "Annual cost",
@@ -592,6 +631,8 @@ export default {
   "xr.rowP99": "99th percentile",
   "xr.rowP99Note": "1% of simulated years are higher",
   "xr.tailBody": "The 95th-percentile loss is **{multiple}× the ALE**, reflecting uncertainty in event frequency and loss magnitude, the possibility of multiple events in one year, and infrequent high-cost outcomes. The model also estimates a **{zero} probability of no loss event** in a given year. This combination of many low- or no-loss years and a small number of severe years creates a right-skewed distribution.",
+  "xr.toleranceExceeds": "Against the project's risk tolerance (at most a {appetite} chance of exceeding {threshold} in a year), the simulated exposure is **outside appetite**: the model estimates a {actual} probability of exceeding {threshold}.",
+  "xr.toleranceWithin": "Against the project's risk tolerance (at most a {appetite} chance of exceeding {threshold} in a year), the simulated exposure is **within appetite**: the model estimates a {actual} probability of exceeding {threshold}.",
   "xr.treatmentTitle": "Proposed treatment",
   "xr.treatmentBody": "Treatment reduces expected annual loss by **{reduction}**; net annual benefit is **{net}**.",
   "xr.assumptionsTitle": "Key assumptions",

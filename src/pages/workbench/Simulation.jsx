@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { useI18n } from '@/lib/I18nContext';
+import { useProject } from '@/lib/ProjectContext';
 import {
   simulateAnnualLoss, exceedanceCurve, histogramBins,
   ITERATION_CHOICES, DEFAULT_ITERATIONS, DEFAULT_SEED,
@@ -8,6 +9,7 @@ import {
 import { saveSimulation } from '@/lib/qcr/scenarioStore';
 import { formatCurrency, formatPercent } from '@/lib/qcr/format';
 import MetricCardRow from '@/components/workbench/MetricCardRow';
+import ToleranceStatus from '@/components/workbench/ToleranceStatus';
 import ChartCard from '@/components/charts/ChartCard';
 import LossHistogram from '@/components/charts/LossHistogram';
 import ExceedanceCurveChart from '@/components/charts/ExceedanceCurve';
@@ -24,6 +26,8 @@ export default function Simulation() {
   const { scenario, reload } = /** @type {{scenario: any, reload: () => void}} */ (useOutletContext());
   const { t } = useI18n();
   const { toast } = useToast();
+  const { currentProject } = useProject();
+  const tolerance = currentProject?.tolerance || null;
   const persisted = scenario.simulation;
   const [iterations, setIterations] = useState(persisted?.params?.iterations || DEFAULT_ITERATIONS);
   const [seed, setSeed] = useState(persisted?.params?.seed ?? DEFAULT_SEED);
@@ -101,9 +105,10 @@ export default function Simulation() {
               <LossHistogram histogram={persisted.histogram} />
             </ChartCard>
             <ChartCard title={t('simulation.exceedanceTitle')} subtitle={t('simulation.exceedanceSubtitle')}>
-              <ExceedanceCurveChart exceedance={persisted.exceedance} />
+              <ExceedanceCurveChart exceedance={persisted.exceedance} tolerance={tolerance} />
             </ChartCard>
           </div>
+          <ToleranceStatus exceedance={persisted.exceedance} tolerance={tolerance} />
           <p className="text-xs text-muted-foreground">
             {t('simulation.runStamp', {
               iterations: persisted.params.iterations.toLocaleString(),

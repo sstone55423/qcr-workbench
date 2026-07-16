@@ -81,6 +81,8 @@ export default {
   "auditMsg.scenarioDeleted": "\"{name}\" senaryosu silindi",
   "auditMsg.scenarioUpdated": "\"{name}\" senaryosu güncellendi",
   "auditMsg.simulationRun": "\"{name}\" için Monte Carlo simülasyonu çalıştırıldı ({iterations} yineleme, tohum {seed})",
+  "auditMsg.toleranceCleared": "Projenin risk toleransı temizlendi",
+  "auditMsg.toleranceSet": "Risk toleransı belirlendi: yıl başına {threshold} eşiğini aşma olasılığı {probability}",
   "auditMsg.treatmentAdded": "\"{scenario}\" senaryosuna \"{treatment}\" önlemi eklendi",
   "auditMsg.treatmentDeleted": "\"{scenario}\" senaryosundan \"{treatment}\" önlemi silindi",
   "auditMsg.treatmentSuggested": "Yapay zekânın önerdiği \"{treatment}\" önlemi ({label} tarafından) \"{scenario}\" üzerinde incelemeye açıldı",
@@ -236,6 +238,7 @@ export default {
   // nav
   "nav.auditLog": "Denetim Günlüğü",
   "nav.help": "Yardım",
+  "nav.portfolio": "Portföy",
   "nav.scenarios": "Senaryolar",
   "nav.settings": "Ayarlar",
 
@@ -268,6 +271,23 @@ export default {
   "od.webllmNote": "Tek seferlik indirme, sonra çevrimdışı çalışır. Kurduktan sonra yukarıdan etkin sağlayıcı olarak Built-in AI (on-device) seçin.",
   "od.webllmTitle": "Yerleşik yapay zeka (küçük bir model indirir)",
   "od.webllmUnsupported": "WebGPU gerekir — modern bir grafik yongasına sahip bir cihazda Chrome veya Edge kullanın.",
+
+  // portfolio
+  "portfolio.aleChartSubtitle": "Senaryo başına deterministik yıllıklandırılmış kayıp beklentisi — en üstteki çubuk portföyün en büyük riskidir",
+  "portfolio.aleChartTitle": "ALE'ye göre sıralanmış senaryolar",
+  "portfolio.empty": "Henüz toplulaştırılacak bir şey yok. Senaryolar ekleyin (veya örnekleri yükleyin), portföy görünümü kendiliğinden oluşur.",
+  "portfolio.exceedanceSubtitle": "Tüm senaryoların birleşik yıllık kaybının bir eşiği aşma olasılığı",
+  "portfolio.exceedanceTitle": "Portföy kayıp aşımı",
+  "portfolio.goScenarios": "Senaryolara git",
+  "portfolio.independenceNote": "Modelleme varsayımı: senaryo kayıpları bağımsızdır (senaryolar arasında ortak nedenli olay yoktur). Sonuçlar mevcut senaryolardan istek üzerine yeniden hesaplanır ve asla saklanmaz.",
+  "portfolio.scenarioCount": "Senaryolar",
+  "portfolio.shareOfTotal": "toplamın {share} kadarı",
+  "portfolio.simSubtitle": "Her senaryo, senaryoya özgü sabit bir tohumla simüle edilir ve yıllık kayıplar yıl yıl toplanır.",
+  "portfolio.simTitle": "Portföy simülasyonu",
+  "portfolio.subtitle": "“{project}” içindeki tüm senaryoların toplam maruziyeti",
+  "portfolio.title": "Portföy",
+  "portfolio.topRisk": "En büyük risk",
+  "portfolio.totalAle": "Toplam deterministik ALE",
 
   // qb
   "qb.backupNow": "Şimdi yedekle",
@@ -464,6 +484,11 @@ export default {
   "scoping.riskStatementText": "Bir {threat}, {asset} varlığını etkileyerek {effect} sonucuna yol açar.",
   "scoping.threat": "Tehdit aktörü",
 
+  // sensitivity
+  "sensitivity.baselineLabel": "Temel ALE: {value}",
+  "sensitivity.subtitle": "Diğerleri ortalamalarında tutulurken her bir faktör en küçük değerinden en büyük değerine hareket ettiğinde ALE'deki salınım — en geniş çubuk, en çok iş yapan varsayımdır",
+  "sensitivity.title": "Duyarlılık (tornado)",
+
   // settings
   "settings.appearance": "Görünüm",
   "settings.autoLock": "Otomatik kilit",
@@ -523,6 +548,20 @@ export default {
   "stepper.simulation": "Simülasyon",
   "stepper.stepOf": "Adım {n} / {total}",
   "stepper.treatments": "Önlemler",
+
+  // tolerance
+  "tolerance.clear": "Temizle",
+  "tolerance.cleared": "Risk toleransı temizlendi",
+  "tolerance.desc": "Toleransı belirtin: herhangi bir yılda eşik tutarından fazlasını kaybetme olasılığının kabul edilebilir düzeyi. Simülasyon sonuçları buna göre denetlenir.",
+  "tolerance.invalid": "0'dan büyük bir eşik ve 0 ile 100 arasında bir olasılık girin.",
+  "tolerance.notSet": "Bu proje için henüz risk toleransı tanımlanmadı.",
+  "tolerance.probability": "Kabul edilebilir aşılma olasılığı (%/yıl)",
+  "tolerance.save": "Toleransı kaydet",
+  "tolerance.saved": "Risk toleransı kaydedildi",
+  "tolerance.statusExceeds": "Tolerans dışında: yıllık kaybın {threshold} üzerinde olma olasılığı {actual} olarak tahmin ediliyor (tolerans: {appetite}).",
+  "tolerance.statusWithin": "Tolerans dahilinde: yıllık kaybın {threshold} üzerinde olma olasılığı {actual} olarak tahmin ediliyor (tolerans: {appetite}).",
+  "tolerance.threshold": "Yıllık kayıp eşiği (USD)",
+  "tolerance.title": "Risk toleransı",
 
   // treatments
   "treatments.annualCost": "Yıllık maliyet",
@@ -592,6 +631,8 @@ export default {
   "xr.rowP99": "99. yüzdelik",
   "xr.rowP99Note": "Simüle edilen yılların %1'i daha yüksektir",
   "xr.tailBody": "95. yüzdelik kayıp, **ALE'nin {multiple} katıdır**; bu, olay sıklığı ve kayıp büyüklüğündeki belirsizliği, bir yılda birden fazla olay yaşanma olasılığını ve seyrek görülen yüksek maliyetli sonuçları yansıtır. Model ayrıca belirli bir yılda **{zero} olasılıkla hiç kayıp olayı yaşanmayacağını** tahmin etmektedir. Çok sayıda düşük kayıplı ya da kayıpsız yıl ile az sayıda ağır yıldan oluşan bu bileşim, sağa çarpık bir dağılım oluşturur.",
+  "xr.toleranceExceeds": "Projenin risk toleransına göre (bir yılda {threshold} eşiğinin aşılması için en fazla {appetite} olasılık), simüle edilen maruziyet **tolerans dışındadır**: model, {threshold} eşiğinin aşılma olasılığını {actual} olarak tahmin etmektedir.",
+  "xr.toleranceWithin": "Projenin risk toleransına göre (bir yılda {threshold} eşiğinin aşılması için en fazla {appetite} olasılık), simüle edilen maruziyet **tolerans dahilindedir**: model, {threshold} eşiğinin aşılma olasılığını {actual} olarak tahmin etmektedir.",
   "xr.treatmentTitle": "Önerilen önlem",
   "xr.treatmentBody": "Önlem, beklenen yıllık kaybı **{reduction}** kadar azaltır; net yıllık fayda **{net}** düzeyindedir.",
   "xr.assumptionsTitle": "Temel varsayımlar",

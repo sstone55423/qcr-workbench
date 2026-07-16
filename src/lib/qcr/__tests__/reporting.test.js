@@ -59,6 +59,20 @@ describe('executiveSummary', () => {
     expect(report).toContain('Drafted by Claude (claude-x) on 2026-07-13');
   });
 
+  it('states the risk-tolerance verdict when one is supplied with a simulation', () => {
+    const within = executiveSummary(scenario, expected, simulation, null, null, undefined,
+      { threshold: 400000, probability: 0.1, actual: 0.05, within: true });
+    expect(within).toContain('**within appetite**');
+    expect(within).toContain('$400,000');
+    const outside = executiveSummary(scenario, expected, simulation, null, null, undefined,
+      { threshold: 400000, probability: 0.1, actual: 0.2, within: false });
+    expect(outside).toContain('**outside appetite**');
+    // No tolerance line without a simulation section.
+    const noSim = executiveSummary(scenario, expected, null, null, null, undefined,
+      { threshold: 400000, probability: 0.1, actual: 0.2, within: false });
+    expect(noSim).not.toContain('appetite');
+  });
+
   it('renders through a supplied translator', () => {
     const fakeT = (key) => `«${key}»`;
     const report = executiveSummary(scenario, expected, simulation, null, null, fakeT);

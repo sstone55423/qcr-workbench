@@ -15,6 +15,7 @@ import AppLayout from '@/components/layout/AppLayout';
 // multi-megabyte bundle.
 const Home = lazy(() => import('@/pages/Home'));
 const Scenarios = lazy(() => import('@/pages/Scenarios'));
+const Portfolio = lazy(() => import('@/pages/Portfolio'));
 const WorkbenchLayout = lazy(() => import('@/components/workbench/WorkbenchLayout'));
 const Scoping = lazy(() => import('@/pages/workbench/Scoping'));
 const FairDecomposition = lazy(() => import('@/pages/workbench/FairDecomposition'));
@@ -42,6 +43,7 @@ const AppRoutes = () => {
             <Route element={<AppLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="/scenarios" element={<Scenarios />} />
+              <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/scenarios/:scenarioId" element={<WorkbenchLayout />}>
                 <Route path="scoping" element={<Scoping />} />
                 <Route path="fair" element={<FairDecomposition />} />

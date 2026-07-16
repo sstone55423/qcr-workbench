@@ -2,8 +2,11 @@ import React from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { useI18n } from '@/lib/I18nContext';
 import { expectedLoss } from '@/lib/qcr/fair';
+import { sensitivityRows } from '@/lib/qcr/sensitivity';
 import { formatCurrency, formatPercent } from '@/lib/qcr/format';
 import MetricCardRow from '@/components/workbench/MetricCardRow';
+import ChartCard from '@/components/charts/ChartCard';
+import TornadoChart from '@/components/charts/TornadoChart';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -13,6 +16,7 @@ export default function ExpectedLoss() {
   const { scenario } = /** @type {{scenario: any, reload: () => void}} */ (useOutletContext());
   const { t } = useI18n();
   const e = expectedLoss(scenario.fair);
+  const sensitivity = sensitivityRows(scenario.fair);
 
   const trace = [
     `LEF  = TEF × Vulnerability = ${e.tef.toFixed(2)} × ${e.vulnerability.toFixed(2)} = ${e.lef.toFixed(2)}`,
@@ -37,6 +41,13 @@ export default function ExpectedLoss() {
         <h3 className="text-sm font-medium mb-3">{t('expectedLoss.traceTitle')}</h3>
         <pre className="text-xs bg-muted rounded-md px-4 py-3 overflow-x-auto leading-relaxed">{trace}</pre>
       </div>
+
+      <ChartCard title={t('sensitivity.title')} subtitle={t('sensitivity.subtitle')}>
+        <TornadoChart baseline={sensitivity.baseline} rows={sensitivity.rows} />
+        <p className="text-xs text-muted-foreground mt-2">
+          {t('sensitivity.baselineLabel', { value: formatCurrency(sensitivity.baseline) })}
+        </p>
+      </ChartCard>
 
       <div className="flex justify-end">
         <Button asChild className="gap-2">

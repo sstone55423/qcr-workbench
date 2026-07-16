@@ -81,6 +81,8 @@ export default {
   "auditMsg.scenarioDeleted": "Cenário \"{name}\" excluído",
   "auditMsg.scenarioUpdated": "Cenário \"{name}\" atualizado",
   "auditMsg.simulationRun": "Simulação Monte Carlo executada para \"{name}\" ({iterations} iterações, semente {seed})",
+  "auditMsg.toleranceCleared": "Tolerância a risco do projeto limpa",
+  "auditMsg.toleranceSet": "Tolerância a risco definida: chance de {probability} de exceder {threshold} por ano",
   "auditMsg.treatmentAdded": "Tratamento \"{treatment}\" adicionado a \"{scenario}\"",
   "auditMsg.treatmentDeleted": "Tratamento \"{treatment}\" excluído de \"{scenario}\"",
   "auditMsg.treatmentSuggested": "Tratamento sugerido por IA \"{treatment}\" (por {label}) aberto para revisão em \"{scenario}\"",
@@ -236,6 +238,7 @@ export default {
   // nav
   "nav.auditLog": "Registro de auditoria",
   "nav.help": "Ajuda",
+  "nav.portfolio": "Portfólio",
   "nav.scenarios": "Cenários",
   "nav.settings": "Configurações",
 
@@ -268,6 +271,23 @@ export default {
   "od.webllmNote": "Download único; depois funciona offline. Após configurar, escolha Built-in AI (on-device) como provedor ativo acima.",
   "od.webllmTitle": "IA integrada (baixa um modelo pequeno)",
   "od.webllmUnsupported": "Requer WebGPU — use Chrome ou Edge em um dispositivo com placa gráfica moderna.",
+
+  // portfolio
+  "portfolio.aleChartSubtitle": "Expectativa de perda anualizada determinística por cenário — a barra do topo é o maior risco do portfólio",
+  "portfolio.aleChartTitle": "Cenários classificados por ALE",
+  "portfolio.empty": "Nada para agregar ainda. Adicione cenários (ou carregue os exemplos) e a visão de portfólio se monta sozinha.",
+  "portfolio.exceedanceSubtitle": "Probabilidade de a perda anual combinada de todos os cenários exceder um limiar",
+  "portfolio.exceedanceTitle": "Excedência de perdas do portfólio",
+  "portfolio.goScenarios": "Ir para os cenários",
+  "portfolio.independenceNote": "Premissa de modelagem: as perdas dos cenários são independentes (sem eventos de causa comum entre cenários). Os resultados são recalculados sob demanda a partir dos cenários atuais e nunca são armazenados.",
+  "portfolio.scenarioCount": "Cenários",
+  "portfolio.shareOfTotal": "{share} do total",
+  "portfolio.simSubtitle": "Cada cenário é simulado com uma semente estável por cenário e as perdas anuais são somadas ano a ano.",
+  "portfolio.simTitle": "Simulação do portfólio",
+  "portfolio.subtitle": "Exposição agregada de todos os cenários em “{project}”",
+  "portfolio.title": "Portfólio",
+  "portfolio.topRisk": "Maior risco",
+  "portfolio.totalAle": "ALE determinística total",
 
   // qb
   "qb.backupNow": "Fazer backup agora",
@@ -464,6 +484,11 @@ export default {
   "scoping.riskStatementText": "Um(a) {threat} afeta {asset}, causando {effect}.",
   "scoping.threat": "Agente de ameaça",
 
+  // sensitivity
+  "sensitivity.baselineLabel": "ALE de referência: {value}",
+  "sensitivity.subtitle": "Variação da ALE quando cada fator vai do seu mínimo ao seu máximo com os demais mantidos em suas médias — a barra mais larga é a premissa que mais influencia o resultado",
+  "sensitivity.title": "Sensibilidade (tornado)",
+
   // settings
   "settings.appearance": "Aparência",
   "settings.autoLock": "Bloqueio automático",
@@ -523,6 +548,20 @@ export default {
   "stepper.simulation": "Simulação",
   "stepper.stepOf": "Etapa {n} de {total}",
   "stepper.treatments": "Tratamentos",
+
+  // tolerance
+  "tolerance.clear": "Limpar",
+  "tolerance.cleared": "Tolerância a risco limpa",
+  "tolerance.desc": "Declare o apetite: a chance aceitável, em um dado ano, de perder mais do que um valor-limite. Os resultados simulados são verificados em relação a ela.",
+  "tolerance.invalid": "Insira um limiar acima de 0 e uma probabilidade entre 0 e 100.",
+  "tolerance.notSet": "Nenhuma tolerância a risco definida para este projeto ainda.",
+  "tolerance.probability": "Chance aceitável de excedê-lo (%/ano)",
+  "tolerance.save": "Salvar tolerância",
+  "tolerance.saved": "Tolerância a risco salva",
+  "tolerance.statusExceeds": "Fora do apetite: chance estimada de {actual} de a perda anual ficar acima de {threshold} (apetite: {appetite}).",
+  "tolerance.statusWithin": "Dentro do apetite: chance estimada de {actual} de a perda anual ficar acima de {threshold} (apetite: {appetite}).",
+  "tolerance.threshold": "Limiar de perda anual (USD)",
+  "tolerance.title": "Tolerância a risco",
 
   // treatments
   "treatments.annualCost": "Custo anual",
@@ -592,6 +631,8 @@ export default {
   "xr.rowP99": "Percentil 99",
   "xr.rowP99Note": "1% dos anos simulados são maiores",
   "xr.tailBody": "A perda no percentil 95 é **{multiple}× a ALE**, refletindo a incerteza na frequência de eventos e na magnitude das perdas, a possibilidade de múltiplos eventos em um mesmo ano e desfechos infrequentes de alto custo. O modelo também estima uma **probabilidade de {zero} de nenhum evento de perda** em um determinado ano. Essa combinação de muitos anos com perda baixa ou nula e um pequeno número de anos severos cria uma distribuição assimétrica à direita.",
+  "xr.toleranceExceeds": "Em relação à tolerância a risco do projeto (no máximo uma chance de {appetite} de exceder {threshold} em um ano), a exposição simulada está **fora do apetite**: o modelo estima uma probabilidade de {actual} de exceder {threshold}.",
+  "xr.toleranceWithin": "Em relação à tolerância a risco do projeto (no máximo uma chance de {appetite} de exceder {threshold} em um ano), a exposição simulada está **dentro do apetite**: o modelo estima uma probabilidade de {actual} de exceder {threshold}.",
   "xr.treatmentTitle": "Tratamento proposto",
   "xr.treatmentBody": "O tratamento reduz a perda anual esperada em **{reduction}**; o benefício anual líquido é **{net}**.",
   "xr.assumptionsTitle": "Premissas principais",

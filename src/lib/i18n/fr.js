@@ -81,6 +81,8 @@ export default {
   "auditMsg.scenarioDeleted": "Scénario \"{name}\" supprimé",
   "auditMsg.scenarioUpdated": "Scénario \"{name}\" mis à jour",
   "auditMsg.simulationRun": "Simulation Monte Carlo exécutée pour \"{name}\" ({iterations} itérations, graine {seed})",
+  "auditMsg.toleranceCleared": "Tolérance au risque du projet effacée",
+  "auditMsg.toleranceSet": "Tolérance au risque définie : probabilité de {probability} de dépasser {threshold} par an",
   "auditMsg.treatmentAdded": "Traitement \"{treatment}\" ajouté à \"{scenario}\"",
   "auditMsg.treatmentDeleted": "Traitement \"{treatment}\" supprimé de \"{scenario}\"",
   "auditMsg.treatmentSuggested": "Traitement suggéré par l'IA \"{treatment}\" (par {label}) ouvert pour revue sur \"{scenario}\"",
@@ -236,6 +238,7 @@ export default {
   // nav
   "nav.auditLog": "Journal d'audit",
   "nav.help": "Aide",
+  "nav.portfolio": "Portefeuille",
   "nav.scenarios": "Scénarios",
   "nav.settings": "Paramètres",
 
@@ -268,6 +271,23 @@ export default {
   "od.webllmNote": "Téléchargement unique, puis fonctionne hors ligne. Après configuration, choisissez Built-in AI (on-device) comme fournisseur actif ci-dessus.",
   "od.webllmTitle": "IA intégrée (télécharge un petit modèle)",
   "od.webllmUnsupported": "Nécessite WebGPU — utilisez Chrome ou Edge sur un appareil doté d'une puce graphique moderne.",
+
+  // portfolio
+  "portfolio.aleChartSubtitle": "Espérance de perte annualisée déterministe par scénario — la barre du haut est le plus grand risque du portefeuille",
+  "portfolio.aleChartTitle": "Scénarios classés par ALE",
+  "portfolio.empty": "Rien à agréger pour l'instant. Ajoutez des scénarios (ou chargez les exemples) et la vue portefeuille se construit d'elle-même.",
+  "portfolio.exceedanceSubtitle": "Probabilité que la perte annuelle combinée de tous les scénarios dépasse un seuil",
+  "portfolio.exceedanceTitle": "Dépassement de perte du portefeuille",
+  "portfolio.goScenarios": "Aller aux scénarios",
+  "portfolio.independenceNote": "Hypothèse de modélisation : les pertes des scénarios sont indépendantes (pas d'événements de cause commune entre scénarios). Les résultats sont recalculés à la demande à partir des scénarios actuels et ne sont jamais stockés.",
+  "portfolio.scenarioCount": "Scénarios",
+  "portfolio.shareOfTotal": "{share} du total",
+  "portfolio.simSubtitle": "Chaque scénario est simulé avec une graine stable propre au scénario et les pertes annuelles sont additionnées année par année.",
+  "portfolio.simTitle": "Simulation du portefeuille",
+  "portfolio.subtitle": "Exposition agrégée de tous les scénarios de « {project} »",
+  "portfolio.title": "Portefeuille",
+  "portfolio.topRisk": "Risque principal",
+  "portfolio.totalAle": "ALE déterministe totale",
 
   // qb
   "qb.backupNow": "Sauvegarder maintenant",
@@ -464,6 +484,11 @@ export default {
   "scoping.riskStatementText": "La menace « {threat} » affecte {asset}, provoquant {effect}.",
   "scoping.threat": "Acteur de la menace",
 
+  // sensitivity
+  "sensitivity.baselineLabel": "ALE de référence : {value}",
+  "sensitivity.subtitle": "Variation de l'ALE lorsque chaque facteur passe de son minimum à son maximum, les autres restant à leur moyenne — la barre la plus large est l'hypothèse qui pèse le plus",
+  "sensitivity.title": "Sensibilité (tornado)",
+
   // settings
   "settings.appearance": "Apparence",
   "settings.autoLock": "Verrouillage automatique",
@@ -523,6 +548,20 @@ export default {
   "stepper.simulation": "Simulation",
   "stepper.stepOf": "Étape {n} sur {total}",
   "stepper.treatments": "Traitements",
+
+  // tolerance
+  "tolerance.clear": "Effacer",
+  "tolerance.cleared": "Tolérance au risque effacée",
+  "tolerance.desc": "Énoncez la tolérance : la probabilité acceptable, au cours d'une année donnée, de perdre plus qu'un montant seuil. Les résultats simulés sont vérifiés par rapport à elle.",
+  "tolerance.invalid": "Saisissez un seuil supérieur à 0 et une probabilité entre 0 et 100.",
+  "tolerance.notSet": "Aucune tolérance au risque n'est encore définie pour ce projet.",
+  "tolerance.probability": "Probabilité acceptable de le dépasser (%/an)",
+  "tolerance.save": "Enregistrer la tolérance",
+  "tolerance.saved": "Tolérance au risque enregistrée",
+  "tolerance.statusExceeds": "Hors tolérance : probabilité estimée de {actual} que la perte annuelle dépasse {threshold} (tolérance : {appetite}).",
+  "tolerance.statusWithin": "Dans la tolérance : probabilité estimée de {actual} que la perte annuelle dépasse {threshold} (tolérance : {appetite}).",
+  "tolerance.threshold": "Seuil de perte annuelle (USD)",
+  "tolerance.title": "Tolérance au risque",
 
   // treatments
   "treatments.annualCost": "Coût annuel",
@@ -592,6 +631,8 @@ export default {
   "xr.rowP99": "99e percentile",
   "xr.rowP99Note": "1 % des années simulées sont plus élevées",
   "xr.tailBody": "La perte au 95e percentile représente **{multiple}× l'ALE**, ce qui reflète l'incertitude sur la fréquence des événements et la magnitude des pertes, la possibilité de plusieurs événements dans la même année et des issues coûteuses mais peu fréquentes. Le modèle estime aussi une **probabilité de {zero} qu'aucun événement de perte** ne survienne au cours d'une année donnée. Cette combinaison de nombreuses années sans perte ou à faible perte et d'un petit nombre d'années sévères crée une distribution asymétrique à droite.",
+  "xr.toleranceExceeds": "Au regard de la tolérance au risque du projet (au plus une probabilité de {appetite} de dépasser {threshold} au cours d'une année), l'exposition simulée est **hors tolérance** : le modèle estime une probabilité de {actual} de dépasser {threshold}.",
+  "xr.toleranceWithin": "Au regard de la tolérance au risque du projet (au plus une probabilité de {appetite} de dépasser {threshold} au cours d'une année), l'exposition simulée est **dans la tolérance** : le modèle estime une probabilité de {actual} de dépasser {threshold}.",
   "xr.treatmentTitle": "Traitement proposé",
   "xr.treatmentBody": "Le traitement réduit la perte annuelle attendue de **{reduction}** ; le bénéfice annuel net est de **{net}**.",
   "xr.assumptionsTitle": "Hypothèses clés",

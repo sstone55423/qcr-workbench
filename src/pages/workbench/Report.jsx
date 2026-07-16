@@ -7,6 +7,7 @@ import { useProject } from '@/lib/ProjectContext';
 import useTreatments from '@/hooks/useTreatments';
 import { expectedLoss } from '@/lib/qcr/fair';
 import { compareTreatment } from '@/lib/qcr/treatments';
+import { toleranceStatus } from '@/lib/qcr/tolerance';
 import { executiveSummary } from '@/lib/qcr/reporting';
 import { downloadText } from '@/lib/download';
 import { logAudit } from '@/lib/auditLog';
@@ -37,7 +38,11 @@ export default function Report() {
     : treatmentId === 'best' ? best
     : compared.find((x) => x.treatment.id === treatmentId) || best;
 
-  const markdown = executiveSummary(scenario, expected, simulation, selected?.comparison || null, scenario.ai_narrative, t);
+  const appetite = currentProject?.tolerance || null;
+  const status = toleranceStatus(scenario.simulation?.exceedance, appetite);
+  const tolerance = status ? { ...appetite, actual: status.probability, within: status.within } : null;
+
+  const markdown = executiveSummary(scenario, expected, simulation, selected?.comparison || null, scenario.ai_narrative, t, tolerance);
 
   const handleDownload = () => {
     downloadText(`${scenario.sample_id || scenario.id}-risk-report.md`, markdown, 'text/markdown');

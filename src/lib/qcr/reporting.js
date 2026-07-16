@@ -14,7 +14,10 @@ const pct1 = (value) => (value * 100).toFixed(1) + '%';
 // language; the default keeps pure-function callers and tests in English.
 const enT = (key, vars) => translate('en', key, vars);
 
-export function executiveSummary(scenario, expected, simulation = null, treatment = null, aiNarrative = null, t = enT) {
+// tolerance (optional): { threshold, probability, actual, within } — the
+// project's appetite plus the toleranceStatus() verdict, computed by the
+// caller from the persisted exceedance curve.
+export function executiveSummary(scenario, expected, simulation = null, treatment = null, aiNarrative = null, t = enT, tolerance = null) {
   const c = formatCurrency;
   const lines = [
     `# ${t('xr.title', { name: scenario.name })}`,
@@ -47,6 +50,16 @@ export function executiveSummary(scenario, expected, simulation = null, treatmen
       '',
       t('xr.tailBody', { multiple: tailMultiple.toFixed(1), zero: pct1(simulation.probability_of_zero_loss) }),
     );
+    if (tolerance) {
+      lines.push(
+        '',
+        t(tolerance.within ? 'xr.toleranceWithin' : 'xr.toleranceExceeds', {
+          appetite: pct1(tolerance.probability),
+          threshold: c(tolerance.threshold),
+          actual: pct1(tolerance.actual),
+        }),
+      );
+    }
   }
   if (treatment) {
     lines.push(

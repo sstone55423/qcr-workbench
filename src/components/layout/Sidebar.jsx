@@ -8,7 +8,7 @@ import { LANGUAGES } from '@/lib/i18n';
 import useScenarios from '@/hooks/useScenarios';
 import {
   ShieldAlert, Database, Settings, HelpCircle, Sun, Moon, ChevronDown, Plus,
-  FolderOpen, PanelLeftClose, PanelLeft, Lock, ClipboardList, Languages, Crosshair, FolderKanban
+  FolderOpen, PanelLeftClose, PanelLeft, Lock, ClipboardList, Languages, Crosshair, FolderKanban, ChartPie
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -20,6 +20,7 @@ import ExitButton from '@/components/ExitButton';
 // labelKey resolves through i18n at render time (see t() calls below).
 const navSections = [
   { labelKey: 'nav.scenarios', icon: FolderKanban, path: '/scenarios' },
+  { labelKey: 'nav.portfolio', icon: ChartPie, path: '/portfolio' },
   { labelKey: 'nav.auditLog', icon: ClipboardList, path: '/audit-log' },
   { labelKey: 'nav.settings', icon: Settings, path: '/settings' },
   { labelKey: 'nav.help', icon: HelpCircle, path: '/help' },

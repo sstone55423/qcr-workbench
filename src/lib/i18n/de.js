@@ -81,6 +81,8 @@ export default {
   "auditMsg.scenarioDeleted": "Szenario \"{name}\" gelöscht",
   "auditMsg.scenarioUpdated": "Szenario \"{name}\" aktualisiert",
   "auditMsg.simulationRun": "Monte-Carlo-Simulation für \"{name}\" ausgeführt ({iterations} Iterationen, Seed {seed})",
+  "auditMsg.toleranceCleared": "Risikotoleranz des Projekts gelöscht",
+  "auditMsg.toleranceSet": "Risikotoleranz festgelegt: Wahrscheinlichkeit von {probability}, {threshold} pro Jahr zu überschreiten",
   "auditMsg.treatmentAdded": "Maßnahme \"{treatment}\" zu \"{scenario}\" hinzugefügt",
   "auditMsg.treatmentDeleted": "Maßnahme \"{treatment}\" aus \"{scenario}\" gelöscht",
   "auditMsg.treatmentSuggested": "KI-vorgeschlagene Maßnahme \"{treatment}\" (von {label}) zur Prüfung für \"{scenario}\" geöffnet",
@@ -236,6 +238,7 @@ export default {
   // nav
   "nav.auditLog": "Prüfprotokoll",
   "nav.help": "Hilfe",
+  "nav.portfolio": "Portfolio",
   "nav.scenarios": "Szenarien",
   "nav.settings": "Einstellungen",
 
@@ -268,6 +271,23 @@ export default {
   "od.webllmNote": "Einmaliger Download, danach funktioniert sie offline. Wählen Sie nach der Einrichtung oben Built-in AI (on-device) als aktiven Anbieter.",
   "od.webllmTitle": "Integrierte KI (lädt ein kleines Modell)",
   "od.webllmUnsupported": "Benötigt WebGPU — verwenden Sie Chrome oder Edge auf einem Gerät mit moderner Grafikeinheit.",
+
+  // portfolio
+  "portfolio.aleChartSubtitle": "Deterministische annualisierte Verlusterwartung pro Szenario — der oberste Balken ist das größte Risiko des Portfolios",
+  "portfolio.aleChartTitle": "Szenarien nach ALE geordnet",
+  "portfolio.empty": "Noch nichts zu aggregieren. Fügen Sie Szenarien hinzu (oder laden Sie die Beispiele), und die Portfolio-Ansicht erstellt sich von selbst.",
+  "portfolio.exceedanceSubtitle": "Wahrscheinlichkeit, dass der kombinierte Jahresverlust über alle Szenarien einen Schwellenwert überschreitet",
+  "portfolio.exceedanceTitle": "Portfolio-Verlustüberschreitung",
+  "portfolio.goScenarios": "Zu den Szenarien",
+  "portfolio.independenceNote": "Modellannahme: Szenario-Verluste sind unabhängig (keine Ereignisse mit gemeinsamer Ursache über Szenarien hinweg). Die Ergebnisse werden bei Bedarf aus den aktuellen Szenarien neu berechnet und niemals gespeichert.",
+  "portfolio.scenarioCount": "Szenarien",
+  "portfolio.shareOfTotal": "{share} der Gesamtsumme",
+  "portfolio.simSubtitle": "Jedes Szenario wird mit einem stabilen szenariospezifischen Seed simuliert, und die Jahresverluste werden Jahr für Jahr summiert.",
+  "portfolio.simTitle": "Portfolio-Simulation",
+  "portfolio.subtitle": "Aggregierte Risikoexponierung über alle Szenarien in „{project}“",
+  "portfolio.title": "Portfolio",
+  "portfolio.topRisk": "Größtes Risiko",
+  "portfolio.totalAle": "Deterministische Gesamt-ALE",
 
   // qb
   "qb.backupNow": "Jetzt sichern",
@@ -464,6 +484,11 @@ export default {
   "scoping.riskStatementText": "Ein(e) {threat} beeinträchtigt {asset} und verursacht {effect}.",
   "scoping.threat": "Bedrohungsakteur",
 
+  // sensitivity
+  "sensitivity.baselineLabel": "Basis-ALE: {value}",
+  "sensitivity.subtitle": "ALE-Spannweite, wenn jeder Faktor von seinem Minimum zu seinem Maximum bewegt wird, während die anderen auf ihren Mittelwerten gehalten werden — der breiteste Balken ist die Annahme mit dem größten Einfluss",
+  "sensitivity.title": "Sensitivität (Tornado)",
+
   // settings
   "settings.appearance": "Darstellung",
   "settings.autoLock": "Automatische Sperre",
@@ -523,6 +548,20 @@ export default {
   "stepper.simulation": "Simulation",
   "stepper.stepOf": "Schritt {n} von {total}",
   "stepper.treatments": "Maßnahmen",
+
+  // tolerance
+  "tolerance.clear": "Löschen",
+  "tolerance.cleared": "Risikotoleranz gelöscht",
+  "tolerance.desc": "Legen Sie die Risikotoleranz fest: die akzeptable Wahrscheinlichkeit, in einem beliebigen Jahr mehr als einen Schwellenwert zu verlieren. Simulierte Ergebnisse werden dagegen geprüft.",
+  "tolerance.invalid": "Geben Sie einen Schwellenwert über 0 und eine Wahrscheinlichkeit zwischen 0 und 100 ein.",
+  "tolerance.notSet": "Für dieses Projekt ist noch keine Risikotoleranz definiert.",
+  "tolerance.probability": "Akzeptable Überschreitungswahrscheinlichkeit (%/Jahr)",
+  "tolerance.save": "Toleranz speichern",
+  "tolerance.saved": "Risikotoleranz gespeichert",
+  "tolerance.statusExceeds": "Außerhalb der Risikotoleranz: geschätzte Wahrscheinlichkeit von {actual}, dass der Jahresverlust {threshold} überschreitet (Toleranz: {appetite}).",
+  "tolerance.statusWithin": "Innerhalb der Risikotoleranz: geschätzte Wahrscheinlichkeit von {actual}, dass der Jahresverlust {threshold} überschreitet (Toleranz: {appetite}).",
+  "tolerance.threshold": "Jahresverlust-Schwellenwert (USD)",
+  "tolerance.title": "Risikotoleranz",
 
   // treatments
   "treatments.annualCost": "Jahreskosten",
@@ -592,6 +631,8 @@ export default {
   "xr.rowP99": "99. Perzentil",
   "xr.rowP99Note": "1 % der simulierten Jahre liegt höher",
   "xr.tailBody": "Der Verlust im 95. Perzentil beträgt das **{multiple}-Fache der ALE** und spiegelt die Unsicherheit in Ereignishäufigkeit und Schadenshöhe, die Möglichkeit mehrerer Ereignisse in einem Jahr sowie seltene, kostenintensive Ausgänge wider. Das Modell schätzt außerdem eine **Wahrscheinlichkeit von {zero}, dass in einem gegebenen Jahr kein Verlustereignis eintritt**. Diese Kombination aus vielen Jahren mit geringem oder keinem Verlust und wenigen schweren Jahren erzeugt eine rechtsschiefe Verteilung.",
+  "xr.toleranceExceeds": "Gemessen an der Risikotoleranz des Projekts (höchstens eine Wahrscheinlichkeit von {appetite}, {threshold} in einem Jahr zu überschreiten) liegt die simulierte Risikoexponierung **außerhalb der Toleranz**: Das Modell schätzt eine Wahrscheinlichkeit von {actual}, {threshold} zu überschreiten.",
+  "xr.toleranceWithin": "Gemessen an der Risikotoleranz des Projekts (höchstens eine Wahrscheinlichkeit von {appetite}, {threshold} in einem Jahr zu überschreiten) liegt die simulierte Risikoexponierung **innerhalb der Toleranz**: Das Modell schätzt eine Wahrscheinlichkeit von {actual}, {threshold} zu überschreiten.",
   "xr.treatmentTitle": "Vorgeschlagene Maßnahme",
   "xr.treatmentBody": "Die Maßnahme reduziert den erwarteten Jahresverlust um **{reduction}**; der jährliche Nettonutzen beträgt **{net}**.",
   "xr.assumptionsTitle": "Zentrale Annahmen",
