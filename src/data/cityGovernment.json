@@ -1,0 +1,67 @@
+[
+  {
+    "id": "cg-ransomware", "name": "Ransomware Halts City Services",
+    "description": "Ransomware encrypts systems behind permits, utility billing, and municipal courts; services run on paper while systems are rebuilt from backups.",
+    "asset": "Permitting, utility billing, and court systems", "threat": "Ransomware affiliate", "effect": "City-wide service outage", "owner": "City IT Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.8, "maximum": 2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 250000, "most_likely": 1000000, "maximum": 4000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 500000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Recovery takes 2–8 weeks across departments.", "No ransom is paid; costs are rebuild and manual operations.", "Secondary loss covers delayed revenue and legal claims."]
+  },
+  {
+    "id": "cg-water-scada", "name": "Water Utility SCADA Intrusion",
+    "description": "An intruder reaches the water utility's control network; operations switch to manual and regulators are notified while systems are validated.",
+    "asset": "Water treatment and distribution SCADA", "threat": "Targeted intruder reaching the control network", "effect": "Manual operations and regulatory response", "owner": "Public Works Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 200000, "most_likely": 800000, "maximum": 3000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 600000, "maximum": 3000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Public-safety impacts are handled as a separate (non-financial) analysis.", "Any confirmed intrusion forces manual operation until revalidation.", "Secondary loss covers regulatory penalties and mandated upgrades."]
+  },
+  {
+    "id": "cg-vendor-redirect", "name": "Vendor Payment Redirect",
+    "description": "Using public procurement records, fraudsters impersonate a contractor and redirect a progress payment to an attacker-controlled account.",
+    "asset": "Accounts payable and vendor master data", "threat": "Business email compromise fraud group", "effect": "Diverted payment and recovery effort", "owner": "Finance Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 3, "most_likely": 8, "maximum": 24, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.06, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 40000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"}
+    },
+    "assumptions": ["Public bid records make impersonation attempts routine.", "Bank recovery is reflected in the primary-loss estimates.", "Secondary loss covers audit findings and process remediation."]
+  },
+  {
+    "id": "cg-records-breach", "name": "Resident Records Breach",
+    "description": "An attacker or misconfiguration exposes court, police, or utility customer records containing resident personal information.",
+    "asset": "Court, police, and utility customer records", "threat": "External attacker or accidental exposure", "effect": "Resident PII breach and notification", "owner": "City Clerk",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 10, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 200000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 250000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Sealed or protected records multiply the impact if included.", "Primary loss covers forensics, notification, and monitoring.", "Secondary loss includes civil claims against the city."]
+  },
+  {
+    "id": "cg-dispatch-outage", "name": "Dispatch System Disruption",
+    "description": "A cyber incident degrades computer-aided dispatch; call-takers fall back to radio and paper, slowing emergency response coordination.",
+    "asset": "Computer-aided dispatch and emergency communications", "threat": "Ransomware or targeted disruption", "effect": "Degraded dispatch operations", "owner": "Emergency Services Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.3, "maximum": 1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 500000, "maximum": 2000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 700000, "maximum": 4000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Life-safety impacts are handled as a separate (non-financial) analysis.", "Radio fallback keeps dispatch functioning at reduced capacity.", "Secondary loss covers liability claims tied to delayed response."]
+  }
+]

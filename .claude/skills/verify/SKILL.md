@@ -23,7 +23,7 @@ Critical gotchas:
 - **A full page reload re-locks the vault** (encryption key is a module-level
   variable). Never `page.goto()` between steps — navigate by clicking the
   stepper links (`getByRole('link', { name: 'FAIR model' })` etc.) and sidebar.
-- First-run flow: store picker → "Create a new store" → inputs are
+- First-run flow: store picker → "Create a new data store" → inputs are
   [name, passphrase, confirm, hint] → "Create store" button. Passphrase min 8
   chars. After lock, click the store button (use `.first()` — the name can
   match twice) before the password input exists.

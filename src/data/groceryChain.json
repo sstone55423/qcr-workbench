@@ -1,0 +1,67 @@
+[
+  {
+    "id": "gro-pos-breach", "name": "Point-of-Sale Card Breach",
+    "description": "Malware on point-of-sale systems harvests payment card data across stores until fraud patterns trace back to the chain.",
+    "asset": "Point-of-sale estate and payment flows", "threat": "POS malware operators", "effect": "Card data breach across stores", "owner": "Chief Information Security Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 1, "maximum": 3, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 200000, "most_likely": 900000, "maximum": 4000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 200000, "most_likely": 1200000, "maximum": 6000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Point-to-point encryption coverage is reflected in the vulnerability estimate.", "Primary loss covers forensics, containment, and reissuance support.", "Secondary loss includes card-brand assessments and customer attrition."]
+  },
+  {
+    "id": "gro-ransomware", "name": "Ransomware Freezes Distribution and Stores",
+    "description": "Ransomware takes down warehouse management and store ordering; shelves thin out and perishables spoil while systems are restored.",
+    "asset": "Warehouse management and store ordering systems", "threat": "Ransomware affiliate", "effect": "Distribution stoppage and spoilage", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.8, "maximum": 2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 300000, "most_likely": 1500000, "maximum": 6000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 700000, "maximum": 3500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Perishable spoilage begins within 48 hours of distribution stopping.", "Stores can run degraded point-of-sale independently of ordering.", "Secondary loss covers customer defection to competitors."]
+  },
+  {
+    "id": "gro-supplier-platform", "name": "Supplier Ordering Platform Compromise",
+    "description": "An attacker manipulates the EDI/ordering platform, corrupting orders and invoices across hundreds of suppliers before detection.",
+    "asset": "EDI and supplier ordering platform", "threat": "Attacker tampering with order flows", "effect": "Corrupted orders and invoice fraud", "owner": "VP, Supply Chain",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 1, "maximum": 3, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 300000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 200000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["A loss event is tampering that reaches ordering or invoicing.", "Primary loss covers reconciliation, expedited orders, and write-offs.", "Secondary loss covers supplier-relationship remediation."]
+  },
+  {
+    "id": "gro-loyalty-takeover", "name": "Loyalty Program Account Takeover",
+    "description": "Credential-stuffing campaigns drain loyalty points and expose member profiles across the chain's app and website.",
+    "asset": "Loyalty accounts and member profiles", "threat": "Credential-stuffing operators", "effect": "Points theft and member PII exposure", "owner": "VP, Digital Commerce",
+    "fair": {
+      "threat_event_frequency": {"minimum": 4, "most_likely": 12, "maximum": 36, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.06, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 200000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["A loss event is a campaign taking over active member accounts.", "Points made whole to members are primary loss.", "Secondary loss covers notification duties and program-trust damage."]
+  },
+  {
+    "id": "gro-cold-chain", "name": "Refrigeration Monitoring Outage",
+    "description": "The networked refrigeration monitoring platform is disabled or tampered with; temperature excursions go undetected, forcing product disposal.",
+    "asset": "Cold-chain monitoring across stores and warehouses", "threat": "Intruder or outage disabling telemetry", "effect": "Undetected temperature excursions and disposal", "owner": "VP, Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.6, "maximum": 1.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 250000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 150000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["Food-safety rules force disposal whenever monitoring gaps exceed thresholds.", "Manual temperature checks cap the excursion window.", "Secondary loss covers regulatory scrutiny and disposal disputes."]
+  }
+]

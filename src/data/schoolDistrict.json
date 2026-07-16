@@ -1,0 +1,67 @@
+[
+  {
+    "id": "k12-ransomware", "name": "Ransomware Closes Schools",
+    "description": "Ransomware takes down the student information system, transportation routing, and food service; campuses close or run manual days during recovery.",
+    "asset": "Student information, transportation, and food service systems", "threat": "Ransomware affiliate", "effect": "Closed or manual school days", "owner": "District Technology Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.8, "maximum": 2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 500000, "maximum": 2000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 50000, "most_likely": 300000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Recovery takes 1–4 weeks with staggered campus restoration.", "State attendance funding is unaffected by short closures.", "Secondary loss covers notification and community-trust measures."]
+  },
+  {
+    "id": "k12-student-data", "name": "Student Data Breach",
+    "description": "A phished staff account or a compromised SIS vendor exposes student records, including special-education and disciplinary data.",
+    "asset": "Student records incl. special-education data", "threat": "Credential phishing crews or vendor compromise", "effect": "Student PII breach and notification", "owner": "Director of Student Services",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 4, "maximum": 12, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 150000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 200000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["Minors' data raises notification and monitoring costs per record.", "Vendor-held data is in scope; contract recovery is uncertain.", "Secondary loss includes claims from affected families."]
+  },
+  {
+    "id": "k12-payment-fraud", "name": "Payroll and Vendor Redirect Fraud",
+    "description": "Fraudsters phish HR or impersonate vendors to redirect payroll deposits or construction-fund payments.",
+    "asset": "Payroll and accounts payable", "threat": "Business email compromise fraud group", "effect": "Diverted funds and recovery effort", "owner": "Chief Financial Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 6, "maximum": 18, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.05, "maximum": 0.12, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 150000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.3, "unit": "probability"}
+    },
+    "assumptions": ["Bond-program payments are the highest-value targets.", "Bank recovery is reflected in the primary-loss estimates.", "Secondary loss covers audit findings and board-mandated controls."]
+  },
+  {
+    "id": "k12-testing-disruption", "name": "DDoS During State Testing Window",
+    "description": "A denial-of-service attack (often student-initiated) disrupts online state assessments, forcing rescheduled testing sessions across campuses.",
+    "asset": "Assessment platform connectivity", "threat": "DDoS-for-hire services and student actors", "effect": "Interrupted state testing", "owner": "District Technology Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 25000, "maximum": 120000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"}
+    },
+    "assumptions": ["Only attacks inside testing windows are loss events.", "Primary loss covers makeup sessions, staffing, and mitigation services.", "Secondary loss covers accountability-reporting consequences."]
+  },
+  {
+    "id": "k12-staff-pii", "name": "Staff W-2 Phishing Disclosure",
+    "description": "A payroll-season phishing email tricks staff into disclosing W-2 or direct-deposit data, exposing employees to tax fraud.",
+    "asset": "Employee payroll and tax records", "threat": "Seasonal W-2 phishing campaigns", "effect": "Employee identity-theft exposure", "owner": "Director of Human Resources",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 9, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.03, "most_likely": 0.08, "maximum": 0.2, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 100000, "maximum": 450000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 80000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["A loss event is disclosure of records for multiple employees.", "Primary loss covers monitoring, notification, and HR time.", "Secondary loss includes employee claims and union grievances."]
+  }
+]

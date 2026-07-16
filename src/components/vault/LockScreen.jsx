@@ -200,10 +200,10 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
                 <ChevronLeft className="w-3.5 h-3.5" /> All stores
               </button>
             )}
-            <p className="text-sm font-medium">Create a new store</p>
+            <p className="text-sm font-medium">Create a new data store</p>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Store name</label>
-              <Input value={name} onChange={e => setName(e.target.value)} autoFocus placeholder="e.g. My Dissertation" />
+              <Input value={name} onChange={e => setName(e.target.value)} autoFocus placeholder="e.g. ABC Company Analysis" />
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Create a passphrase</label>
@@ -242,7 +242,7 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
             <p className="text-sm font-medium">Restore a backup into a new store</p>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Store name</label>
-              <Input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Restored Library" />
+              <Input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Restored Analysis" />
             </div>
             <div>
               <label className="text-sm font-medium mb-1.5 block">Passphrase</label>

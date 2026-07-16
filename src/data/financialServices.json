@@ -1,0 +1,67 @@
+[
+  {
+    "id": "fs-wire-fraud", "name": "Corporate Account Takeover and Wire Fraud",
+    "description": "Attackers take over business online-banking credentials and initiate fraudulent wires before the customer or the bank detects them.",
+    "asset": "Business online banking and wire transfer rails", "threat": "Account-takeover fraud crews", "effect": "Fraudulent wires and reimbursement disputes", "owner": "Chief Risk Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 4, "most_likely": 12, "maximum": 36, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.06, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 250000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 200000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["A loss event is at least one fraudulent wire leaving the bank.", "Recovery through the receiving bank is reflected in primary loss.", "Secondary loss covers customer litigation and examiner findings."]
+  },
+  {
+    "id": "fs-ransomware", "name": "Ransomware Disrupts Branch and Core Systems",
+    "description": "Ransomware spreads from the corporate network toward core banking connectivity; branches fall back to manual limits while systems are rebuilt.",
+    "asset": "Core banking connectivity and branch systems", "threat": "Ransomware affiliate", "effect": "Branch outage and manual operations", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.6, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 300000, "most_likely": 1200000, "maximum": 5000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 200000, "most_likely": 1000000, "maximum": 6000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["The core processor itself stays up; the outage is our connectivity and branch estate.", "Manual limits cap transaction exposure during downtime.", "Secondary loss covers regulatory response and customer attrition."]
+  },
+  {
+    "id": "fs-insider-fraud", "name": "Insider Manipulates Customer Accounts",
+    "description": "An employee with elevated access moves funds or alters records across customer accounts until pattern monitoring or a complaint surfaces it.",
+    "asset": "Customer accounts and teller/back-office systems", "threat": "Employee abusing legitimate access", "effect": "Misappropriated funds and restitution", "owner": "Chief Risk Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 10, "unit": "incidents/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 25000, "most_likely": 150000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 200000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["An incident is unauthorized movement or alteration that requires restitution.", "Vulnerability reflects the chance monitoring misses it past one cycle.", "Secondary loss includes bonding claims and examiner scrutiny."]
+  },
+  {
+    "id": "fs-card-processor", "name": "Card Data Compromise at a Processor",
+    "description": "A breach at a card processor or ATM fleet exposes card data issued by the bank, driving reissuance, fraud losses, and brand assessments.",
+    "asset": "Issued card portfolio and ATM fleet", "threat": "Attacker compromising a processor or ATM estate", "effect": "Card reissuance and fraud absorption", "owner": "Chief Operations Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 400000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 600000, "maximum": 3000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["A threat event is a compromise touching our issued cards.", "Primary loss covers reissuance and absorbed card fraud.", "Secondary loss includes card-brand assessments and customer attrition."]
+  },
+  {
+    "id": "fs-data-exposure", "name": "Nonpublic Customer Data Exposure",
+    "description": "A misconfigured share or third-party integration exposes nonpublic personal information, triggering GLBA notification and examiner attention.",
+    "asset": "Nonpublic personal information (GLBA)", "threat": "External opportunist or unintended recipient", "effect": "Reportable confidentiality breach", "owner": "Chief Information Security Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 4, "maximum": 12, "unit": "exposures/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 150000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 50000, "most_likely": 400000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["An exposure becomes a loss event only if NPI is actually accessible.", "Primary loss covers forensics, notification, and monitoring.", "Secondary loss includes examiner-driven remediation programs."]
+  }
+]

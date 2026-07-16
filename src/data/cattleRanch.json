@@ -1,0 +1,67 @@
+[
+  {
+    "id": "ranch-sale-redirect", "name": "Cattle Sale Payment Redirect",
+    "description": "Fraudsters impersonate the ranch or a buyer around a livestock sale and redirect six-figure auction proceeds to an attacker-controlled account.",
+    "asset": "Livestock sale proceeds and banking relationships", "threat": "Business email compromise fraud group", "effect": "Diverted sale proceeds", "owner": "Ranch Business Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 9, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.06, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 25000, "most_likely": 150000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 150000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.3, "unit": "probability"}
+    },
+    "assumptions": ["Sale-season timing concentrates the attempts.", "Bank recovery is reflected in the primary-loss estimates.", "Secondary loss covers strained buyer and auction-house relationships."]
+  },
+  {
+    "id": "ranch-ransomware", "name": "Ransomware Hits Ranch Operations",
+    "description": "Ransomware encrypts the machines running herd records, feed scheduling, and payroll; operations continue by hand while systems are rebuilt.",
+    "asset": "Herd records, feed scheduling, and payroll systems", "threat": "Opportunistic ransomware", "effect": "Manual operations and record reconstruction", "owner": "Operations Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 50000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.45, "unit": "probability"}
+    },
+    "assumptions": ["Feeding and animal care continue manually; the loss is efficiency and rebuild.", "Off-site backups exist but are weeks old.", "Secondary loss covers missed contract windows during recovery."]
+  },
+  {
+    "id": "ranch-water-tamper", "name": "Irrigation and Water Control Tampering",
+    "description": "Remote well pumps and pivot controllers are tampered with or knocked offline in summer heat, risking pasture, crops, and water hauling costs.",
+    "asset": "Remote well, pivot, and stock-water controllers", "threat": "Intruder or vandal reaching remote-control interfaces", "effect": "Water delivery disruption", "owner": "Operations Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.4, "maximum": 1.2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 90000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 40000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.4, "unit": "probability"}
+    },
+    "assumptions": ["Animal-welfare impacts are prevented by daily checks; the loss is hauling and forage.", "Summer events cost multiples of off-season ones.", "Secondary loss covers crop-insurance disputes and replanting."]
+  },
+  {
+    "id": "ranch-herd-data", "name": "Herd Records and Genetics Data Loss",
+    "description": "Breeding, genetics, and traceability records are destroyed or stolen — from device loss, sync failure, or theft — undermining certification and premium pricing.",
+    "asset": "Breeding, genetics, and traceability records", "threat": "Data loss, theft, or sync failure", "effect": "Lost provenance and certification risk", "owner": "Herd Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 1, "maximum": 3, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 80000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 60000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.45, "unit": "probability"}
+    },
+    "assumptions": ["Registered stock loses premium value without provable lineage.", "Program certification requires continuous traceability.", "Secondary loss covers buyer-trust damage at future sales."]
+  },
+  {
+    "id": "ranch-commodity-account", "name": "Commodity Hedging Account Takeover",
+    "description": "Attackers take over the ranch's brokerage account used for cattle and feed hedging, liquidating or opening positions before detection.",
+    "asset": "Commodity brokerage and hedging accounts", "threat": "Account-takeover fraud crews", "effect": "Unauthorized trades and unwound hedges", "owner": "Ranch Business Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 2, "maximum": 6, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.06, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.3, "unit": "probability"}
+    },
+    "assumptions": ["Broker reimbursement policies are reflected in primary loss.", "An unwound hedge exposes the operation to price swings until replaced.", "Secondary loss covers financing-covenant complications."]
+  }
+]
