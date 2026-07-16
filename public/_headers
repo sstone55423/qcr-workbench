@@ -1,4 +1,13 @@
+# Cloudflare Pages edge security headers. Vite copies public/ to dist/, and
+# Pages serves dist/_headers. The full Content-Security-Policy is injected as a
+# per-build hashed <meta> tag by cspMetaPlugin in vite.config.js; only
+# frame-ancestors lives here, since that directive is ignored in a <meta> CSP
+# and must be delivered as a header.
 /*
   Content-Security-Policy: frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin

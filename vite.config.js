@@ -114,6 +114,11 @@ export default defineConfig({
     }),
     cspMetaPlugin(),
   ],
+  // Vitest runs unit tests only; the Playwright e2e specs under e2e/ are driven
+  // separately by `npm run test:e2e` and must not be collected here.
+  test: {
+    include: ['src/**/*.test.{js,jsx}'],
+  },
   // The '@' -> src alias was previously provided by the Base44 vite plugin.
   // Defined explicitly here so the app resolves imports standalone. Mirrors the
   // "@/*": ["./src/*"] mapping in jsconfig.json used by the editor/tsc.

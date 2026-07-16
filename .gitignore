@@ -3,3 +3,8 @@ dist/
 dev-dist/
 *.local
 .DS_Store
+
+# Playwright e2e
+test-results/
+playwright-report/
+playwright/.cache/

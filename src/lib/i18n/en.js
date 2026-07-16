@@ -308,6 +308,9 @@ export default {
   // portfolio
   "portfolio.aleChartSubtitle": "Deterministic annualized loss expectancy per scenario — the top bar is the portfolio's biggest risk",
   "portfolio.aleChartTitle": "Scenarios ranked by ALE",
+  "portfolio.correlation": "Scenario correlation",
+  "portfolio.correlationHint": "0% = scenarios are independent; 100% = their bad years coincide. Higher correlation fattens the combined loss tail without changing the average.",
+  "portfolio.correlationNote": "Modeling assumption: at this correlation the scenarios share a common systemic factor, so their tails move together. Each scenario's own loss distribution is unchanged — only the joint tail. Results are recomputed on demand and never stored.",
   "portfolio.empty": "Nothing to aggregate yet. Add scenarios (or load the samples) and the portfolio view builds itself.",
   "portfolio.exceedanceSubtitle": "Probability that the combined annual loss across all scenarios exceeds a threshold",
   "portfolio.exceedanceTitle": "Portfolio loss exceedance",
@@ -914,7 +917,9 @@ export default {
   "settings.themeDesc": "Choose a color theme. Works in both light and dark mode.",
 
   // sidebar
+  "sidebar.collapse": "Collapse sidebar",
   "sidebar.darkMode": "Dark mode",
+  "sidebar.expand": "Expand sidebar",
   "sidebar.idiom": "Language",
   "sidebar.lightMode": "Light mode",
   "sidebar.lockVault": "Lock vault",

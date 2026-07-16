@@ -62,6 +62,41 @@ describe('simulatePortfolio', () => {
     expect(portfolio.summary.mean).toBeCloseTo(sumOfMeans, 6);
   });
 
+  it('defaults to the independent aggregation (correlation 0)', () => {
+    const withDefault = simulatePortfolio(scenarios, 5000, 42);
+    const explicitZero = simulatePortfolio(scenarios, 5000, 42, 0);
+    expect(withDefault.summary).toEqual(explicitZero.summary);
+    expect(withDefault.params.correlation).toBe(0);
+  });
+
+  it('preserves the aggregate mean regardless of correlation (marginals unchanged)', () => {
+    const indep = simulatePortfolio(scenarios, 20000, 42, 0);
+    const correlated = simulatePortfolio(scenarios, 20000, 42, 0.7);
+    // Reordering only re-pairs which loss lands in which year, so E[sum] is
+    // identical; the tail, not the mean, is what correlation moves.
+    expect(correlated.summary.mean).toBeCloseTo(indep.summary.mean, 6);
+  });
+
+  it('fattens the joint tail as correlation rises', () => {
+    const indep = simulatePortfolio(scenarios, 20000, 42, 0);
+    const mid = simulatePortfolio(scenarios, 20000, 42, 0.5);
+    const perfect = simulatePortfolio(scenarios, 20000, 42, 1);
+    expect(mid.summary.percentile_99).toBeGreaterThan(indep.summary.percentile_99);
+    expect(perfect.summary.percentile_99).toBeGreaterThan(mid.summary.percentile_99);
+  });
+
+  it('stays order-independent when correlated', () => {
+    const a = simulatePortfolio(scenarios, 5000, 42, 0.6);
+    const b = simulatePortfolio([...scenarios].reverse(), 5000, 42, 0.6);
+    expect(a.summary).toEqual(b.summary);
+    expect(a.exceedance.probabilities).toEqual(b.exceedance.probabilities);
+  });
+
+  it('clamps correlation into [0, 1]', () => {
+    expect(simulatePortfolio(scenarios, 2000, 42, -1).params.correlation).toBe(0);
+    expect(simulatePortfolio(scenarios, 2000, 42, 5).params.correlation).toBe(1);
+  });
+
   it('derives distinct seeds per scenario and stable seeds from sample_id', () => {
     expect(scenarioSeed(42, scenarios[0])).not.toBe(scenarioSeed(42, scenarios[1]));
     // A sample scenario keeps the same seed regardless of its record id.

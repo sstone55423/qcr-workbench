@@ -380,6 +380,9 @@
 /* Print / save-as-PDF: only the element marked .print-report is printed
    (the executive report markdown on step 7). Everything else is hidden. */
 @media print {
+  @page {
+    margin: 18mm;
+  }
   body * {
     visibility: hidden;
   }
@@ -392,7 +395,35 @@
     left: 0;
     top: 0;
     width: 100%;
+    max-width: none !important;
     border: none !important;
     padding: 0 !important;
+  }
+  /* Force readable black-on-white regardless of theme — the dark-mode prose
+     uses near-white text that would print blank on paper. */
+  .print-report,
+  .print-report * {
+    color: #000 !important;
+    background: transparent !important;
+  }
+  .print-report a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+  .print-report th,
+  .print-report td {
+    border-color: #999 !important;
+  }
+  /* Keep headings with their content and don't split rows/list items/quotes
+     across a page break. */
+  .print-report h1,
+  .print-report h2,
+  .print-report h3 {
+    break-after: avoid;
+  }
+  .print-report tr,
+  .print-report li,
+  .print-report blockquote {
+    break-inside: avoid;
   }
 }

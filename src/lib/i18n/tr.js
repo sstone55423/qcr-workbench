@@ -308,6 +308,9 @@ export default {
   // portfolio
   "portfolio.aleChartSubtitle": "Senaryo başına deterministik yıllıklandırılmış kayıp beklentisi — en üstteki çubuk portföyün en büyük riskidir",
   "portfolio.aleChartTitle": "ALE'ye göre sıralanmış senaryolar",
+  "portfolio.correlation": "Senaryo korelasyonu",
+  "portfolio.correlationHint": "%0 = senaryolar bağımsızdır; %100 = kötü yılları çakışır. Daha yüksek korelasyon, ortalamayı değiştirmeden birleşik kayıp kuyruğunu kalınlaştırır.",
+  "portfolio.correlationNote": "Modelleme varsayımı: bu korelasyonda senaryolar ortak bir sistemik faktörü paylaşır, bu nedenle kuyrukları birlikte hareket eder. Her senaryonun kendi kayıp dağılımı değişmez — yalnızca ortak kuyruk. Sonuçlar talep üzerine yeniden hesaplanır ve asla saklanmaz.",
   "portfolio.empty": "Henüz toplulaştırılacak bir şey yok. Senaryolar ekleyin (veya örnekleri yükleyin), portföy görünümü kendiliğinden oluşur.",
   "portfolio.exceedanceSubtitle": "Tüm senaryoların birleşik yıllık kaybının bir eşiği aşma olasılığı",
   "portfolio.exceedanceTitle": "Portföy kayıp aşımı",
@@ -914,7 +917,9 @@ export default {
   "settings.themeDesc": "Bir renk teması seçin. Hem aydınlık hem karanlık modda çalışır.",
 
   // sidebar
+  "sidebar.collapse": "Kenar çubuğunu daralt",
   "sidebar.darkMode": "Karanlık mod",
+  "sidebar.expand": "Kenar çubuğunu genişlet",
   "sidebar.idiom": "Dil",
   "sidebar.lightMode": "Aydınlık mod",
   "sidebar.lockVault": "Kasayı Kilitle",

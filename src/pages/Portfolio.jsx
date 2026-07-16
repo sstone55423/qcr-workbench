@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useProject } from '@/lib/ProjectContext';
 import { useI18n } from '@/lib/I18nContext';
 import useScenarios from '@/hooks/useScenarios';
-import { portfolioAle, simulatePortfolio } from '@/lib/qcr/portfolio';
+import { portfolioAle, simulatePortfolio, DEFAULT_CORRELATION } from '@/lib/qcr/portfolio';
 import { ITERATION_CHOICES, DEFAULT_ITERATIONS, DEFAULT_SEED } from '@/lib/qcr/simulation';
 import { formatCurrency, formatPercent } from '@/lib/qcr/format';
 import NoProject from '@/components/NoProject';
@@ -16,6 +16,7 @@ import ToleranceEditor from '@/components/portfolio/ToleranceEditor';
 import SnapshotTrend from '@/components/portfolio/SnapshotTrend';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
 import { ChartPie, Play, Loader2, Info } from 'lucide-react';
@@ -31,6 +32,7 @@ export default function Portfolio() {
   const { toast } = useToast();
   const [iterations, setIterations] = useState(DEFAULT_ITERATIONS);
   const [seed, setSeed] = useState(DEFAULT_SEED);
+  const [correlation, setCorrelation] = useState(DEFAULT_CORRELATION);
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -47,7 +49,7 @@ export default function Portfolio() {
     // Yield a frame so the spinner paints before the synchronous simulation.
     await new Promise((resolve) => setTimeout(resolve, 30));
     try {
-      setResult(simulatePortfolio(scenarios, iterations, seed));
+      setResult(simulatePortfolio(scenarios, iterations, seed, correlation));
     } catch (err) {
       toast({ title: t('simulation.runFailed'), description: err.message, variant: 'destructive' });
     } finally {
@@ -122,8 +124,21 @@ export default function Portfolio() {
                 {running ? t('simulation.running') : t('simulation.run')}
               </Button>
             </div>
+            <div className="max-w-md space-y-1.5">
+              <div className="flex items-center justify-between">
+                <label className="text-xs text-muted-foreground">{t('portfolio.correlation')}</label>
+                <span className="text-xs font-medium tabular-nums">{formatPercent(correlation, 0)}</span>
+              </div>
+              <Slider
+                value={[correlation]} min={0} max={1} step={0.05}
+                onValueChange={([v]) => setCorrelation(v)}
+                aria-label={t('portfolio.correlation')}
+              />
+              <p className="text-xs text-muted-foreground">{t('portfolio.correlationHint')}</p>
+            </div>
             <p className="text-xs text-muted-foreground flex items-start gap-1.5">
-              <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-primary" /> {t('portfolio.independenceNote')}
+              <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-primary" />{' '}
+              {correlation === 0 ? t('portfolio.independenceNote') : t('portfolio.correlationNote')}
             </p>
 
             {result && (

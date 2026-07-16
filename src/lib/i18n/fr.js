@@ -308,6 +308,9 @@ export default {
   // portfolio
   "portfolio.aleChartSubtitle": "Espérance de perte annualisée déterministe par scénario — la barre du haut est le plus grand risque du portefeuille",
   "portfolio.aleChartTitle": "Scénarios classés par ALE",
+  "portfolio.correlation": "Corrélation des scénarios",
+  "portfolio.correlationHint": "0 % = les scénarios sont indépendants ; 100 % = leurs mauvaises années coïncident. Une corrélation plus élevée épaissit la queue de pertes combinée sans changer la moyenne.",
+  "portfolio.correlationNote": "Hypothèse de modélisation : à cette corrélation, les scénarios partagent un facteur systémique commun, de sorte que leurs queues évoluent ensemble. La distribution de pertes de chaque scénario reste inchangée — seule la queue conjointe change. Les résultats sont recalculés à la demande et jamais stockés.",
   "portfolio.empty": "Rien à agréger pour l'instant. Ajoutez des scénarios (ou chargez les exemples) et la vue portefeuille se construit d'elle-même.",
   "portfolio.exceedanceSubtitle": "Probabilité que la perte annuelle combinée de tous les scénarios dépasse un seuil",
   "portfolio.exceedanceTitle": "Dépassement de perte du portefeuille",
@@ -914,7 +917,9 @@ export default {
   "settings.themeDesc": "Choisissez un thème de couleur. Fonctionne en mode clair et sombre.",
 
   // sidebar
+  "sidebar.collapse": "Réduire la barre latérale",
   "sidebar.darkMode": "Mode sombre",
+  "sidebar.expand": "Développer la barre latérale",
   "sidebar.idiom": "Langue",
   "sidebar.lightMode": "Mode clair",
   "sidebar.lockVault": "Verrouiller le coffre",

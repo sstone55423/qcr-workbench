@@ -72,7 +72,7 @@ export default function ExitButton({ collapsed }) {
           </DialogHeader>
 
           <div className="space-y-3 py-1">
-            <p className={`text-xs ${status.overdue ? 'text-amber-500' : 'text-muted-foreground'}`}>{lastText}</p>
+            <p className={`text-xs ${status.overdue ? 'text-amber-700 dark:text-amber-400' : 'text-muted-foreground'}`}>{lastText}</p>
             <div>
               <label className="text-sm font-medium mb-1.5 block">{t('exit.passphrase')}</label>
               <div className="relative">

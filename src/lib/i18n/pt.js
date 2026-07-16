@@ -308,6 +308,9 @@ export default {
   // portfolio
   "portfolio.aleChartSubtitle": "Expectativa de perda anualizada determinística por cenário — a barra do topo é o maior risco do portfólio",
   "portfolio.aleChartTitle": "Cenários classificados por ALE",
+  "portfolio.correlation": "Correlação de cenários",
+  "portfolio.correlationHint": "0% = os cenários são independentes; 100% = seus anos ruins coincidem. Uma correlação maior engrossa a cauda de perdas combinada sem alterar a média.",
+  "portfolio.correlationNote": "Suposição do modelo: nesta correlação os cenários compartilham um fator sistêmico comum, de modo que suas caudas se movem juntas. A distribuição de perdas de cada cenário permanece inalterada — apenas a cauda conjunta. Os resultados são recalculados sob demanda e nunca armazenados.",
   "portfolio.empty": "Nada para agregar ainda. Adicione cenários (ou carregue os exemplos) e a visão de portfólio se monta sozinha.",
   "portfolio.exceedanceSubtitle": "Probabilidade de a perda anual combinada de todos os cenários exceder um limiar",
   "portfolio.exceedanceTitle": "Excedência de perdas do portfólio",
@@ -914,7 +917,9 @@ export default {
   "settings.themeDesc": "Escolha um tema de cor. Funciona nos modos claro e escuro.",
 
   // sidebar
+  "sidebar.collapse": "Recolher barra lateral",
   "sidebar.darkMode": "Modo escuro",
+  "sidebar.expand": "Expandir barra lateral",
   "sidebar.idiom": "Idioma",
   "sidebar.lightMode": "Modo claro",
   "sidebar.lockVault": "Bloquear cofre",

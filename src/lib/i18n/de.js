@@ -308,6 +308,9 @@ export default {
   // portfolio
   "portfolio.aleChartSubtitle": "Deterministische annualisierte Verlusterwartung pro Szenario — der oberste Balken ist das größte Risiko des Portfolios",
   "portfolio.aleChartTitle": "Szenarien nach ALE geordnet",
+  "portfolio.correlation": "Szenariokorrelation",
+  "portfolio.correlationHint": "0 % = Szenarien sind unabhängig; 100 % = ihre schlechten Jahre fallen zusammen. Höhere Korrelation verdickt den kombinierten Verlust-Tail, ohne den Mittelwert zu ändern.",
+  "portfolio.correlationNote": "Modellannahme: Bei dieser Korrelation teilen die Szenarien einen gemeinsamen systemischen Faktor, sodass sich ihre Tails gemeinsam bewegen. Die Verlustverteilung jedes einzelnen Szenarios bleibt unverändert – nur der gemeinsame Tail. Ergebnisse werden bei Bedarf neu berechnet und nie gespeichert.",
   "portfolio.empty": "Noch nichts zu aggregieren. Fügen Sie Szenarien hinzu (oder laden Sie die Beispiele), und die Portfolio-Ansicht erstellt sich von selbst.",
   "portfolio.exceedanceSubtitle": "Wahrscheinlichkeit, dass der kombinierte Jahresverlust über alle Szenarien einen Schwellenwert überschreitet",
   "portfolio.exceedanceTitle": "Portfolio-Verlustüberschreitung",
@@ -913,7 +916,9 @@ export default {
   "settings.themeDesc": "Wählen Sie ein Farbschema. Funktioniert im hellen und dunklen Modus.",
 
   // sidebar
+  "sidebar.collapse": "Seitenleiste einklappen",
   "sidebar.darkMode": "Dunkelmodus",
+  "sidebar.expand": "Seitenleiste ausklappen",
   "sidebar.idiom": "Sprache",
   "sidebar.lightMode": "Hellmodus",
   "sidebar.lockVault": "Tresor sperren",

@@ -308,6 +308,9 @@ export default {
   // portfolio
   "portfolio.aleChartSubtitle": "Expectativa de pérdida anualizada determinista por escenario — la barra superior es el mayor riesgo de la cartera",
   "portfolio.aleChartTitle": "Escenarios clasificados por ALE",
+  "portfolio.correlation": "Correlación de escenarios",
+  "portfolio.correlationHint": "0 % = los escenarios son independientes; 100 % = sus años malos coinciden. Una mayor correlación engrosa la cola de pérdidas combinada sin cambiar el promedio.",
+  "portfolio.correlationNote": "Supuesto del modelo: con esta correlación los escenarios comparten un factor sistémico común, por lo que sus colas se mueven juntas. La distribución de pérdidas de cada escenario no cambia, solo la cola conjunta. Los resultados se recalculan a demanda y nunca se almacenan.",
   "portfolio.empty": "Aún no hay nada que agregar. Añade escenarios (o carga los ejemplos) y la vista de cartera se construye sola.",
   "portfolio.exceedanceSubtitle": "Probabilidad de que la pérdida anual combinada de todos los escenarios supere un umbral",
   "portfolio.exceedanceTitle": "Excedencia de pérdidas de la cartera",
@@ -914,7 +917,9 @@ export default {
   "settings.themeDesc": "Elige un tema de color. Funciona en modo claro y oscuro.",
 
   // sidebar
+  "sidebar.collapse": "Contraer barra lateral",
   "sidebar.darkMode": "Modo oscuro",
+  "sidebar.expand": "Expandir barra lateral",
   "sidebar.idiom": "Idioma",
   "sidebar.lightMode": "Modo claro",
   "sidebar.lockVault": "Bloquear bóveda",

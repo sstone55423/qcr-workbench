@@ -14,10 +14,18 @@ npm run dev          # Vite; picks 5173 or next free port — read the port from
 Gates (CI territory, not verification): `npm test`, `npm run typecheck`,
 `npm run lint`, `npm run build` (check dist/index.html for the injected CSP meta).
 
-## Drive (Playwright, chromium)
+## Committed smoke suite
 
-Playwright is NOT a repo dependency — `npm install playwright` in a scratch
-dir and run scripts from there (`npx playwright install chromium` if needed).
+`npm run test:e2e` runs the committed Playwright specs in `e2e/` (config:
+`playwright.config.js`, dedicated port 5289 so it never reuses a sibling dev
+server). `smoke.spec.js` drives the whole vault→samples→workbench flow and pins
+the ransomware ALE; `a11y.spec.js` gates axe-core serious/critical violations on
+the lock screen and home. Run these first — they cover most of the recipe below.
+
+## Drive ad-hoc (Playwright, chromium)
+
+For exploratory driving beyond the committed suite, the same Playwright dep is
+now in the repo (`npx playwright install chromium` if the browser is missing).
 
 Critical gotchas:
 - **A full page reload re-locks the vault** (encryption key is a module-level

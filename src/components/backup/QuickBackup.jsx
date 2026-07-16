@@ -94,7 +94,7 @@ export default function QuickBackup({ collapsed }) {
         {!collapsed && <span className="flex-1 text-left">{t('qb.button')}</span>}
       </Button>
       {!collapsed && (
-        <p className={`px-2 text-[10px] leading-tight ${status.overdue ? 'text-amber-500' : 'text-muted-foreground'}`}>
+        <p className={`px-2 text-[10px] leading-tight ${status.overdue ? 'text-amber-700 dark:text-amber-400' : 'text-muted-foreground'}`}>
           {lastText}
         </p>
       )}

@@ -60,7 +60,7 @@ export default function Sidebar() {
             <span className="font-heading font-bold text-lg tracking-tight truncate">QCR Workbench</span>
           </Link>
         )}
-        <Button variant="ghost" size="icon" className="shrink-0" onClick={() => setCollapsed(!collapsed)}>
+        <Button variant="ghost" size="icon" className="shrink-0" aria-label={collapsed ? t('sidebar.expand') : t('sidebar.collapse')} onClick={() => setCollapsed(!collapsed)}>
           {collapsed ? <PanelLeft className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
         </Button>
       </div>
