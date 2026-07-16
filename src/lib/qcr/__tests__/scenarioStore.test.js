@@ -110,6 +110,15 @@ describe('sample data loader', () => {
     expect(ransomware.assumptions).toHaveLength(3);
   });
 
+  it('loads sector libraries independently and they coexist in one project', async () => {
+    expect(await loadSampleScenarios(project.id, null, 'higher-ed')).toHaveLength(5);
+    expect(await loadSampleScenarios(project.id, null, 'healthcare')).toHaveLength(5);
+    expect(await loadSampleScenarios(project.id)).toHaveLength(10); // default library still loads
+    expect(await loadSampleScenarios(project.id, null, 'higher-ed')).toHaveLength(0); // idempotent per library
+    const all = await db.entities.Scenario.filter({ project_id: project.id });
+    expect(all).toHaveLength(20);
+  });
+
   it('stores translated text and units when loaded with a translator', async () => {
     const fakeT = (key) => `«${key}»`;
     await loadSampleScenarios(project.id, fakeT);

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "he-ransomware", "name": "Ransomware Locks Administrative Systems",
+    "description": "A ransomware actor encrypts the student information system, LMS, and finance systems mid-term, freezing registration, grading, and payments while systems are rebuilt.",
+    "asset": "Student information, LMS, and finance systems", "threat": "Ransomware affiliate", "effect": "Campus-wide administrative outage", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.6, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 250000, "most_likely": 900000, "maximum": 3500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 600000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Recovery takes 5–15 business days across systems.", "An outage during registration or finals multiplies the impact.", "Secondary loss covers enrollment attrition and notification duties."]
+  },
+  {
+    "id": "he-research-data", "name": "Funded Research Data Breach",
+    "description": "A targeted intrusion exfiltrates federally funded research data and lab system credentials, triggering sponsor notification and grant compliance consequences.",
+    "asset": "Federally funded research data and lab systems", "threat": "State-aligned intrusion set targeting research", "effect": "Data exfiltration and grant compliance breach", "owner": "VP, Research",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 1, "maximum": 3, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.4, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 400000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 700000, "maximum": 4000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Only campaigns reaching funded-research systems are counted.", "Primary loss covers investigation and sponsor-mandated remediation.", "Secondary loss includes grant clawbacks and eligibility consequences."]
+  },
+  {
+    "id": "he-student-pii", "name": "Student Records Breach via Phished SSO",
+    "description": "A phishing campaign captures single sign-on credentials and an attacker reads or exports protected student records before detection.",
+    "asset": "Student records (FERPA) behind single sign-on", "threat": "Credential phishing crews", "effect": "Unauthorized access to student PII", "owner": "Registrar",
+    "fair": {
+      "threat_event_frequency": {"minimum": 4, "most_likely": 12, "maximum": 40, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.06, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 200000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 250000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["A loss event is confirmed access to records beyond the phished account.", "MFA coverage is reflected in the vulnerability estimate.", "Secondary loss includes regulatory response and credit monitoring."]
+  },
+  {
+    "id": "he-bec-aid", "name": "Financial Aid Payment Redirect",
+    "description": "A fraud group impersonates students or a disbursement vendor and redirects tuition refunds or financial aid payments to attacker-controlled accounts.",
+    "asset": "Tuition and financial aid disbursements", "threat": "Business email compromise fraud group", "effect": "Diverted disbursements and recovery costs", "owner": "Chief Financial Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 6, "maximum": 18, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.01, "most_likely": 0.04, "maximum": 0.1, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 50000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"}
+    },
+    "assumptions": ["Only attempts reaching disbursement staff or self-service bank-detail changes count.", "Bank recovery is reflected in the primary-loss estimates.", "Secondary loss covers student remediation and audit findings."]
+  },
+  {
+    "id": "he-ddos-registration", "name": "DDoS During Registration Week",
+    "description": "Extortion-motivated operators flood the registration portal during the peak enrollment window, degrading or blocking registration and payment flows.",
+    "asset": "Registration portal and public web presence", "threat": "Extortion DDoS operators", "effect": "Portal outage in the peak week", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 350000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 40000, "maximum": 200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.45, "unit": "probability"}
+    },
+    "assumptions": ["Off-peak attacks are absorbed; only peak-window outages are loss events.", "Upstream scrubbing capacity is reflected in the vulnerability estimate.", "Secondary loss covers extended support hours and late-enrollment concessions."]
+  }
+]

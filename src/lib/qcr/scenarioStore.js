@@ -6,7 +6,7 @@
 import { db } from '@/lib/localdb/store';
 import { logAudit } from '@/lib/auditLog';
 import { validateFairModel, validateTreatment, FAIR_FACTORS } from '@/lib/qcr/models';
-import sampleScenarios from '@/data/stellaPolaris.json';
+import { getLibrary, DEFAULT_LIBRARY_ID } from '@/data/sampleLibraries';
 
 // True when the numeric parts of two FAIR models match. Estimates also carry
 // documentation (unit, rationale) that doesn't feed the math — edits to those
@@ -153,13 +153,14 @@ export function localizeSample(sample, t) {
   };
 }
 
-// Loads the bundled Stella Polaris demonstration scenarios into a project,
-// translated into the active UI language when t is provided. Scenarios already
-// loaded there (matched by sample_id) are skipped, so the action is idempotent.
-export async function loadSampleScenarios(projectId, t = null) {
+// Loads a bundled demonstration library into a project, translated into the
+// active UI language when t is provided. Scenarios already loaded there
+// (matched by sample_id) are skipped, so the action is idempotent per library.
+export async function loadSampleScenarios(projectId, t = null, libraryId = DEFAULT_LIBRARY_ID) {
+  const library = getLibrary(libraryId);
   const existing = await db.entities.Scenario.filter({ project_id: projectId });
   const present = new Set(existing.map(s => s.sample_id).filter(Boolean));
-  const fresh = sampleScenarios.filter(s => !present.has(s.id));
+  const fresh = library.scenarios.filter(s => !present.has(s.id));
   if (fresh.length === 0) return [];
   const records = await db.entities.Scenario.bulkCreate(
     fresh.map((sample) => {
@@ -173,6 +174,6 @@ export async function loadSampleScenarios(projectId, t = null) {
       };
     }),
   );
-  logAudit(projectId, 'scenario', 'auditMsg.samplesLoaded', { count: records.length });
+  logAudit(projectId, 'scenario', 'auditMsg.samplesLoadedFrom', { count: records.length, library: library.company });
   return records;
 }

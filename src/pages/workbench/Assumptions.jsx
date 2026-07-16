@@ -3,7 +3,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 import { useI18n } from '@/lib/I18nContext';
 import { FAIR_FACTORS } from '@/lib/qcr/models';
 import { updateScenarioFair, updateScenarioAssumptions, localizeSample, fairNumbersEqual } from '@/lib/qcr/scenarioStore';
-import sampleScenarios from '@/data/stellaPolaris.json';
+import { findSampleById } from '@/data/sampleLibraries';
 import EstimateEditor from '@/components/workbench/EstimateEditor';
 import AssumptionSuggestions from '@/components/workbench/AssumptionSuggestions';
 import { Button } from '@/components/ui/button';
@@ -38,7 +38,7 @@ export default function Assumptions() {
 
   const fairDirty = JSON.stringify(fair) !== JSON.stringify(scenario.fair);
   const listDirty = JSON.stringify(assumptions) !== JSON.stringify(scenario.assumptions || []);
-  const sample = scenario.sample_id ? sampleScenarios.find((s) => s.id === scenario.sample_id) : null;
+  const sample = scenario.sample_id ? findSampleById(scenario.sample_id) : null;
 
   const handleApply = async () => {
     setSaving(true);

@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useI18n } from '@/lib/I18nContext';
+import { ciToEstimate } from '@/lib/qcr/calibration';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Target } from 'lucide-react';
 
 // Three number inputs (min / most likely / max) for one FAIR factor —
-// the React equivalent of v0's edit_estimate helper.
+// the React equivalent of v0's edit_estimate helper — plus a calibrated-
+// estimator entry mode: a 90% confidence interval that fills the three
+// points so the distribution's 5th–95th percentile range matches.
 export default function EstimateEditor({ labelKey, estimate, onChange }) {
   const { t } = useI18n();
+  const [ciOpen, setCiOpen] = useState(false);
+  const [ciLower, setCiLower] = useState('');
+  const [ciUpper, setCiUpper] = useState('');
+  const [ciError, setCiError] = useState(false);
 
   const set = (field) => (e) => {
     const value = e.target.value === '' ? '' : Number(e.target.value);
     onChange({ ...estimate, [field]: value });
+  };
+
+  const applyCi = () => {
+    const filled = ciToEstimate(Number(ciLower), Number(ciUpper));
+    if (!filled) {
+      setCiError(true);
+      return;
+    }
+    setCiError(false);
+    onChange({ ...estimate, ...filled });
+    setCiOpen(false);
   };
 
   const ordered =
@@ -53,6 +73,36 @@ export default function EstimateEditor({ labelKey, estimate, onChange }) {
           placeholder={t('assumptions.rationalePlaceholder')}
         />
       </div>
+      {!ciOpen ? (
+        <button
+          type="button"
+          onClick={() => setCiOpen(true)}
+          className="mt-3 inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+        >
+          <Target className="w-3.5 h-3.5" /> {t('assumptions.ciToggle')}
+        </button>
+      ) : (
+        <div className="mt-3 border-t border-border pt-3 space-y-2">
+          <p className="text-xs text-muted-foreground">{t('assumptions.ciHint')}</p>
+          <div className="flex items-end gap-2 flex-wrap">
+            <div>
+              <label className="text-xs text-muted-foreground mb-1 block">{t('assumptions.ciLower')}</label>
+              <Input type="number" min="0" step="any" className="w-32 tabular-nums" value={ciLower} onChange={(e) => setCiLower(e.target.value)} />
+            </div>
+            <div>
+              <label className="text-xs text-muted-foreground mb-1 block">{t('assumptions.ciUpper')}</label>
+              <Input type="number" min="0" step="any" className="w-32 tabular-nums" value={ciUpper} onChange={(e) => setCiUpper(e.target.value)} />
+            </div>
+            <Button variant="outline" size="sm" onClick={applyCi} className="text-xs">
+              {t('assumptions.ciApply')}
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => { setCiOpen(false); setCiError(false); }} className="text-xs">
+              {t('common.cancel')}
+            </Button>
+          </div>
+          {ciError && <p className="text-xs text-destructive">{t('assumptions.ciError')}</p>}
+        </div>
+      )}
     </div>
   );
 }

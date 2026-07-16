@@ -7,6 +7,10 @@ import {
   createScenario, updateScenarioMeta, deleteScenario, loadSampleScenarios,
 } from '@/lib/qcr/scenarioStore';
 import { scenariosToCsv, parseScenariosCsv } from '@/lib/qcr/scenarioCsv';
+import { SAMPLE_LIBRARIES } from '@/data/sampleLibraries';
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { downloadText } from '@/lib/download';
 import { logAudit } from '@/lib/auditLog';
 import { expectedLoss } from '@/lib/qcr/fair';
@@ -130,10 +134,10 @@ export default function Scenarios() {
     }
   };
 
-  const handleLoadSamples = async () => {
+  const handleLoadSamples = async (libraryId) => {
     setLoadingSamples(true);
     try {
-      const added = await loadSampleScenarios(currentProject.id, t);
+      const added = await loadSampleScenarios(currentProject.id, t, libraryId);
       toast({
         title: added.length > 0
           ? t('scenarios.samplesLoaded', { count: added.length })
@@ -146,6 +150,24 @@ export default function Scenarios() {
       setLoadingSamples(false);
     }
   };
+
+  const sampleMenu = (triggerClass = 'gap-2') => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" disabled={loadingSamples} className={triggerClass}>
+          {loadingSamples ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+          {t('scenarios.loadSamples')}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {SAMPLE_LIBRARIES.map((library) => (
+          <DropdownMenuItem key={library.id} onClick={() => handleLoadSamples(library.id)}>
+            {t(library.labelKey)}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 
   return (
     <div className="max-w-5xl mx-auto p-8">
@@ -163,10 +185,7 @@ export default function Scenarios() {
           <Button variant="outline" size="sm" onClick={handleExportCsv} className="gap-2">
             <Download className="w-3.5 h-3.5" /> {t('scenarios.exportCsv')}
           </Button>
-          <Button variant="outline" onClick={handleLoadSamples} disabled={loadingSamples} className="gap-2">
-            {loadingSamples ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-            {t('scenarios.loadSamples')}
-          </Button>
+          {sampleMenu()}
           <Button onClick={() => setShowCreate(true)} className="gap-2">
             <Plus className="w-4 h-4" /> {t('scenarios.newScenario')}
           </Button>
@@ -181,9 +200,7 @@ export default function Scenarios() {
           <h2 className="text-lg font-medium mb-2">{t('scenarios.emptyTitle')}</h2>
           <p className="text-muted-foreground text-sm mb-6">{t('scenarios.emptyDesc')}</p>
           <div className="flex gap-2 justify-center">
-            <Button variant="outline" onClick={handleLoadSamples} disabled={loadingSamples} className="gap-2">
-              <Sparkles className="w-4 h-4" /> {t('scenarios.loadSamples')}
-            </Button>
+            {sampleMenu()}
             <Button onClick={() => setShowCreate(true)} className="gap-2">
               <Plus className="w-4 h-4" /> {t('scenarios.newScenario')}
             </Button>

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "hc-ransomware", "name": "Ransomware Forces EHR Downtime",
+    "description": "A ransomware actor encrypts clinical systems; the hospital runs paper downtime procedures and diverts ambulances while the EHR is restored.",
+    "asset": "Electronic health record and clinical systems", "threat": "Ransomware affiliate", "effect": "Downtime procedures and patient diversion", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.8, "maximum": 2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 500000, "most_likely": 2000000, "maximum": 8000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 200000, "most_likely": 1500000, "maximum": 7000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Downtime lasts 3–14 days with staged clinical restoration.", "Patient-safety impacts are handled as a separate (non-financial) analysis.", "Secondary loss covers regulatory response, claims, and reputation-driven volume loss."]
+  },
+  {
+    "id": "hc-vendor-phi", "name": "PHI Breach via Vendor Portal",
+    "description": "An attacker compromises a third-party portal that exchanges protected health information, producing a reportable breach attributed to the organization.",
+    "asset": "Protected health information shared with vendors", "threat": "Attacker compromising a third-party portal", "effect": "Reportable HIPAA breach", "owner": "Chief Compliance Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 500000, "maximum": 2000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 800000, "maximum": 5000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["A threat event is a compromise at a vendor holding our PHI.", "Vulnerability reflects the share of vendors without hardened access.", "Secondary loss includes OCR penalties and class-action exposure."]
+  },
+  {
+    "id": "hc-medical-device", "name": "Networked Medical Device Compromise",
+    "description": "An intruder pivots through unpatched networked devices (infusion pumps, imaging); affected fleets are quarantined and clinical schedules disrupted.",
+    "asset": "Infusion pumps and imaging devices on the clinical network", "threat": "Intruder pivoting through unpatched devices", "effect": "Device quarantine and clinical disruption", "owner": "Chief Medical Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.4, "maximum": 1.2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 600000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 50000, "most_likely": 400000, "maximum": 2000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["A confirmed device compromise quarantines the affected fleet until revalidated.", "Patient-safety impacts are handled as a separate (non-financial) analysis.", "Secondary loss covers rescheduled procedures and vendor remediation."]
+  },
+  {
+    "id": "hc-insider-records", "name": "Insider Snooping on Patient Records",
+    "description": "Workforce members access high-profile patient records without a treatment relationship, triggering privacy investigation, discipline, and notification.",
+    "asset": "High-profile patient records", "threat": "Curious or malicious workforce members", "effect": "Privacy violation and disciplinary action", "owner": "Chief Privacy Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 6, "maximum": 20, "unit": "incidents/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 150000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["An incident is access without a documented care relationship.", "Vulnerability reflects the chance monitoring misses or delays detection.", "Secondary loss includes civil claims from affected patients."]
+  },
+  {
+    "id": "hc-payroll-diversion", "name": "Payroll Diversion via Phished HR Portal",
+    "description": "Credential phishing against the HR self-service portal lets attackers change direct-deposit details and divert staff salaries.",
+    "asset": "Workforce payroll and HR self-service", "threat": "Credential phishing crews", "effect": "Diverted salaries and account remediation", "owner": "Chief Financial Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 3, "most_likely": 10, "maximum": 30, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.05, "maximum": 0.12, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 150000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.3, "unit": "probability"}
+    },
+    "assumptions": ["A loss event is a campaign that changes at least one deposit record.", "Made-whole payments to staff are primary loss.", "Secondary loss covers forced resets and workforce trust measures."]
+  }
+]
