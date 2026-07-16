@@ -36,9 +36,12 @@ your device.
 
 Beyond the per-scenario workflow: a project-level **Portfolio** view
 (scenarios ranked by ALE plus an aggregate Monte Carlo loss exceedance curve),
-**tornado sensitivity analysis** on the deterministic step, and a project
+**tornado sensitivity analysis** on the deterministic step, a project
 **risk tolerance** ("at most a 10% chance of losing more than $1M a year")
-checked against every exceedance curve and stated in the executive report.
+checked against every exceedance curve and stated in the executive report,
+**treatment portfolios** with a budget optimizer, per-estimate **rationale
+fields** for defensible provenance, **snapshots** that build an ALE trend over
+time, **CSV import/export** of scenarios, and **print-to-PDF** reports.
 
 Ten sample scenarios (the fictional *Stella Polaris Medical Components*
 portfolio) load with one click.

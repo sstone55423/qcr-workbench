@@ -16,7 +16,7 @@ import LossMeasuresBar from '@/components/charts/LossMeasuresBar';
 import AINarrativePanel from '@/components/workbench/AINarrativePanel';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Download, Info } from 'lucide-react';
+import { Download, Printer, Info } from 'lucide-react';
 
 // Step 7 — executive report (port of v0 page 07): the markdown report
 // rendered alongside the annual-loss-measures chart, downloadable as .md.
@@ -49,6 +49,13 @@ export default function Report() {
     logAudit(currentProject?.id || scenario.project_id, 'report', 'auditMsg.reportDownloaded', { name: scenario.name });
   };
 
+  // The print stylesheet (@media print in index.css) prints only the
+  // .print-report element; the browser's dialog handles save-as-PDF.
+  const handlePrint = () => {
+    logAudit(currentProject?.id || scenario.project_id, 'report', 'auditMsg.reportPrinted', { name: scenario.name });
+    window.print();
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
@@ -66,6 +73,9 @@ export default function Report() {
               </SelectContent>
             </Select>
           )}
+          <Button variant="outline" onClick={handlePrint} className="gap-2">
+            <Printer className="w-4 h-4" /> {t('report.printPdf')}
+          </Button>
           <Button onClick={handleDownload} className="gap-2">
             <Download className="w-4 h-4" /> {t('report.download')}
           </Button>
@@ -85,7 +95,7 @@ export default function Report() {
       )}
 
       <div className={`grid gap-6 ${simulation ? 'lg:grid-cols-2' : ''}`}>
-        <div className="border border-border rounded-xl p-6 prose prose-sm dark:prose-invert max-w-none
+        <div className="print-report border border-border rounded-xl p-6 prose prose-sm dark:prose-invert max-w-none
           [&_h1]:text-xl [&_h1]:font-heading [&_h1]:font-bold [&_h1]:mb-3
           [&_h2]:text-base [&_h2]:font-heading [&_h2]:font-semibold [&_h2]:mt-5 [&_h2]:mb-2
           [&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mt-4 [&_h3]:mb-1.5

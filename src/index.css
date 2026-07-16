@@ -377,3 +377,22 @@
     --chart-5: 45 90% 60%;
   }
 }
+/* Print / save-as-PDF: only the element marked .print-report is printed
+   (the executive report markdown on step 7). Everything else is hidden. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-report,
+  .print-report * {
+    visibility: visible;
+  }
+  .print-report {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none !important;
+    padding: 0 !important;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProject } from '@/lib/ProjectContext';
 import { useI18n } from '@/lib/I18nContext';
@@ -6,11 +6,14 @@ import useScenarios from '@/hooks/useScenarios';
 import {
   createScenario, updateScenarioMeta, deleteScenario, loadSampleScenarios,
 } from '@/lib/qcr/scenarioStore';
+import { scenariosToCsv, parseScenariosCsv } from '@/lib/qcr/scenarioCsv';
+import { downloadText } from '@/lib/download';
+import { logAudit } from '@/lib/auditLog';
 import { expectedLoss } from '@/lib/qcr/fair';
 import { formatCurrency } from '@/lib/qcr/format';
 import NoProject from '@/components/NoProject';
 import ScenarioFormDialog from '@/components/scenarios/ScenarioFormDialog';
-import { Crosshair, Plus, Trash2, Pencil, Sparkles, Loader2, User } from 'lucide-react';
+import { Crosshair, Plus, Trash2, Pencil, Sparkles, Loader2, User, Download, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -41,8 +44,52 @@ export default function Scenarios() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [saving, setSaving] = useState(false);
   const [loadingSamples, setLoadingSamples] = useState(false);
+  const [importing, setImporting] = useState(false);
+  const fileInputRef = useRef(null);
 
   if (!currentProject) return <NoProject />;
+
+  const handleExportCsv = () => {
+    if (scenarios.length === 0) {
+      toast({ title: t('scenarios.csvNone') });
+      return;
+    }
+    downloadText(
+      `${currentProject.name.replace(/[^a-z0-9]/gi, '_')}_scenarios.csv`,
+      scenariosToCsv(scenarios),
+      'text/csv',
+    );
+    logAudit(currentProject.id, 'report', 'auditMsg.csvExported', { count: scenarios.length });
+    toast({ title: t('scenarios.csvExported', { count: scenarios.length }) });
+  };
+
+  const handleImportCsv = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = ''; // allow re-selecting the same file
+    if (!file) return;
+    setImporting(true);
+    try {
+      const { scenarios: parsed, errors } = parseScenariosCsv(await file.text());
+      for (const data of parsed) {
+        await createScenario(currentProject.id, data);
+      }
+      if (parsed.length > 0) {
+        logAudit(currentProject.id, 'scenario', 'auditMsg.csvImported', { count: parsed.length });
+      }
+      toast({
+        title: t('scenarios.csvImported', { count: parsed.length }),
+        description: errors.length
+          ? t('scenarios.csvSkipped', { count: errors.length, line: errors[0].line, message: errors[0].message })
+          : undefined,
+        variant: parsed.length === 0 && errors.length ? 'destructive' : undefined,
+      });
+      reload();
+    } catch (err) {
+      toast({ title: t('scenarios.csvFailed'), description: err.message, variant: 'destructive' });
+    } finally {
+      setImporting(false);
+    }
+  };
 
   const handleCreate = async (form) => {
     setSaving(true);
@@ -107,7 +154,15 @@ export default function Scenarios() {
           <h1 className="text-3xl font-heading font-bold tracking-tight">{t('scenarios.title')}</h1>
           <p className="text-muted-foreground mt-1">{t('scenarios.subtitle', { project: currentProject.name })}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
+          <input ref={fileInputRef} type="file" accept=".csv,text/csv" className="hidden" onChange={handleImportCsv} />
+          <Button variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={importing} className="gap-2">
+            {importing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+            {t('scenarios.importCsv')}
+          </Button>
+          <Button variant="outline" size="sm" onClick={handleExportCsv} className="gap-2">
+            <Download className="w-3.5 h-3.5" /> {t('scenarios.exportCsv')}
+          </Button>
           <Button variant="outline" onClick={handleLoadSamples} disabled={loadingSamples} className="gap-2">
             {loadingSamples ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
             {t('scenarios.loadSamples')}
