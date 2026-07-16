@@ -1,5 +1,8 @@
 # QCR Workbench
 
+**Live at [qcr-workbench.org](https://qcr-workbench.org)** — no account, no
+install; your data stays encrypted in your browser.
+
 A **local-first, privacy-preserving workbench for quantitative cyber risk
 analysis** built on the FAIR model. Scope a risk scenario, calibrate three-point
 estimates, run a Monte Carlo simulation, compare treatment economics, and export
