@@ -49,8 +49,13 @@ export default {
   "assumptions.invalidatedToast": "Previous simulation results were cleared — re-run the simulation.",
   "assumptions.listEmpty": "No assumptions recorded yet. Write down what is in and out of scope so the estimates are defensible.",
   "assumptions.listTitle": "Scoping assumptions",
+  "assumptions.maximum": "Maximum",
+  "assumptions.minimum": "Minimum",
+  "assumptions.mostLikely": "Most likely",
   "assumptions.next": "Next: Expected loss",
   "assumptions.orderError": "Values must satisfy 0 ≤ minimum ≤ most likely ≤ maximum.",
+  "assumptions.rationaleLabel": "Estimate rationale / source",
+  "assumptions.rationalePlaceholder": "Where do these numbers come from? (incident data, calibration workshop, vendor quote…)",
   "assumptions.reset": "Reset to sample values",
 
   // audit
@@ -75,12 +80,15 @@ export default {
   "auditMsg.assumptionsUpdated": "Updated assumptions for \"{name}\"",
   "auditMsg.fairUpdated": "Updated FAIR estimates for \"{name}\" (simulation results cleared)",
   "auditMsg.narrativeDrafted": "AI narrative drafted for \"{name}\" by {label}",
+  "auditMsg.rationaleUpdated": "Updated estimate rationale for \"{name}\"",
   "auditMsg.reportDownloaded": "Downloaded executive report for \"{name}\"",
   "auditMsg.samplesLoaded": "Loaded {count} Stella Polaris sample scenario(s)",
   "auditMsg.scenarioCreated": "Created scenario \"{name}\"",
   "auditMsg.scenarioDeleted": "Deleted scenario \"{name}\"",
   "auditMsg.scenarioUpdated": "Updated scenario \"{name}\"",
   "auditMsg.simulationRun": "Ran Monte Carlo simulation for \"{name}\" ({iterations} iterations, seed {seed})",
+  "auditMsg.snapshotDeleted": "Deleted the portfolio snapshot from {date}",
+  "auditMsg.snapshotTaken": "Took a portfolio snapshot ({count} scenario(s))",
   "auditMsg.toleranceCleared": "Cleared the project risk tolerance",
   "auditMsg.toleranceSet": "Set risk tolerance: {probability} chance of exceeding {threshold} per year",
   "auditMsg.treatmentAdded": "Added treatment \"{treatment}\" to \"{scenario}\"",
@@ -539,6 +547,18 @@ export default {
   "simulation.seed": "Random seed",
   "simulation.zeroLoss": "No-loss probability",
 
+  // snapshots
+  "snapshots.chartSubtitle": "Deterministic portfolio ALE at each snapshot",
+  "snapshots.chartTitle": "Total ALE over time",
+  "snapshots.delete": "Delete snapshot",
+  "snapshots.deleted": "Snapshot deleted",
+  "snapshots.desc": "Capture today's exposure; repeated snapshots build the trend that shows whether risk is actually falling.",
+  "snapshots.empty": "No snapshots yet — take one now, and another after your next review cycle.",
+  "snapshots.entry": "{count} scenario(s) — total ALE {total}",
+  "snapshots.take": "Take snapshot",
+  "snapshots.taken": "Snapshot saved",
+  "snapshots.title": "Snapshots & trend",
+
   // stepper
   "stepper.assumptions": "Assumptions",
   "stepper.expectedLoss": "Expected loss",
@@ -562,6 +582,18 @@ export default {
   "tolerance.statusWithin": "Within appetite: estimated {actual} chance of annual loss above {threshold} (appetite: {appetite}).",
   "tolerance.threshold": "Annual loss threshold (USD)",
   "tolerance.title": "Risk tolerance",
+
+  // tp — treatment portfolio (combined treatments + budget optimizer)
+  "tp.budgetLabel": "Annual budget (USD)",
+  "tp.combinedCost": "Combined annual cost",
+  "tp.desc": "Combine treatments to see their joint effect: reductions of the same factor compound with diminishing returns (never past 100%), and costs add.",
+  "tp.noneAffordable": "No treatment fits that budget.",
+  "tp.noneBeneficial": "Within that budget, no combination beats doing nothing.",
+  "tp.optimize": "Optimize under budget",
+  "tp.optimized": "Best set under {budget}: {names}",
+  "tp.selected": "{count} selected",
+  "tp.selectHint": "Select two or more treatments to see their combined economics.",
+  "tp.title": "Treatment portfolio",
 
   // treatments
   "treatments.annualCost": "Annual cost",
@@ -636,6 +668,7 @@ export default {
   "xr.treatmentTitle": "Proposed treatment",
   "xr.treatmentBody": "Treatment reduces expected annual loss by **{reduction}**; net annual benefit is **{net}**.",
   "xr.assumptionsTitle": "Key assumptions",
+  "xr.rationaleTitle": "Estimate rationale",
   "xr.aiTitle": "AI-assisted narrative",
   "xr.aiDisclosure": "**Disclosure:** The narrative below was drafted by an AI model from the computed results above and reviewed by the report owner. All quantitative figures in this report are deterministic calculations, not AI output.",
   "xr.aiProvenance": "Drafted by {label} ({model}) on {date}.",

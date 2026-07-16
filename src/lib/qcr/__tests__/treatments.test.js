@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { applyTreatment, compareTreatment } from '@/lib/qcr/treatments';
+import {
+  applyTreatment, compareTreatment, combineTreatments, compareTreatmentSet, optimizeTreatments,
+} from '@/lib/qcr/treatments';
 
 const fixed = (v) => ({ minimum: v, most_likely: v, maximum: v, unit: '' });
 
@@ -35,6 +37,63 @@ describe('compareTreatment', () => {
     });
     expect(r.returnOnControl).toBeNull();
     expect(r.netBenefit).toBeCloseTo(50000, 6);
+  });
+});
+
+const treatment = (id, cost, vulnReduction, freqReduction = 0) => ({
+  id, name: id, annual_cost: cost,
+  frequency_reduction: freqReduction, vulnerability_reduction: vulnReduction,
+  primary_loss_reduction: 0, secondary_loss_reduction: 0,
+});
+
+describe('combineTreatments', () => {
+  it('adds costs and compounds same-factor reductions with diminishing returns', () => {
+    const combined = combineTreatments([treatment('a', 10000, 0.5), treatment('b', 20000, 0.5)]);
+    expect(combined.annual_cost).toBe(30000);
+    expect(combined.vulnerability_reduction).toBeCloseTo(0.75, 10); // not 1.0
+    expect(combined.frequency_reduction).toBe(0);
+  });
+
+  it('never exceeds a 100% reduction', () => {
+    const combined = combineTreatments([treatment('a', 0, 1), treatment('b', 0, 0.9)]);
+    expect(combined.vulnerability_reduction).toBeCloseTo(1, 10);
+  });
+
+  it('a set of one equals the treatment itself', () => {
+    const single = treatment('a', 10000, 0.5);
+    expect(compareTreatmentSet(model, [single])).toEqual(compareTreatment(model, single));
+  });
+});
+
+describe('optimizeTreatments', () => {
+  // Baseline ALE 100k. a: 50% vuln cut for 10k (net 40k). b: 30% for 5k
+  // (net 25k). Together: 65% cut for 15k (net 50k) — better than either.
+  const a = treatment('a', 10000, 0.5);
+  const b = treatment('b', 5000, 0.3);
+
+  it('picks the combination when it beats every single treatment', () => {
+    const { best } = optimizeTreatments(model, [a, b], 20000);
+    expect(best.ids.sort()).toEqual(['a', 'b']);
+    expect(best.comparison.netBenefit).toBeCloseTo(100000 * 0.65 - 15000, 6);
+  });
+
+  it('respects the budget cap', () => {
+    const { best, affordableExists } = optimizeTreatments(model, [a, b], 9000);
+    expect(affordableExists).toBe(true);
+    expect(best.ids).toEqual(['b']); // only b fits 9k
+  });
+
+  it('reports when nothing fits the budget', () => {
+    const { best, affordableExists } = optimizeTreatments(model, [a, b], 1000);
+    expect(best).toBeNull();
+    expect(affordableExists).toBe(false);
+  });
+
+  it('returns no set when doing nothing is better', () => {
+    const wasteful = treatment('w', 500000, 0.1); // costs far more than it saves
+    const { best, affordableExists } = optimizeTreatments(model, [wasteful], 1e9);
+    expect(best).toBeNull();
+    expect(affordableExists).toBe(true);
   });
 });
 

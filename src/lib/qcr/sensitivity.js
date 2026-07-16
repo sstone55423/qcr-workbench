@@ -5,7 +5,7 @@
 import { expectedLoss } from '@/lib/qcr/fair';
 import { FAIR_FACTORS } from '@/lib/qcr/models';
 
-const FACTOR_LABEL_KEYS = {
+export const FACTOR_LABEL_KEYS = {
   threat_event_frequency: 'fair.factorTef',
   vulnerability: 'fair.factorVulnerability',
   primary_loss: 'fair.factorPrimaryLoss',

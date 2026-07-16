@@ -49,8 +49,13 @@ export default {
   "assumptions.invalidatedToast": "Vorherige Simulationsergebnisse wurden gelöscht — führen Sie die Simulation erneut aus.",
   "assumptions.listEmpty": "Noch keine Annahmen erfasst. Halten Sie fest, was innerhalb und außerhalb des Untersuchungsrahmens liegt, damit die Schätzungen belastbar sind.",
   "assumptions.listTitle": "Scoping-Annahmen",
+  "assumptions.maximum": "Maximum",
+  "assumptions.minimum": "Minimum",
+  "assumptions.mostLikely": "Wahrscheinlichster Wert",
   "assumptions.next": "Weiter: Erwarteter Verlust",
   "assumptions.orderError": "Die Werte müssen 0 ≤ Minimum ≤ wahrscheinlichster Wert ≤ Maximum erfüllen.",
+  "assumptions.rationaleLabel": "Begründung / Quelle der Schätzung",
+  "assumptions.rationalePlaceholder": "Woher stammen diese Zahlen? (Vorfalldaten, Kalibrierungsworkshop, Anbieterangebot…)",
   "assumptions.reset": "Auf Beispielwerte zurücksetzen",
 
   // audit
@@ -75,12 +80,15 @@ export default {
   "auditMsg.assumptionsUpdated": "Annahmen für \"{name}\" aktualisiert",
   "auditMsg.fairUpdated": "FAIR-Schätzungen für \"{name}\" aktualisiert (Simulationsergebnisse gelöscht)",
   "auditMsg.narrativeDrafted": "KI-Narrativ für \"{name}\" von {label} entworfen",
+  "auditMsg.rationaleUpdated": "Schätzungsbegründung für \"{name}\" aktualisiert",
   "auditMsg.reportDownloaded": "Management-Bericht für \"{name}\" heruntergeladen",
   "auditMsg.samplesLoaded": "{count} Stella-Polaris-Beispielszenarien geladen",
   "auditMsg.scenarioCreated": "Szenario \"{name}\" erstellt",
   "auditMsg.scenarioDeleted": "Szenario \"{name}\" gelöscht",
   "auditMsg.scenarioUpdated": "Szenario \"{name}\" aktualisiert",
   "auditMsg.simulationRun": "Monte-Carlo-Simulation für \"{name}\" ausgeführt ({iterations} Iterationen, Seed {seed})",
+  "auditMsg.snapshotDeleted": "Portfolio-Snapshot vom {date} gelöscht",
+  "auditMsg.snapshotTaken": "Portfolio-Snapshot erstellt ({count} Szenario(s))",
   "auditMsg.toleranceCleared": "Risikotoleranz des Projekts gelöscht",
   "auditMsg.toleranceSet": "Risikotoleranz festgelegt: Wahrscheinlichkeit von {probability}, {threshold} pro Jahr zu überschreiten",
   "auditMsg.treatmentAdded": "Maßnahme \"{treatment}\" zu \"{scenario}\" hinzugefügt",
@@ -539,6 +547,18 @@ export default {
   "simulation.seed": "Zufalls-Seed",
   "simulation.zeroLoss": "Wahrscheinlichkeit eines verlustfreien Jahres",
 
+  // snapshots
+  "snapshots.chartSubtitle": "Deterministische Portfolio-ALE zu jedem Snapshot",
+  "snapshots.chartTitle": "Gesamt-ALE im Zeitverlauf",
+  "snapshots.delete": "Snapshot löschen",
+  "snapshots.deleted": "Snapshot gelöscht",
+  "snapshots.desc": "Halten Sie die heutige Exponierung fest; wiederholte Snapshots bilden den Trend, der zeigt, ob das Risiko tatsächlich sinkt.",
+  "snapshots.empty": "Noch keine Snapshots — erstellen Sie jetzt einen und einen weiteren nach Ihrem nächsten Überprüfungszyklus.",
+  "snapshots.entry": "{count} Szenario(s) — Gesamt-ALE {total}",
+  "snapshots.take": "Snapshot erstellen",
+  "snapshots.taken": "Snapshot gespeichert",
+  "snapshots.title": "Snapshots & Trend",
+
   // stepper
   "stepper.assumptions": "Annahmen",
   "stepper.expectedLoss": "Erwarteter Verlust",
@@ -562,6 +582,18 @@ export default {
   "tolerance.statusWithin": "Innerhalb der Risikotoleranz: geschätzte Wahrscheinlichkeit von {actual}, dass der Jahresverlust {threshold} überschreitet (Toleranz: {appetite}).",
   "tolerance.threshold": "Jahresverlust-Schwellenwert (USD)",
   "tolerance.title": "Risikotoleranz",
+
+  // tp
+  "tp.budgetLabel": "Jahresbudget (USD)",
+  "tp.combinedCost": "Kombinierte Jahreskosten",
+  "tp.desc": "Kombinieren Sie Maßnahmen, um ihre gemeinsame Wirkung zu sehen: Reduktionen desselben Faktors verketten sich mit abnehmendem Grenznutzen (nie über 100 %), und die Kosten addieren sich.",
+  "tp.noneAffordable": "Keine Maßnahme passt in dieses Budget.",
+  "tp.noneBeneficial": "Innerhalb dieses Budgets schlägt keine Kombination das Nichtstun.",
+  "tp.optimize": "Unter Budget optimieren",
+  "tp.optimized": "Beste Auswahl unter {budget}: {names}",
+  "tp.selected": "{count} ausgewählt",
+  "tp.selectHint": "Wählen Sie zwei oder mehr Maßnahmen aus, um ihre kombinierte Wirtschaftlichkeit zu sehen.",
+  "tp.title": "Maßnahmenportfolio",
 
   // treatments
   "treatments.annualCost": "Jahreskosten",
@@ -636,6 +668,7 @@ export default {
   "xr.treatmentTitle": "Vorgeschlagene Maßnahme",
   "xr.treatmentBody": "Die Maßnahme reduziert den erwarteten Jahresverlust um **{reduction}**; der jährliche Nettonutzen beträgt **{net}**.",
   "xr.assumptionsTitle": "Zentrale Annahmen",
+  "xr.rationaleTitle": "Begründung der Schätzung",
   "xr.aiTitle": "KI-gestütztes Narrativ",
   "xr.aiDisclosure": "**Offenlegung:** Das folgende Narrativ wurde von einem KI-Modell aus den oben berechneten Ergebnissen entworfen und vom Berichtsverantwortlichen geprüft. Alle quantitativen Zahlen in diesem Bericht sind deterministische Berechnungen, keine KI-Ausgaben.",
   "xr.aiProvenance": "Entworfen von {label} ({model}) am {date}.",

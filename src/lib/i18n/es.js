@@ -49,8 +49,13 @@ export default {
   "assumptions.invalidatedToast": "Se borraron los resultados de simulación anteriores — vuelve a ejecutar la simulación.",
   "assumptions.listEmpty": "Aún no hay supuestos registrados. Anota qué está dentro y fuera del alcance para que las estimaciones sean defendibles.",
   "assumptions.listTitle": "Supuestos de alcance",
+  "assumptions.maximum": "Máximo",
+  "assumptions.minimum": "Mínimo",
+  "assumptions.mostLikely": "Más probable",
   "assumptions.next": "Siguiente: Pérdida esperada",
   "assumptions.orderError": "Los valores deben cumplir 0 ≤ mínimo ≤ más probable ≤ máximo.",
+  "assumptions.rationaleLabel": "Justificación / fuente de la estimación",
+  "assumptions.rationalePlaceholder": "¿De dónde salen estos números? (datos de incidentes, taller de calibración, presupuesto de un proveedor…)",
   "assumptions.reset": "Restablecer a los valores de ejemplo",
 
   // audit
@@ -75,12 +80,15 @@ export default {
   "auditMsg.assumptionsUpdated": "Supuestos actualizados para «{name}»",
   "auditMsg.fairUpdated": "Estimaciones FAIR actualizadas para «{name}» (resultados de simulación borrados)",
   "auditMsg.narrativeDrafted": "Narrativa de IA redactada para «{name}» por {label}",
+  "auditMsg.rationaleUpdated": "Justificación de la estimación actualizada para «{name}»",
   "auditMsg.reportDownloaded": "Informe ejecutivo descargado para «{name}»",
   "auditMsg.samplesLoaded": "Se cargaron {count} escenario(s) de ejemplo de Stella Polaris",
   "auditMsg.scenarioCreated": "Escenario «{name}» creado",
   "auditMsg.scenarioDeleted": "Escenario «{name}» eliminado",
   "auditMsg.scenarioUpdated": "Escenario «{name}» actualizado",
   "auditMsg.simulationRun": "Simulación Monte Carlo ejecutada para «{name}» ({iterations} iteraciones, semilla {seed})",
+  "auditMsg.snapshotDeleted": "Instantánea de la cartera del {date} eliminada",
+  "auditMsg.snapshotTaken": "Instantánea de la cartera tomada ({count} escenario(s))",
   "auditMsg.toleranceCleared": "Tolerancia al riesgo del proyecto borrada",
   "auditMsg.toleranceSet": "Tolerancia al riesgo establecida: probabilidad de {probability} de superar {threshold} al año",
   "auditMsg.treatmentAdded": "Tratamiento «{treatment}» añadido a «{scenario}»",
@@ -539,6 +547,18 @@ export default {
   "simulation.seed": "Semilla aleatoria",
   "simulation.zeroLoss": "Probabilidad de no pérdida",
 
+  // snapshots
+  "snapshots.chartSubtitle": "ALE determinista de la cartera en cada instantánea",
+  "snapshots.chartTitle": "ALE total a lo largo del tiempo",
+  "snapshots.delete": "Eliminar instantánea",
+  "snapshots.deleted": "Instantánea eliminada",
+  "snapshots.desc": "Captura la exposición de hoy; las instantáneas repetidas construyen la tendencia que muestra si el riesgo realmente está bajando.",
+  "snapshots.empty": "Aún no hay instantáneas — toma una ahora y otra tras tu próximo ciclo de revisión.",
+  "snapshots.entry": "{count} escenario(s) — ALE total {total}",
+  "snapshots.take": "Tomar instantánea",
+  "snapshots.taken": "Instantánea guardada",
+  "snapshots.title": "Instantáneas y tendencia",
+
   // stepper
   "stepper.assumptions": "Supuestos",
   "stepper.expectedLoss": "Pérdida esperada",
@@ -562,6 +582,18 @@ export default {
   "tolerance.statusWithin": "Dentro del apetito: probabilidad estimada de {actual} de una pérdida anual superior a {threshold} (apetito: {appetite}).",
   "tolerance.threshold": "Umbral de pérdida anual (USD)",
   "tolerance.title": "Tolerancia al riesgo",
+
+  // tp
+  "tp.budgetLabel": "Presupuesto anual (USD)",
+  "tp.combinedCost": "Coste anual combinado",
+  "tp.desc": "Combina tratamientos para ver su efecto conjunto: las reducciones del mismo factor se componen con rendimientos decrecientes (nunca más allá del 100 %), y los costes se suman.",
+  "tp.noneAffordable": "Ningún tratamiento cabe en ese presupuesto.",
+  "tp.noneBeneficial": "Dentro de ese presupuesto, ninguna combinación supera a no hacer nada.",
+  "tp.optimize": "Optimizar según el presupuesto",
+  "tp.optimized": "Mejor conjunto por debajo de {budget}: {names}",
+  "tp.selected": "{count} seleccionado(s)",
+  "tp.selectHint": "Selecciona dos o más tratamientos para ver su economía combinada.",
+  "tp.title": "Cartera de tratamientos",
 
   // treatments
   "treatments.annualCost": "Coste anual",
@@ -636,6 +668,7 @@ export default {
   "xr.treatmentTitle": "Tratamiento propuesto",
   "xr.treatmentBody": "El tratamiento reduce la pérdida anual esperada en **{reduction}**; el beneficio anual neto es de **{net}**.",
   "xr.assumptionsTitle": "Supuestos clave",
+  "xr.rationaleTitle": "Justificación de las estimaciones",
   "xr.aiTitle": "Narrativa asistida por IA",
   "xr.aiDisclosure": "**Divulgación:** La narrativa siguiente fue redactada por un modelo de IA a partir de los resultados calculados arriba y revisada por el responsable del informe. Todas las cifras cuantitativas de este informe son cálculos deterministas, no salida de IA.",
   "xr.aiProvenance": "Redactado por {label} ({model}) el {date}.",

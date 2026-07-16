@@ -80,6 +80,7 @@ export default function Home() {
       await db.entities.Treatment.deleteMany({ project_id: deleteTarget.id });
       await db.entities.Scenario.deleteMany({ project_id: deleteTarget.id });
       await db.entities.AuditEvent.deleteMany({ project_id: deleteTarget.id });
+      await db.entities.Snapshot.deleteMany({ project_id: deleteTarget.id });
       await db.entities.Project.delete(deleteTarget.id);
       await loadProjects();
     } catch (err) {

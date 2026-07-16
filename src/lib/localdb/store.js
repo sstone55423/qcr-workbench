@@ -353,5 +353,6 @@ export const db = {
     Scenario: collectionAPI('Scenario'),
     Treatment: collectionAPI('Treatment'),
     AuditEvent: collectionAPI('AuditEvent'),
+    Snapshot: collectionAPI('Snapshot'),
   },
 };

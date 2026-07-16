@@ -26,6 +26,7 @@ import {
   deleteScenario, createTreatment, loadSampleScenarios,
 } from '@/lib/qcr/scenarioStore';
 import { createBackup, restoreBackup } from '@/lib/backup';
+import { takeSnapshot, deleteSnapshot, listSnapshots } from '@/lib/qcr/snapshotStore';
 
 const fair = (v = 1) => ({
   threat_event_frequency: { minimum: v, most_likely: v, maximum: v, unit: 'events/year' },
@@ -127,6 +128,28 @@ describe('sample data loader', () => {
   });
 });
 
+describe('estimate rationale (documentation-only fair edits)', () => {
+  it('keeps the simulation but clears the narrative when only rationale changed', async () => {
+    let scenario = await createScenario(project.id, { name: 'S', fair: fair() });
+    scenario = await saveSimulation(scenario, { iterations: 1000, seed: 42 }, { mean: 1 }, { binWidth: 1, counts: [] }, { thresholds: [], probabilities: [] });
+    scenario = await db.entities.Scenario.update(scenario.id, { ai_narrative: { text: 'x', provenance: {} } });
+
+    const documented = structuredClone(scenario.fair);
+    documented.vulnerability.rationale = 'Calibration workshop 2026-06';
+    scenario = await updateScenarioFair(scenario, documented);
+    expect(scenario.simulation).not.toBeNull();
+    expect(scenario.ai_narrative).toBeNull();
+    expect(scenario.fair.vulnerability.rationale).toBe('Calibration workshop 2026-06');
+
+    // A numeric change still clears the simulation.
+    const changed = structuredClone(scenario.fair);
+    changed.vulnerability.most_likely = 0.6;
+    changed.vulnerability.maximum = 0.6;
+    scenario = await updateScenarioFair(scenario, changed);
+    expect(scenario.simulation).toBeNull();
+  });
+});
+
 describe('audit trail', () => {
   it('persists language-neutral message keys and params, not rendered text', async () => {
     await createScenario(project.id, { name: 'Audited', fair: fair() });
@@ -140,21 +163,42 @@ describe('audit trail', () => {
   });
 });
 
+describe('snapshots', () => {
+  it('captures per-scenario ALE and total, lists chronologically, and deletes', async () => {
+    const scenario = await createScenario(project.id, { name: 'Snap', fair: fair() });
+    const snapshot = await takeSnapshot(project, [scenario]);
+    // fair(): TEF 1 × Vuln 0.5 × (PL 1000 + SL 0×0) → ALE 500
+    expect(snapshot.total_ale).toBeCloseTo(500, 6);
+    expect(snapshot.scenario_count).toBe(1);
+    expect(snapshot.entries[0]).toMatchObject({ scenario_id: scenario.id, name: 'Snap', p95: null });
+
+    const second = await takeSnapshot(project, [scenario]);
+    const listed = await listSnapshots(project.id);
+    expect(listed).toHaveLength(2);
+    expect(listed[0].taken_at <= listed[1].taken_at).toBe(true);
+
+    await deleteSnapshot(second);
+    expect(await listSnapshots(project.id)).toHaveLength(1);
+  });
+});
+
 describe('backup roundtrip', () => {
-  it('restores projects, scenarios, and treatments from an encrypted backup', async () => {
+  it('restores projects, scenarios, treatments, and snapshots from an encrypted backup', async () => {
     const scenario = await createScenario(project.id, { name: 'S', fair: fair() });
     await createTreatment(scenario, { name: 'T', annual_cost: 10, frequency_reduction: 0, vulnerability_reduction: 0, primary_loss_reduction: 0, secondary_loss_reduction: 0 });
+    await takeSnapshot(project, [scenario]);
 
     const backupText = await createBackup('backup-pass-123');
 
     // Wipe the vault contents, then restore.
     await db.entities.Treatment.deleteMany({});
     await db.entities.Scenario.deleteMany({});
+    await db.entities.Snapshot.deleteMany({});
     await db.entities.Project.deleteMany({});
     expect(await db.entities.Scenario.list()).toHaveLength(0);
 
     const counts = await restoreBackup(backupText, 'backup-pass-123');
-    expect(counts).toEqual({ projects: 1, scenarios: 1, treatments: 1 });
+    expect(counts).toEqual({ projects: 1, scenarios: 1, treatments: 1, snapshots: 1 });
     const restored = await db.entities.Scenario.list();
     expect(restored).toHaveLength(1);
     expect(restored[0].id).toBe(scenario.id);

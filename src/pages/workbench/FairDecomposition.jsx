@@ -56,7 +56,12 @@ export default function FairDecomposition() {
           <tbody className="divide-y divide-border">
             {rows.map((row) => (
               <tr key={row.labelKey}>
-                <td className="px-4 py-2.5 font-medium">{t(row.labelKey)}</td>
+                <td className="px-4 py-2.5 font-medium">
+                  {t(row.labelKey)}
+                  {row.estimate.rationale && (
+                    <p className="text-xs text-muted-foreground font-normal mt-0.5">{row.estimate.rationale}</p>
+                  )}
+                </td>
                 <td className="px-4 py-2.5 text-right tabular-nums">{row.estimate.minimum.toLocaleString()}</td>
                 <td className="px-4 py-2.5 text-right tabular-nums">{row.estimate.most_likely.toLocaleString()}</td>
                 <td className="px-4 py-2.5 text-right tabular-nums">{row.estimate.maximum.toLocaleString()}</td>

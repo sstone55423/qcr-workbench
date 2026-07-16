@@ -5,8 +5,18 @@
 // atomic update, so stale downstream results can never exist.
 import { db } from '@/lib/localdb/store';
 import { logAudit } from '@/lib/auditLog';
-import { validateFairModel, validateTreatment } from '@/lib/qcr/models';
+import { validateFairModel, validateTreatment, FAIR_FACTORS } from '@/lib/qcr/models';
 import sampleScenarios from '@/data/stellaPolaris.json';
+
+// True when the numeric parts of two FAIR models match. Estimates also carry
+// documentation (unit, rationale) that doesn't feed the math — edits to those
+// must not invalidate simulation results.
+export function fairNumbersEqual(a, b) {
+  return FAIR_FACTORS.every((factor) =>
+    a[factor].minimum === b[factor].minimum &&
+    a[factor].most_likely === b[factor].most_likely &&
+    a[factor].maximum === b[factor].maximum);
+}
 
 export async function createScenario(projectId, data) {
   validateFairModel(data.fair);
@@ -30,16 +40,24 @@ export async function updateScenarioMeta(scenario, patch) {
   return record;
 }
 
-// The five FAIR estimates changed: persist them and clear everything computed
-// from them in one atomic write.
+// Persist FAIR-model edits. When the NUMBERS changed, everything computed
+// from them is cleared in the same atomic write; a documentation-only edit
+// (rationale text) keeps the simulation but still clears the AI narrative,
+// whose inputs hash covers the whole model.
 export async function updateScenarioFair(scenario, fair) {
   validateFairModel(fair);
+  const numbersChanged = !fairNumbersEqual(scenario.fair, fair);
   const record = await db.entities.Scenario.update(scenario.id, {
     fair,
-    simulation: null,
     ai_narrative: null,
+    ...(numbersChanged ? { simulation: null } : {}),
   });
-  logAudit(scenario.project_id, 'assumptions', 'auditMsg.fairUpdated', { name: scenario.name });
+  logAudit(
+    scenario.project_id,
+    'assumptions',
+    numbersChanged ? 'auditMsg.fairUpdated' : 'auditMsg.rationaleUpdated',
+    { name: scenario.name },
+  );
   return record;
 }
 

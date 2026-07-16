@@ -49,8 +49,13 @@ export default {
   "assumptions.invalidatedToast": "Önceki simülasyon sonuçları temizlendi — simülasyonu yeniden çalıştırın.",
   "assumptions.listEmpty": "Henüz kaydedilmiş varsayım yok. Tahminlerin savunulabilir olması için nelerin kapsam içinde ve dışında olduğunu yazın.",
   "assumptions.listTitle": "Kapsam varsayımları",
+  "assumptions.maximum": "Maksimum",
+  "assumptions.minimum": "Minimum",
+  "assumptions.mostLikely": "En olası",
   "assumptions.next": "Sonraki: Beklenen kayıp",
   "assumptions.orderError": "Değerler 0 ≤ minimum ≤ en olası ≤ maksimum koşulunu sağlamalıdır.",
+  "assumptions.rationaleLabel": "Tahmin gerekçesi / kaynağı",
+  "assumptions.rationalePlaceholder": "Bu sayılar nereden geliyor? (olay verileri, kalibrasyon çalıştayı, tedarikçi teklifi…)",
   "assumptions.reset": "Örnek değerlere sıfırla",
 
   // audit
@@ -75,12 +80,15 @@ export default {
   "auditMsg.assumptionsUpdated": "\"{name}\" için varsayımlar güncellendi",
   "auditMsg.fairUpdated": "\"{name}\" için FAIR tahminleri güncellendi (simülasyon sonuçları temizlendi)",
   "auditMsg.narrativeDrafted": "\"{name}\" için yapay zekâ anlatı taslağı {label} tarafından oluşturuldu",
+  "auditMsg.rationaleUpdated": "\"{name}\" için tahmin gerekçesi güncellendi",
   "auditMsg.reportDownloaded": "\"{name}\" için yönetici raporu indirildi",
   "auditMsg.samplesLoaded": "{count} Stella Polaris örnek senaryosu yüklendi",
   "auditMsg.scenarioCreated": "\"{name}\" senaryosu oluşturuldu",
   "auditMsg.scenarioDeleted": "\"{name}\" senaryosu silindi",
   "auditMsg.scenarioUpdated": "\"{name}\" senaryosu güncellendi",
   "auditMsg.simulationRun": "\"{name}\" için Monte Carlo simülasyonu çalıştırıldı ({iterations} yineleme, tohum {seed})",
+  "auditMsg.snapshotDeleted": "{date} tarihli portföy anlık görüntüsü silindi",
+  "auditMsg.snapshotTaken": "Portföy anlık görüntüsü alındı ({count} senaryo)",
   "auditMsg.toleranceCleared": "Projenin risk toleransı temizlendi",
   "auditMsg.toleranceSet": "Risk toleransı belirlendi: yıl başına {threshold} eşiğini aşma olasılığı {probability}",
   "auditMsg.treatmentAdded": "\"{scenario}\" senaryosuna \"{treatment}\" önlemi eklendi",
@@ -539,6 +547,18 @@ export default {
   "simulation.seed": "Rastgele tohum",
   "simulation.zeroLoss": "Kayıpsızlık olasılığı",
 
+  // snapshots
+  "snapshots.chartSubtitle": "Her anlık görüntüdeki deterministik portföy ALE'si",
+  "snapshots.chartTitle": "Zaman içinde toplam ALE",
+  "snapshots.delete": "Anlık görüntüyü sil",
+  "snapshots.deleted": "Anlık görüntü silindi",
+  "snapshots.desc": "Bugünkü maruziyeti kaydedin; tekrarlanan anlık görüntüler, riskin gerçekten düşüp düşmediğini gösteren eğilimi oluşturur.",
+  "snapshots.empty": "Henüz anlık görüntü yok — şimdi bir tane alın, bir sonraki gözden geçirme döngünüzden sonra bir tane daha alın.",
+  "snapshots.entry": "{count} senaryo — toplam ALE {total}",
+  "snapshots.take": "Anlık görüntü al",
+  "snapshots.taken": "Anlık görüntü kaydedildi",
+  "snapshots.title": "Anlık görüntüler ve eğilim",
+
   // stepper
   "stepper.assumptions": "Varsayımlar",
   "stepper.expectedLoss": "Beklenen kayıp",
@@ -562,6 +582,18 @@ export default {
   "tolerance.statusWithin": "Tolerans dahilinde: yıllık kaybın {threshold} üzerinde olma olasılığı {actual} olarak tahmin ediliyor (tolerans: {appetite}).",
   "tolerance.threshold": "Yıllık kayıp eşiği (USD)",
   "tolerance.title": "Risk toleransı",
+
+  // tp
+  "tp.budgetLabel": "Yıllık bütçe (USD)",
+  "tp.combinedCost": "Birleşik yıllık maliyet",
+  "tp.desc": "Ortak etkilerini görmek için önlemleri birleştirin: aynı faktörün azaltımları azalan getiriyle birleşir (asla %100'ü aşmaz) ve maliyetler toplanır.",
+  "tp.noneAffordable": "Bu bütçeye uyan önlem yok.",
+  "tp.noneBeneficial": "Bu bütçe dahilinde hiçbir kombinasyon hiçbir şey yapmamaktan daha iyi sonuç vermiyor.",
+  "tp.optimize": "Bütçe dahilinde optimize et",
+  "tp.optimized": "{budget} altındaki en iyi küme: {names}",
+  "tp.selected": "{count} seçildi",
+  "tp.selectHint": "Birleşik ekonomilerini görmek için iki veya daha fazla önlem seçin.",
+  "tp.title": "Önlem portföyü",
 
   // treatments
   "treatments.annualCost": "Yıllık maliyet",
@@ -636,6 +668,7 @@ export default {
   "xr.treatmentTitle": "Önerilen önlem",
   "xr.treatmentBody": "Önlem, beklenen yıllık kaybı **{reduction}** kadar azaltır; net yıllık fayda **{net}** düzeyindedir.",
   "xr.assumptionsTitle": "Temel varsayımlar",
+  "xr.rationaleTitle": "Tahmin gerekçesi",
   "xr.aiTitle": "Yapay zekâ destekli anlatı",
   "xr.aiDisclosure": "**Açıklama:** Aşağıdaki anlatının taslağı, yukarıdaki hesaplanmış sonuçlardan bir yapay zekâ modeli tarafından oluşturulmuş ve rapor sahibi tarafından incelenmiştir. Bu rapordaki tüm nicel rakamlar yapay zekâ çıktısı değil, deterministik hesaplamalardır.",
   "xr.aiProvenance": "{label} ({model}) tarafından {date} tarihinde taslak olarak oluşturuldu.",

@@ -13,6 +13,7 @@ import ScenarioAleBars from '@/components/charts/ScenarioAleBars';
 import ExceedanceCurveChart from '@/components/charts/ExceedanceCurve';
 import ToleranceStatus from '@/components/workbench/ToleranceStatus';
 import ToleranceEditor from '@/components/portfolio/ToleranceEditor';
+import SnapshotTrend from '@/components/portfolio/SnapshotTrend';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -88,6 +89,8 @@ export default function Portfolio() {
           </ChartCard>
 
           <ToleranceEditor project={currentProject} onSaved={refreshProject} />
+
+          <SnapshotTrend project={currentProject} scenarios={scenarios} />
 
           <div className="border border-border rounded-xl p-5 space-y-4">
             <div>

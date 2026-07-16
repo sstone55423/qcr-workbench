@@ -38,6 +38,7 @@ export async function createBackup(passphrase) {
     Project: await db.entities.Project.list(),
     Scenario: await db.entities.Scenario.list(),
     Treatment: await db.entities.Treatment.list(),
+    Snapshot: await db.entities.Snapshot.list(),
     AppSettings: await appSettings.get(),
   };
   const salt = randomSalt();
@@ -62,6 +63,7 @@ export async function createPlainBackup() {
     Project: await db.entities.Project.list(),
     Scenario: await db.entities.Scenario.list(),
     Treatment: await db.entities.Treatment.list(),
+    Snapshot: await db.entities.Snapshot.list(),
     AppSettings: await appSettings.get(),
   };
   return JSON.stringify({
@@ -113,7 +115,7 @@ export async function decryptBackup(fileText, passphrase) {
 // Writes a decrypted backup dump into the (unlocked) vault. Records keep their
 // ids; existing records with the same id are overwritten (merge).
 export async function importDump(dump) {
-  for (const name of ['Project', 'Scenario', 'Treatment']) {
+  for (const name of ['Project', 'Scenario', 'Treatment', 'Snapshot']) {
     await importRecords(name, dump[name] || []);
   }
   if (dump.AppSettings && Object.keys(dump.AppSettings).length > 0) {
@@ -123,6 +125,7 @@ export async function importDump(dump) {
     projects: (dump.Project || []).length,
     scenarios: (dump.Scenario || []).length,
     treatments: (dump.Treatment || []).length,
+    snapshots: (dump.Snapshot || []).length,
   };
 }
 

@@ -49,8 +49,13 @@ export default {
   "assumptions.invalidatedToast": "Результаты предыдущей симуляции очищены — запустите симуляцию заново.",
   "assumptions.listEmpty": "Допущения ещё не записаны. Зафиксируйте, что входит и не входит в охват, чтобы оценки были обоснованными.",
   "assumptions.listTitle": "Допущения по охвату",
+  "assumptions.maximum": "Максимум",
+  "assumptions.minimum": "Минимум",
+  "assumptions.mostLikely": "Наиболее вероятное",
   "assumptions.next": "Далее: Ожидаемые потери",
   "assumptions.orderError": "Значения должны удовлетворять условию 0 ≤ минимум ≤ наиболее вероятное ≤ максимум.",
+  "assumptions.rationaleLabel": "Обоснование / источник оценки",
+  "assumptions.rationalePlaceholder": "Откуда взяты эти цифры? (данные об инцидентах, калибровочный семинар, коммерческое предложение поставщика…)",
   "assumptions.reset": "Сбросить к значениям из примера",
 
   // audit
@@ -75,12 +80,15 @@ export default {
   "auditMsg.assumptionsUpdated": "Обновлены допущения для \"{name}\"",
   "auditMsg.fairUpdated": "Обновлены оценки FAIR для \"{name}\" (результаты симуляции очищены)",
   "auditMsg.narrativeDrafted": "ИИ подготовил черновик нарратива для \"{name}\" ({label})",
+  "auditMsg.rationaleUpdated": "Обновлено обоснование оценки для \"{name}\"",
   "auditMsg.reportDownloaded": "Загружен отчёт для руководства по \"{name}\"",
   "auditMsg.samplesLoaded": "Загружено примеров сценариев Stella Polaris: {count}",
   "auditMsg.scenarioCreated": "Создан сценарий \"{name}\"",
   "auditMsg.scenarioDeleted": "Удалён сценарий \"{name}\"",
   "auditMsg.scenarioUpdated": "Обновлён сценарий \"{name}\"",
   "auditMsg.simulationRun": "Запущена симуляция Монте-Карло для \"{name}\" (итераций: {iterations}, зерно {seed})",
+  "auditMsg.snapshotDeleted": "Удалён снимок портфеля от {date}",
+  "auditMsg.snapshotTaken": "Сделан снимок портфеля (сценариев: {count})",
   "auditMsg.toleranceCleared": "Сброшена толерантность к риску проекта",
   "auditMsg.toleranceSet": "Задана толерантность к риску: вероятность превышения {threshold} за год — {probability}",
   "auditMsg.treatmentAdded": "Мера \"{treatment}\" добавлена к \"{scenario}\"",
@@ -539,6 +547,18 @@ export default {
   "simulation.seed": "Зерно случайности",
   "simulation.zeroLoss": "Вероятность отсутствия потерь",
 
+  // snapshots
+  "snapshots.chartSubtitle": "Детерминированный ALE портфеля на момент каждого снимка",
+  "snapshots.chartTitle": "Суммарный ALE во времени",
+  "snapshots.delete": "Удалить снимок",
+  "snapshots.deleted": "Снимок удалён",
+  "snapshots.desc": "Зафиксируйте сегодняшнюю подверженность риску; повторные снимки формируют тренд, показывающий, действительно ли риск снижается.",
+  "snapshots.empty": "Снимков ещё нет — сделайте один сейчас, а следующий после очередного цикла пересмотра.",
+  "snapshots.entry": "Сценариев: {count} — суммарный ALE {total}",
+  "snapshots.take": "Сделать снимок",
+  "snapshots.taken": "Снимок сохранён",
+  "snapshots.title": "Снимки и тренд",
+
   // stepper
   "stepper.assumptions": "Допущения",
   "stepper.expectedLoss": "Ожидаемые потери",
@@ -562,6 +582,18 @@ export default {
   "tolerance.statusWithin": "В пределах толерантности: расчётная вероятность годовых потерь свыше {threshold} — {actual} (допустимо: {appetite}).",
   "tolerance.threshold": "Порог годовых потерь (USD)",
   "tolerance.title": "Толерантность к риску",
+
+  // tp — treatment portfolio (combined treatments + budget optimizer)
+  "tp.budgetLabel": "Годовой бюджет (USD)",
+  "tp.combinedCost": "Совокупная годовая стоимость",
+  "tp.desc": "Комбинируйте меры, чтобы увидеть их совместный эффект: снижения одного и того же фактора складываются с убывающей отдачей (никогда не превышая 100 %), а стоимости суммируются.",
+  "tp.noneAffordable": "Ни одна мера не укладывается в этот бюджет.",
+  "tp.noneBeneficial": "В рамках этого бюджета ни одна комбинация не превосходит бездействие.",
+  "tp.optimize": "Оптимизировать в рамках бюджета",
+  "tp.optimized": "Лучший набор в рамках {budget}: {names}",
+  "tp.selected": "Выбрано: {count}",
+  "tp.selectHint": "Выберите две или более меры, чтобы увидеть их совокупную экономику.",
+  "tp.title": "Портфель мер",
 
   // treatments
   "treatments.annualCost": "Годовая стоимость",
@@ -636,6 +668,7 @@ export default {
   "xr.treatmentTitle": "Предлагаемая мера",
   "xr.treatmentBody": "Мера снижает ожидаемые годовые потери на **{reduction}**; чистая годовая выгода составляет **{net}**.",
   "xr.assumptionsTitle": "Ключевые допущения",
+  "xr.rationaleTitle": "Обоснование оценок",
   "xr.aiTitle": "Описание с поддержкой ИИ",
   "xr.aiDisclosure": "**Раскрытие:** Текст ниже составлен моделью ИИ на основе рассчитанных выше результатов и проверен владельцем отчёта. Все количественные показатели в этом отчёте — детерминированные расчёты, а не результат работы ИИ.",
   "xr.aiProvenance": "Составлено {label} ({model}) {date}.",

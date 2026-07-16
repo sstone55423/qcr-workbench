@@ -3,6 +3,8 @@
 // lives in the xr.* dictionary keys; markdown structure (headings, table pipes,
 // blockquote, emphasis) stays here so translators only ever see text.
 import { translate } from '@/lib/i18n';
+import { FAIR_FACTORS } from '@/lib/qcr/models';
+import { FACTOR_LABEL_KEYS } from '@/lib/qcr/sensitivity';
 
 export function formatCurrency(value) {
   return '$' + Math.round(value).toLocaleString('en-US');
@@ -70,6 +72,12 @@ export function executiveSummary(scenario, expected, simulation = null, treatmen
     );
   }
   lines.push('', `## ${t('xr.assumptionsTitle')}`, '', ...(scenario.assumptions || []).map((item) => `- ${item}`));
+  const rationales = FAIR_FACTORS
+    .filter((factor) => scenario.fair?.[factor]?.rationale)
+    .map((factor) => `- **${t(FACTOR_LABEL_KEYS[factor])}:** ${scenario.fair[factor].rationale}`);
+  if (rationales.length) {
+    lines.push('', `### ${t('xr.rationaleTitle')}`, '', ...rationales);
+  }
   if (aiNarrative?.text) {
     const p = aiNarrative.provenance || {};
     lines.push(

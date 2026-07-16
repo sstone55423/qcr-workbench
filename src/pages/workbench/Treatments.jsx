@@ -9,6 +9,7 @@ import { formatCurrency, formatPercent } from '@/lib/qcr/format';
 import MetricCardRow from '@/components/workbench/MetricCardRow';
 import TreatmentForm from '@/components/workbench/TreatmentForm';
 import TreatmentSuggestions from '@/components/workbench/TreatmentSuggestions';
+import TreatmentPortfolio from '@/components/workbench/TreatmentPortfolio';
 import ChartCard from '@/components/charts/ChartCard';
 import TreatmentComparisonBar from '@/components/charts/TreatmentComparisonBar';
 import { Button } from '@/components/ui/button';
@@ -149,6 +150,8 @@ export default function Treatments() {
               )}
             </>
           )}
+
+          <TreatmentPortfolio scenario={scenario} treatments={treatments} />
         </>
       )}
 

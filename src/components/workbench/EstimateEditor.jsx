@@ -45,6 +45,14 @@ export default function EstimateEditor({ labelKey, estimate, onChange }) {
       {!ordered && (
         <p className="text-xs text-destructive mt-2">{t('assumptions.orderError')}</p>
       )}
+      <div className="mt-3">
+        <label className="text-xs text-muted-foreground mb-1 block">{t('assumptions.rationaleLabel')}</label>
+        <Input
+          value={estimate.rationale || ''}
+          onChange={(e) => onChange({ ...estimate, rationale: e.target.value })}
+          placeholder={t('assumptions.rationalePlaceholder')}
+        />
+      </div>
     </div>
   );
 }
