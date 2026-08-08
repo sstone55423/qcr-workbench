@@ -6,6 +6,8 @@
 // from assets, with SPA fallback to index.html. Rows are scoped to the
 // Cloudflare Access identity so a shared database still isolates users.
 
+import { handleMcp } from './mcp.js';
+
 const json = (data, init = {}) =>
   new Response(JSON.stringify(data), {
     ...init,
@@ -22,6 +24,8 @@ const ownerEmail = (request) =>
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // Remote MCP endpoint (stateless JSON-RPC over HTTP).
+    if (url.pathname === '/mcp') return handleMcp(request);
     // Safety net: normally assets serve non-API paths without invoking us.
     if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
     try {

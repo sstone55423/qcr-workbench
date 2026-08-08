@@ -6,13 +6,17 @@
   "name": "qcr-workbench-v2",
   "main": "worker/index.js",
   "compatibility_date": "2026-08-01",
+  // Let the Worker bundle reuse the SPA's domain math via its '@/…' imports
+  // (esbuild resolves the subpath alias, same as Vite/jsconfig do).
+  "alias": { "@": "./src" },
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
     // SPA: unknown non-asset paths fall back to index.html (client router).
     "not_found_handling": "single-page-application",
-    // Hit the Worker first only for the API; everything else is a static asset.
-    "run_worker_first": ["/api/*"]
+    // Hit the Worker first for the API and the MCP endpoint; everything else is
+    // a static asset served directly.
+    "run_worker_first": ["/api/*", "/mcp"]
   },
   "d1_databases": [
     {
