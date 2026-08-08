@@ -1,0 +1,26 @@
+{
+  // QCR Workbench v2 — Cloudflare-native. A single Worker serves the built
+  // React SPA (Static Assets) and an /api/* backend backed by D1. This replaces
+  // the v1 Pages (static-only) deployment on the main branch.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "qcr-workbench-v2",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // SPA: unknown non-asset paths fall back to index.html (client router).
+    "not_found_handling": "single-page-application",
+    // Hit the Worker first only for the API; everything else is a static asset.
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "qcr-workbench-db",
+      "database_id": "d6376a28-4894-408c-9fbb-57a29e1e5d11",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": { "enabled": true }
+}
