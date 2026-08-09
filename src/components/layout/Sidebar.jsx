@@ -57,7 +57,7 @@ export default function Sidebar() {
         {!collapsed && (
           <Link to="/" className="flex items-center gap-2 flex-1 min-w-0">
             <ShieldAlert className="w-5 h-5 text-primary shrink-0" />
-            <span className="font-heading font-bold text-lg tracking-tight truncate">QCR Workbench</span>
+            <span className="font-heading font-bold text-lg tracking-tight truncate" title="Quantitative Cyber Risk Workbench">QCR Workbench</span>
           </Link>
         )}
         <Button variant="ghost" size="icon" className="shrink-0" aria-label={collapsed ? t('sidebar.expand') : t('sidebar.collapse')} onClick={() => setCollapsed(!collapsed)}>

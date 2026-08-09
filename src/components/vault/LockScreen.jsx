@@ -102,7 +102,7 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
     <>
       <div className="flex items-center gap-2 justify-center mb-2">
         <BookOpen className="w-6 h-6 text-primary" />
-        <span className="font-heading font-bold text-xl tracking-tight">QCR Workbench</span>
+        <span className="font-heading font-bold text-xl tracking-tight" title="Quantitative Cyber Risk Workbench">QCR Workbench</span>
       </div>
       <div className="flex items-center gap-1.5 justify-center text-xs text-muted-foreground mb-6">
         <ShieldCheck className="w-3.5 h-3.5" />
@@ -127,7 +127,7 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
         {/* ---- Store list ---- */}
         {mode === 'list' && (
           <div className="space-y-4">
-            <p className="text-sm font-medium">Choose a store to open</p>
+            <p className="text-sm font-medium">Choose a data store to open</p>
             <div className="space-y-2">
               {stores.map(s => (
                 <div key={s.id} className="flex items-center gap-2">
@@ -172,8 +172,8 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
         {mode === 'unlock' && selected && (
           <form onSubmit={handleUnlock} className="space-y-4">
             {hasStores && (
-              <button type="button" onClick={goList} className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-                <ChevronLeft className="w-3.5 h-3.5" /> All stores
+              <button type="button" onClick={goList} className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
+                <ChevronLeft className="w-3.5 h-3.5" /> Show all data stores
               </button>
             )}
             <div className="flex items-center gap-2">
@@ -198,8 +198,8 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
         {mode === 'create' && (
           <form onSubmit={handleCreate} className="space-y-4">
             {hasStores && (
-              <button type="button" onClick={goList} className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-                <ChevronLeft className="w-3.5 h-3.5" /> All stores
+              <button type="button" onClick={goList} className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
+                <ChevronLeft className="w-3.5 h-3.5" /> Show all data stores
               </button>
             )}
             <p className="text-sm font-medium">Create a new data store</p>
@@ -237,8 +237,8 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
         {mode === 'restore' && (
           <div className="space-y-4">
             {hasStores && (
-              <button type="button" onClick={goList} className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-                <ChevronLeft className="w-3.5 h-3.5" /> All stores
+              <button type="button" onClick={goList} className="inline-flex items-center gap-1 text-xs text-primary hover:underline">
+                <ChevronLeft className="w-3.5 h-3.5" /> Show all data stores
               </button>
             )}
             <p className="text-sm font-medium">Restore a backup into a new store</p>
