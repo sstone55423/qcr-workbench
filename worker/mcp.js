@@ -7,140 +7,12 @@
 // AI-GOVERNANCE rule "AI never computes numbers": an MCP client gets real,
 // audited figures by CALLING the math instead of guessing it.
 
-import { expectedLoss } from '@/lib/qcr/fair';
-import {
-  simulateAnnualLoss, exceedanceCurve, DEFAULT_ITERATIONS, DEFAULT_SEED,
-} from '@/lib/qcr/simulation';
-import { compareTreatment, optimizeTreatments } from '@/lib/qcr/treatments';
-import { sensitivityRows } from '@/lib/qcr/sensitivity';
-import { ciToEstimate } from '@/lib/qcr/calibration';
-import { validateFairModel, FAIR_FACTORS } from '@/lib/qcr/models';
+import { QCR_TOOLS, toolByName } from '@/lib/mcp/tools';
 
 const SERVER_INFO = { name: 'qcr-workbench', version: '2.0.0' };
 const DEFAULT_PROTOCOL = '2025-06-18';
 
-// ── JSON Schema fragments for tool inputs ───────────────────────────────────
-const estimate = (description) => ({
-  type: 'object',
-  description,
-  properties: {
-    minimum: { type: 'number' },
-    most_likely: { type: 'number' },
-    maximum: { type: 'number' },
-  },
-  required: ['minimum', 'most_likely', 'maximum'],
-});
-
-const fairSchema = {
-  type: 'object',
-  description: 'FAIR estimate model; each factor is a PERT estimate {minimum, most_likely, maximum} with minimum ≤ most_likely ≤ maximum.',
-  properties: {
-    threat_event_frequency: estimate('Threat event frequency (events per year)'),
-    vulnerability: estimate('Vulnerability (probability 0–1 that an event becomes a loss)'),
-    primary_loss: estimate('Primary loss per event (currency)'),
-    secondary_loss: estimate('Secondary loss per event (currency)'),
-    secondary_loss_probability: estimate('Probability (0–1) an event has secondary loss'),
-  },
-  required: FAIR_FACTORS,
-};
-
-const treatmentSchema = {
-  type: 'object',
-  description: 'A control/treatment: an annual cost and fractional (0–1) reductions of each factor.',
-  properties: {
-    name: { type: 'string' },
-    annual_cost: { type: 'number', description: 'Annual cost of the control (currency)' },
-    frequency_reduction: { type: 'number', description: 'Fractional TEF reduction, 0–1' },
-    vulnerability_reduction: { type: 'number', description: 'Fractional vulnerability reduction, 0–1' },
-    primary_loss_reduction: { type: 'number', description: 'Fractional primary-loss reduction, 0–1' },
-    secondary_loss_reduction: { type: 'number', description: 'Fractional secondary-loss reduction, 0–1' },
-  },
-  required: ['annual_cost'],
-};
-
-// ── Tools ───────────────────────────────────────────────────────────────────
-const TOOLS = [
-  {
-    name: 'compute_ale',
-    description: 'Deterministic FAIR annualized loss expectancy (ALE) with its decomposition: TEF, vulnerability, loss event frequency, and loss magnitude.',
-    inputSchema: { type: 'object', properties: { fair: fairSchema }, required: ['fair'] },
-    handler: ({ fair }) => { validateFairModel(fair); return expectedLoss(fair); },
-  },
-  {
-    name: 'simulate_scenario',
-    description: 'Monte Carlo simulation of annual loss for a FAIR model. Returns summary statistics (mean, median, P90/P95/P99, probability of a zero-loss year, max) and a 20-point loss-exceedance curve. Deterministic for a given seed.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        fair: fairSchema,
-        iterations: { type: 'integer', description: `Iterations (default ${DEFAULT_ITERATIONS})` },
-        seed: { type: 'integer', description: `RNG seed (default ${DEFAULT_SEED})` },
-      },
-      required: ['fair'],
-    },
-    handler: ({ fair, iterations, seed }) => {
-      validateFairModel(fair);
-      const s = seed ?? DEFAULT_SEED;
-      const sim = simulateAnnualLoss(fair, iterations || DEFAULT_ITERATIONS, s);
-      const ex = exceedanceCurve(sim.annualLosses, 20);
-      return {
-        mean: sim.mean,
-        median: sim.median,
-        percentile_90: sim.percentile_90,
-        percentile_95: sim.percentile_95,
-        percentile_99: sim.percentile_99,
-        probability_of_zero_loss: sim.probability_of_zero_loss,
-        max_loss: sim.max_loss,
-        iterations: sim.iterations,
-        seed: s,
-        exceedance: ex.thresholds.map((loss, i) => ({ loss, probability: ex.probabilities[i] })),
-      };
-    },
-  },
-  {
-    name: 'evaluate_treatment',
-    description: 'Cost-benefit of one control against a FAIR model: baseline vs residual ALE, risk reduction, net benefit, and return on control (ROC).',
-    inputSchema: { type: 'object', properties: { fair: fairSchema, treatment: treatmentSchema }, required: ['fair', 'treatment'] },
-    handler: ({ fair, treatment }) => { validateFairModel(fair); return compareTreatment(fair, treatment); },
-  },
-  {
-    name: 'optimize_controls',
-    description: 'Pick the control subset maximizing net benefit under an annual budget (exhaustive search; up to 16 treatments). Returns the best set or null if nothing affordable beats doing nothing.',
-    inputSchema: {
-      type: 'object',
-      properties: { fair: fairSchema, treatments: { type: 'array', items: treatmentSchema }, budget: { type: 'number' } },
-      required: ['fair', 'treatments', 'budget'],
-    },
-    handler: ({ fair, treatments, budget }) => { validateFairModel(fair); return optimizeTreatments(fair, treatments, budget); },
-  },
-  {
-    name: 'sensitivity_analysis',
-    description: 'One-at-a-time tornado sensitivity: how far the ALE swings when each FAIR factor moves to its min/max while others hold at their means. Rows sorted widest-swing first.',
-    inputSchema: { type: 'object', properties: { fair: fairSchema }, required: ['fair'] },
-    handler: ({ fair }) => { validateFairModel(fair); return sensitivityRows(fair); },
-  },
-  {
-    name: 'calibrate_estimate',
-    description: 'Convert a 90% confidence interval [lower, upper] into a PERT estimate {minimum, most_likely, maximum} usable as a FAIR factor. Returns null if the bounds are not a usable interval.',
-    inputSchema: {
-      type: 'object',
-      properties: { lower: { type: 'number' }, upper: { type: 'number' } },
-      required: ['lower', 'upper'],
-    },
-    handler: ({ lower, upper }) => ciToEstimate(lower, upper),
-  },
-  {
-    name: 'validate_model',
-    description: 'Validate a FAIR model (0 ≤ minimum ≤ most_likely ≤ maximum for every factor). Returns {valid:true} or {valid:false, error}.',
-    inputSchema: { type: 'object', properties: { fair: fairSchema }, required: ['fair'] },
-    handler: ({ fair }) => {
-      try { validateFairModel(fair); return { valid: true }; }
-      catch (e) { return { valid: false, error: e.message }; }
-    },
-  },
-];
-
-const toolDefs = () => TOOLS.map(({ name, description, inputSchema }) => ({ name, description, inputSchema }));
+const toolDefs = () => QCR_TOOLS.map(({ name, description, inputSchema }) => ({ name, description, inputSchema }));
 
 // ── JSON-RPC dispatch ────────────────────────────────────────────────────────
 const rpcResult = (id, result) => ({ jsonrpc: '2.0', id, result });
@@ -161,10 +33,10 @@ async function dispatch(msg) {
     case 'tools/list':
       return rpcResult(id, { tools: toolDefs() });
     case 'tools/call': {
-      const tool = TOOLS.find((t) => t.name === params?.name);
+      const tool = toolByName(params?.name);
       if (!tool) return rpcError(id, -32602, `Unknown tool: ${params?.name}`);
       try {
-        const out = await tool.handler(params.arguments || {});
+        const out = await tool.run(params.arguments || {});
         return rpcResult(id, { content: [{ type: 'text', text: JSON.stringify(out) }] });
       } catch (e) {
         // Tool-execution failures are reported as an errored tool result, not a

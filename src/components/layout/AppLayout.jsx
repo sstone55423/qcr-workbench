@@ -5,6 +5,7 @@ import WelcomeNotice from '@/components/WelcomeNotice';
 import UnloadGuard from '@/components/UnloadGuard';
 import AutoLock from '@/components/AutoLock';
 import TutorialGuide from '@/components/tutorial/TutorialGuide';
+import WebMcpBridge from '@/components/WebMcpBridge';
 
 export default function AppLayout() {
   return (
@@ -17,6 +18,7 @@ export default function AppLayout() {
       <UnloadGuard />
       <AutoLock />
       <TutorialGuide />
+      <WebMcpBridge />
     </div>
   );
 }
