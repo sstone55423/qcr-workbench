@@ -34,6 +34,13 @@ const isOAuthDiscovery = (pathname) =>
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // Canonical host: redirect www → apex so there is ONE origin (and one PWA
+    // cache). Without this, www is a separate app origin that can drift from the
+    // apex. Preserves path + query.
+    if (url.hostname.startsWith('www.')) {
+      url.hostname = url.hostname.slice(4);
+      return Response.redirect(url.toString(), 301);
+    }
     if (isOAuthDiscovery(url.pathname)) return fail(404, 'no_auth');
     // Remote MCP endpoint (stateless JSON-RPC over HTTP).
     if (url.pathname === '/mcp') return handleMcp(request);
