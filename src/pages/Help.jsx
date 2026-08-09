@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Database, Sparkles, Key, ExternalLink, Zap, ShieldCheck, FileText, LifeBuoy, GraduationCap, Plug } from 'lucide-react';
+import { BookOpen, Database, Sparkles, Key, ExternalLink, Zap, ShieldCheck, FileText, LifeBuoy, GraduationCap, Plug, Mail } from 'lucide-react';
 import { setTutorialState } from '@/lib/tutorial';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
@@ -7,7 +7,7 @@ import remarkGfm from 'remark-gfm';
 import Copyright from '@/components/Copyright';
 import Citation from '@/components/Citation';
 import ReportIssue from '@/components/ReportIssue';
-import { APP_FUNDING_URL, APP_KOFI_URL, FAIR_INSTITUTE_URL } from '@/lib/citation';
+import { APP_FUNDING_URL, APP_KOFI_URL, FAIR_INSTITUTE_URL, APP_SUPPORT_EMAIL } from '@/lib/citation';
 import { useI18n } from '@/lib/I18nContext';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle
@@ -139,6 +139,10 @@ export default function Help() {
           </div>
           <p className="text-sm text-muted-foreground mb-3">{t('report.helpText')}</p>
           <ReportIssue />
+          <p className="mt-3 text-sm text-muted-foreground flex items-center gap-1.5">
+            <Mail className="w-3.5 h-3.5 text-primary shrink-0" />
+            <a href={`mailto:${APP_SUPPORT_EMAIL}`} className="text-primary hover:underline">{APP_SUPPORT_EMAIL}</a>
+          </p>
         </div>
         <Citation />
       </div>
