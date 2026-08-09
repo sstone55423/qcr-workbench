@@ -21,9 +21,20 @@ const fail = (status, message) => json({ error: message }, { status });
 const ownerEmail = (request) =>
   request.headers.get('Cf-Access-Authenticated-User-Email') || 'dev@localhost';
 
+// /mcp is a public, no-auth MCP server. MCP connectors (Claude Desktop /
+// claude.ai) probe these OAuth-discovery paths first; without this, the SPA
+// fallback answers them with HTML 200, which the connector mistakes for an auth
+// server and then fails Dynamic Client Registration. A clean 404 tells the
+// client "no OAuth here — connect directly."
+const isOAuthDiscovery = (pathname) =>
+  pathname.startsWith('/.well-known/oauth-authorization-server') ||
+  pathname.startsWith('/.well-known/oauth-protected-resource') ||
+  pathname === '/.well-known/openid-configuration';
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (isOAuthDiscovery(url.pathname)) return fail(404, 'no_auth');
     // Remote MCP endpoint (stateless JSON-RPC over HTTP).
     if (url.pathname === '/mcp') return handleMcp(request);
     // Safety net: normally assets serve non-API paths without invoking us.
