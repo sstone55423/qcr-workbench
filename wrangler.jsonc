@@ -38,5 +38,7 @@
       "migrations_dir": "migrations"
     }
   ],
+  // Workers AI — the free, keyless AI provider (env.AI.run). Powers /api/ai.
+  "ai": { "binding": "AI" },
   "observability": { "enabled": true }
 }

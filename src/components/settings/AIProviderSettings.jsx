@@ -79,6 +79,9 @@ export default function AIProviderSettings({ value, onChange }) {
         <p className="text-[11px] text-muted-foreground">
           {t('aip.ollamaNote')}
         </p>
+        <p className="text-[11px] text-muted-foreground">
+          {t('aip.cloudflareNote')}
+        </p>
         <Button variant="outline" size="sm" onClick={testProvider} disabled={testing || !autoPick} className="gap-2">
           {testing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plug className="w-3.5 h-3.5" />}
           {testing ? t('settings.testing') : t('aip.testConnection')}

@@ -52,6 +52,7 @@ export default {
   "aip.openaiKey": "API-ключ OpenAI",
   "aip.qwenKey": "API-ключ Qwen (DashScope)",
   "aip.cerebrasKey": "API-ключ Cerebras",
+  "aip.cloudflareNote": "Cloudflare Workers AI бесплатен и не требует ключа. Ваш запрос отправляется в Cloudflare (не используется для обучения); варианты на устройстве оставляют всё в вашем браузере.",
   "aip.testConnection": "Проверить подключение ИИ",
   "aip.testFailed": "Проверка ИИ не удалась",
   "aip.title": "Провайдер ИИ (аналитика и ключевые слова)",

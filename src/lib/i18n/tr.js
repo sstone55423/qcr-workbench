@@ -52,6 +52,7 @@ export default {
   "aip.openaiKey": "OpenAI API Anahtarı",
   "aip.qwenKey": "Qwen (DashScope) API Anahtarı",
   "aip.cerebrasKey": "Cerebras API Anahtarı",
+  "aip.cloudflareNote": "Cloudflare Workers AI ücretsizdir ve anahtar gerektirmez. İsteminiz Cloudflare'e gönderilir (eğitim için kullanılmaz); cihaz üzerindeki seçenekler her şeyi tarayıcınızda tutar.",
   "aip.testConnection": "Yapay Zekâ Bağlantısını Test Et",
   "aip.testFailed": "Yapay zekâ testi başarısız",
   "aip.title": "Yapay Zekâ Sağlayıcısı (İçgörüler ve Anahtar Kelimeler)",

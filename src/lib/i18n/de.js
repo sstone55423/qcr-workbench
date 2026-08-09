@@ -52,6 +52,7 @@ export default {
   "aip.openaiKey": "OpenAI-API-Schlüssel",
   "aip.qwenKey": "Qwen-(DashScope)-API-Schlüssel",
   "aip.cerebrasKey": "Cerebras-API-Schlüssel",
+  "aip.cloudflareNote": "Cloudflare Workers AI ist kostenlos und benötigt keinen Schlüssel. Ihr Prompt wird an Cloudflare gesendet (nicht zum Training verwendet); die On-Device-Optionen belassen alles in Ihrem Browser.",
   "aip.testConnection": "KI-Verbindung testen",
   "aip.testFailed": "KI-Test fehlgeschlagen",
   "aip.title": "KI-Anbieter (Einblicke & Schlüsselwörter)",

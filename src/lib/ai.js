@@ -13,9 +13,13 @@ export const AI_PROVIDERS = [
   { id: 'ollama', label: 'Local (Ollama)' },
   { id: 'qwen', label: 'Qwen (DashScope)' },
   { id: 'cerebras', label: 'Cerebras' },
-  // On-device, no key. Ranked last so a configured cloud key wins under "auto".
+  // On-device, no key. Ranked ahead of Cloudflare so a private on-device option
+  // wins auto for keyless users; a configured cloud key still wins over both.
   { id: 'nano', label: 'Chrome Built-in (Gemini Nano)' },
   { id: 'webllm', label: 'Built-in AI (on-device)' },
+  // Free, keyless, server-side (routes through this app's Worker → Workers AI).
+  // Ranked last: the auto fallback for a keyless user with no on-device option.
+  { id: 'cloudflare', label: 'Cloudflare Workers AI (free)' },
 ];
 
 export function hasCredentials(providerId, s) {
@@ -29,6 +33,9 @@ export function hasCredentials(providerId, s) {
   // keyless user auto-defaults to it (and never to an unusable Nano).
   if (providerId === 'nano') return nanoUsable();
   if (providerId === 'webllm') return !!s.webllm_model;
+  // Keyless and always available when the app is served by its Worker (prod or
+  // `cf:dev`). In a plain Vite dev server there's no /api/ai backend.
+  if (providerId === 'cloudflare') return true;
   return false;
 }
 
@@ -50,6 +57,7 @@ const PROVIDER_MODELS = {
   ollama: (s) => s.ollama_model || 'llama3.1',
   nano: () => 'Gemini Nano (on-device)',
   webllm: (s) => s.webllm_model || 'on-device model',
+  cloudflare: () => 'Llama 3.3 70B (Cloudflare Workers AI)',
 };
 
 export function describeAI(providerId, s) {
@@ -68,7 +76,10 @@ export function getLastAIRun() { return lastAIRun; }
 export async function resolveAIDescription(settings) {
   const s = settings || await appSettings.get();
   let provider = resolveProvider(s);
-  if (!provider && nanoSupported()) {
+  // If we resolved to nothing or only the keyless Cloudflare fallback, but the
+  // user didn't explicitly pick Cloudflare and Chrome's on-device AI might be
+  // available, probe it and re-resolve so the more private option wins.
+  if (nanoSupported() && s.ai_provider !== 'cloudflare' && (!provider || provider === 'cloudflare')) {
     await primeNanoAvailability();
     provider = resolveProvider(s);
   }
@@ -105,6 +116,22 @@ async function chatCompletions({ baseUrl, apiKey, model, prompt }) {
   return data.choices?.[0]?.message?.content || '';
 }
 
+// Free, keyless Workers AI via this app's own Worker route (browsers can't call
+// the AI binding directly). Only works when served by the Worker (prod/cf:dev).
+async function invokeCloudflare(prompt) {
+  const resp = await fetch('/api/ai', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ prompt }),
+  });
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    throw new Error(err.error || `Cloudflare AI error (${resp.status})`);
+  }
+  const data = await resp.json();
+  return data.text || '';
+}
+
 async function invokeGemini({ apiKey, prompt }) {
   // SECURITY: key is in the query string because the Google Generative Language
   // API expects ?key=. Prefer the x-goog-api-key header if migrating. See SECURITY.md.
@@ -129,10 +156,11 @@ async function invokeGemini({ apiKey, prompt }) {
 export async function invokeAI({ prompt, jsonSchema = null, settings = null, skipLanguageDirective = false }) {
   const s = settings || await appSettings.get();
   let provider = resolveProvider(s);
-  // Keyless default: if nothing resolved but Chrome's built-in AI is present,
-  // wait for the availability probe and retry — so the first call after load
-  // doesn't lose the race with the async check.
-  if (!provider && nanoSupported()) {
+  // Keyless default: if nothing resolved — or only the always-available Cloudflare
+  // fallback did — but Chrome's on-device AI is present and the user didn't
+  // explicitly choose Cloudflare, wait for the availability probe and retry so the
+  // more private on-device option wins (and the first call doesn't lose the race).
+  if (nanoSupported() && s.ai_provider !== 'cloudflare' && (!provider || provider === 'cloudflare')) {
     await primeNanoAvailability();
     provider = resolveProvider(s);
   }
@@ -154,6 +182,8 @@ export async function invokeAI({ prompt, jsonSchema = null, settings = null, ski
     text = await invokeNano(fullPrompt);
   } else if (provider === 'webllm') {
     text = await invokeWebLLM(fullPrompt, s.webllm_model);
+  } else if (provider === 'cloudflare') {
+    text = await invokeCloudflare(fullPrompt);
   } else if (provider === 'openai') {
     text = await chatCompletions({
       baseUrl: 'https://api.openai.com/v1',

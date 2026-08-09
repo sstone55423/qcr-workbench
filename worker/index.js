@@ -56,6 +56,21 @@ async function handleApi(request, env, url) {
     return json({ ok: true, service: 'qcr-workbench-v2', time: new Date().toISOString() });
   }
 
+  // Free, keyless AI: proxy a single prompt to Workers AI (Llama 3.3 70B). The
+  // browser can't call the AI binding directly, so the 'cloudflare' provider
+  // POSTs here. Governance unchanged — the prompt already embeds computed
+  // figures; the model only writes prose around them.
+  if (pathname === '/api/ai') {
+    if (method !== 'POST') return fail(405, 'method not allowed');
+    const body = await request.json().catch(() => ({}));
+    const prompt = String(body.prompt || '');
+    if (!prompt) return fail(400, 'prompt is required');
+    const out = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
+      messages: [{ role: 'user', content: prompt }],
+    });
+    return json({ text: out.response || '' });
+  }
+
   if (pathname === '/api/projects') {
     if (method === 'GET') {
       const { results } = await env.DB
