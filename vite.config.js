@@ -77,7 +77,12 @@ export default defineConfig({
     // actually works with no network. Production build only (dev is skipped
     // by the plugin unless devOptions is enabled).
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt' + manual registration (injectRegister:false): the app shows a
+      // "new version available — reload" banner (PwaUpdatePrompt) instead of
+      // silently swapping the build under an open tab, which left users on a
+      // stale version after a deploy.
+      registerType: 'prompt',
+      injectRegister: false,
       // public/manifest.json already exists and index.html links it — don't
       // let the plugin generate a second manifest.
       manifest: false,

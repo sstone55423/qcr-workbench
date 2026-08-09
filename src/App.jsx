@@ -10,6 +10,7 @@ import { ThemeProvider } from '@/lib/ThemeContext';
 import { VaultProvider } from '@/lib/VaultContext';
 import { I18nProvider } from '@/lib/I18nContext';
 import ScrollToTop from './components/ScrollToTop';
+import PwaUpdatePrompt from '@/components/PwaUpdatePrompt';
 
 import AppLayout from '@/components/layout/AppLayout';
 // Pages are lazy-loaded so each route becomes its own chunk instead of one
@@ -78,6 +79,7 @@ function App() {
         <AppRoutes />
       </Router>
       <Toaster />
+      <PwaUpdatePrompt />
     </>
   )
 }
