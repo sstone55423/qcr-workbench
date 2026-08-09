@@ -133,6 +133,8 @@ export default {
   "br.confirmRequired": "(obrigatório para exportar)",
   "br.desc": "Exporte todas as análises, artigos e configurações como um arquivo criptografado para fazer backup ou mover para outra máquina — você escolhe onde salvar (por exemplo, sua pasta Documentos). O backup é protegido pela senha que você inserir abaixo (pode ser diferente da senha do seu cofre) e também pode configurar um novo cofre em outro dispositivo pela tela de primeira execução do aplicativo.",
   "br.exportBackup": "Exportar backup",
+  "br.downloadBackup": "Baixar",
+  "br.downloadHint": "“Baixar” salva o backup criptografado direto na pasta de downloads do seu navegador — use quando o seletor de pastas bloquear Downloads ou Documentos como “arquivos do sistema”. Dica: ative “Perguntar onde salvar cada arquivo” no navegador para escolher a pasta a cada vez.",
   "br.hidePassphrase": "Ocultar senha",
   "br.hintDesc": "Exibida na tela de desbloqueio para ajudá-lo a lembrar sua senha. Não é criptografada e fica visível para qualquer pessoa que abra este aplicativo — nunca coloque aqui sua senha real.",
   "br.hintLabel": "Dica de senha",

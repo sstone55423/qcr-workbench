@@ -133,6 +133,8 @@ export default {
   "br.confirmRequired": "(obligatorio para exportar)",
   "br.desc": "Exporta todos los análisis, artículos y ajustes como un archivo cifrado para hacer copia de seguridad o mover a otro equipo — tú eliges dónde guardarlo (p. ej. tu carpeta Documentos). La copia está protegida por la contraseña que introduzcas abajo (puede ser distinta de la de tu bóveda) y también puede configurar una bóveda nueva en otro dispositivo desde la pantalla de inicio de la aplicación.",
   "br.exportBackup": "Exportar copia",
+  "br.downloadBackup": "Descargar",
+  "br.downloadHint": "«Descargar» guarda la copia cifrada directamente en la carpeta de descargas de tu navegador — úsalo cuando el selector de carpetas bloquee Descargas o Documentos como «archivos del sistema». Consejo: activa «Preguntar dónde guardar cada archivo» en tu navegador para elegir la carpeta cada vez.",
   "br.hidePassphrase": "Ocultar contraseña",
   "br.hintDesc": "Se muestra en la pantalla de desbloqueo para ayudarte a recordar tu contraseña. No está cifrada y es visible para cualquiera que abra esta aplicación — nunca pongas aquí tu contraseña real.",
   "br.hintLabel": "Pista de la contraseña",

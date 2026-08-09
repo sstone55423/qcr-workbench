@@ -19,6 +19,7 @@ export default function BackupRestore() {
   const [confirm, setConfirm] = useState('');
   const [showPassphrase, setShowPassphrase] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [downloading, setDownloading] = useState(false);
   const [restoring, setRestoring] = useState(false);
   const [hint, setHint] = useState(() => currentStore?.hint || '');
   const [plainConfirm, setPlainConfirm] = useState(false);
@@ -27,10 +28,12 @@ export default function BackupRestore() {
   const mismatch = confirm.length > 0 && passphrase !== confirm;
   const canExport = passphrase.length >= 8 && passphrase === confirm;
 
-  // Shared file writer: uses the save-picker where available, else a download.
-  // Returns null if the user cancels the picker.
-  const writeFile = async (content, filename) => {
-    if (window.showSaveFilePicker) {
+  // Shared file writer. With { download: true } it skips the save-picker and
+  // downloads straight to the browser's download folder — the reliable path when
+  // the picker blocks Downloads/OneDrive-Documents as "system files". Returns
+  // null if the user cancels the picker.
+  const writeFile = async (content, filename, { download = false } = {}) => {
+    if (!download && window.showSaveFilePicker) {
       try {
         // Start in Downloads: OneDrive-synced Documents/Desktop are blocked by
         // the browser as "system files" on Known-Folder-Move setups.
@@ -73,6 +76,19 @@ export default function BackupRestore() {
       toast({ title: t('br.backupFailed'), description: err.message, variant: 'destructive' });
     } finally {
       setExporting(false);
+    }
+  };
+
+  const handleDownload = async () => {
+    setDownloading(true);
+    try {
+      const content = await createBackup(passphrase);
+      const res = await writeFile(content, backupFilename(false), { download: true });
+      if (res) toast(savedToast(res));
+    } catch (err) {
+      toast({ title: t('br.backupFailed'), description: err.message, variant: 'destructive' });
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -163,10 +179,14 @@ export default function BackupRestore() {
           />
           {mismatch && <p className="text-xs text-destructive mt-1">{t('br.mismatch')}</p>}
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="sm" onClick={handleExport} disabled={exporting || !canExport} className="gap-2">
-            {exporting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+            {exporting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             {exporting ? t('common.exporting') : t('br.exportBackup')}
+          </Button>
+          <Button variant="outline" size="sm" onClick={handleDownload} disabled={downloading || !canExport} className="gap-2">
+            {downloading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+            {downloading ? t('common.exporting') : t('br.downloadBackup')}
           </Button>
           <input ref={fileRef} type="file" accept=".json" onChange={handleRestoreFile} className="hidden" id="restore-file" />
           <Button variant="outline" size="sm" disabled={restoring} className="gap-2" asChild>
@@ -176,6 +196,9 @@ export default function BackupRestore() {
             </label>
           </Button>
         </div>
+        <p className="text-xs text-muted-foreground">
+          {t('br.downloadHint')}
+        </p>
         <p className="text-xs text-muted-foreground">
           {t('br.restoreNote')}
         </p>

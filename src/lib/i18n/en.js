@@ -133,6 +133,8 @@ export default {
   "br.confirmRequired": "(required for export)",
   "br.desc": "Export all analyses, papers, and settings as an encrypted file to back up or move to another machine — you choose where to save it (e.g. your Documents folder). The backup is protected by the passphrase you enter below (it can differ from your vault passphrase), and can also set up a fresh vault on a new device from the app’s first-run screen.",
   "br.exportBackup": "Export Backup",
+  "br.downloadBackup": "Download",
+  "br.downloadHint": "“Download” saves the encrypted backup straight to your browser’s download folder — use it when the folder picker blocks Downloads or Documents as “system files.” Tip: turn on “Ask where to save each file” in your browser to choose the folder each time.",
   "br.hidePassphrase": "Hide passphrase",
   "br.hintDesc": "Shown on the unlock screen to help you remember your passphrase. It is not encrypted and is visible to anyone who opens this app — never put your actual passphrase here.",
   "br.hintLabel": "Passphrase hint",

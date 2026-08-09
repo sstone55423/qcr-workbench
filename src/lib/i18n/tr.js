@@ -133,6 +133,8 @@ export default {
   "br.confirmRequired": "(dışa aktarma için gerekli)",
   "br.desc": "Tüm analizleri, makaleleri ve ayarları yedeklemek veya başka bir makineye taşımak için şifreli bir dosya olarak dışa aktarın — nereye kaydedeceğinizi siz seçersiniz (ör. Belgeler klasörünüz). Yedek, aşağıya girdiğiniz parolayla korunur (kasa parolanızdan farklı olabilir) ve uygulamanın ilk açılış ekranından yeni bir cihazda taze bir kasa da kurabilir.",
   "br.exportBackup": "Yedeği Dışa Aktar",
+  "br.downloadBackup": "İndir",
+  "br.downloadHint": "“İndir”, şifreli yedeği doğrudan tarayıcınızın indirme klasörüne kaydeder — klasör seçici İndirilenler veya Belgeler’i “sistem dosyaları” olarak engellediğinde bunu kullanın. İpucu: klasörü her seferinde seçmek için tarayıcınızda “Her dosyanın nereye kaydedileceğini sor” seçeneğini açın.",
   "br.hidePassphrase": "Parolayı gizle",
   "br.hintDesc": "Parolanızı hatırlamanıza yardımcı olmak için kilit açma ekranında gösterilir. Şifrelenmez ve bu uygulamayı açan herkes tarafından görülebilir — buraya asla gerçek parolanızı yazmayın.",
   "br.hintLabel": "Parola ipucu",

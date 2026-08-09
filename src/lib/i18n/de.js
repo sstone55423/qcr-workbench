@@ -133,6 +133,8 @@ export default {
   "br.confirmRequired": "(für Export erforderlich)",
   "br.desc": "Exportieren Sie alle Analysen, Publikationen und Einstellungen als verschlüsselte Datei, um sie zu sichern oder auf einen anderen Rechner zu übertragen — Sie wählen den Speicherort (z. B. Ihren Dokumente-Ordner). Die Sicherung ist durch die unten eingegebene Passphrase geschützt (sie kann sich von Ihrer Tresor-Passphrase unterscheiden) und kann auf einem neuen Gerät über den Startbildschirm der App einen neuen Tresor einrichten.",
   "br.exportBackup": "Sicherung exportieren",
+  "br.downloadBackup": "Herunterladen",
+  "br.downloadHint": "„Herunterladen“ speichert die verschlüsselte Sicherung direkt im Download-Ordner Ihres Browsers — nutzen Sie es, wenn die Ordnerauswahl Downloads oder Dokumente als „Systemdateien“ blockiert. Tipp: Aktivieren Sie „Bei jedem Download nach Speicherort fragen“ im Browser, um den Ordner jedes Mal zu wählen.",
   "br.hidePassphrase": "Passphrase ausblenden",
   "br.hintDesc": "Wird im Entsperrbildschirm angezeigt, um Sie an Ihre Passphrase zu erinnern. Er ist nicht verschlüsselt und für jeden sichtbar, der diese App öffnet — geben Sie hier niemals Ihre tatsächliche Passphrase ein.",
   "br.hintLabel": "Passphrase-Hinweis",

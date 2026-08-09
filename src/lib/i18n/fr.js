@@ -133,6 +133,8 @@ export default {
   "br.confirmRequired": "(requis pour l'export)",
   "br.desc": "Exportez toutes les analyses, articles et paramètres dans un fichier chiffré pour sauvegarder ou transférer vers une autre machine — vous choisissez où l'enregistrer (p. ex. votre dossier Documents). La sauvegarde est protégée par la phrase secrète saisie ci-dessous (elle peut différer de celle de votre coffre) et peut aussi configurer un nouveau coffre sur un autre appareil depuis l'écran de premier lancement de l'application.",
   "br.exportBackup": "Exporter la sauvegarde",
+  "br.downloadBackup": "Télécharger",
+  "br.downloadHint": "« Télécharger » enregistre la sauvegarde chiffrée directement dans le dossier de téléchargement de votre navigateur — utilisez-le quand le sélecteur de dossier bloque Téléchargements ou Documents comme « fichiers système ». Astuce : activez « Toujours demander où enregistrer les fichiers » dans votre navigateur pour choisir le dossier à chaque fois.",
   "br.hidePassphrase": "Masquer la phrase secrète",
   "br.hintDesc": "Affiché sur l'écran de déverrouillage pour vous aider à vous souvenir de votre phrase secrète. Il n'est pas chiffré et est visible par quiconque ouvre cette application — n'y mettez jamais votre phrase secrète réelle.",
   "br.hintLabel": "Indice de phrase secrète",
