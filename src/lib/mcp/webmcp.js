@@ -13,8 +13,16 @@ import { QCR_TOOLS } from '@/lib/mcp/tools';
 
 const FLAG_KEY = 'qcr.webmcp';
 
+// The WebMCP object moved from navigator.modelContext to document.modelContext;
+// prefer the new location and fall back to the old one on earlier builds.
+function getModelContext() {
+  if (typeof document !== 'undefined' && 'modelContext' in document) return document.modelContext;
+  if (typeof navigator !== 'undefined' && 'modelContext' in navigator) return navigator.modelContext;
+  return null;
+}
+
 export function isWebMcpSupported() {
-  return typeof navigator !== 'undefined' && 'modelContext' in navigator;
+  return getModelContext() != null;
 }
 
 export function isWebMcpEnabled() {
@@ -48,8 +56,8 @@ const toExecute = (run) => async (input) => {
 // tools (already in WebMCP shape). Returns an uninstaller that unregisters
 // exactly what it added — a no-op when WebMCP isn't supported.
 export function installWebMcp({ appTools = [] } = {}) {
-  if (!isWebMcpSupported()) return () => {};
-  const mc = navigator.modelContext;
+  const mc = getModelContext();
+  if (!mc) return () => {};
 
   const compute = QCR_TOOLS.map((t) => ({
     name: t.name,
@@ -65,9 +73,10 @@ export function installWebMcp({ appTools = [] } = {}) {
   return () => {
     for (const tool of all) {
       try {
-        mc.unregisterTool(tool.name);
+        // Not all builds expose unregisterTool (some use provideContext/clearContext).
+        mc.unregisterTool?.(tool.name);
       } catch {
-        /* already gone */
+        /* already gone / not supported */
       }
     }
   };
