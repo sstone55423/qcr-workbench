@@ -118,8 +118,9 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
   );
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md border border-border rounded-xl p-8 bg-card">
+    <div className="fixed inset-0 flex flex-col bg-background">
+      <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="w-full max-w-md border border-border rounded-xl p-8 bg-card">
         {Brand}
 
         {/* ---- Store list ---- */}
@@ -260,7 +261,24 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
             </p>
           </div>
         )}
+        </div>
       </div>
+
+      {/* Rights footer — hardcoded (this screen renders before the i18n provider). */}
+      <footer className="shrink-0 px-4 pb-5 text-center text-xs text-muted-foreground space-y-1">
+        <p>
+          © {new Date().getFullYear()}{' '}
+          <a
+            href="https://orcid.org/my-orcid?orcid=0000-0003-2718-6848"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Scott Thomas Stone
+          </a>
+        </p>
+        <p>Free and open source under the MIT License</p>
+      </footer>
 
       {/* ---- Delete confirmation ---- */}
       {deleteTarget && (

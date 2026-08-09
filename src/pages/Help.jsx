@@ -143,7 +143,7 @@ export default function Help() {
         <Citation />
       </div>
       <Copyright />
-      <p className="text-center text-xs text-muted-foreground -mt-6 pb-4">
+      <p className="text-center text-xs text-muted-foreground mt-2 pb-6">
         {t('help.supportText')}{' '}
         <a href={APP_FUNDING_URL} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{t('help.supportLink')}</a>{' '}
         {t('help.supportOr')}{' '}
