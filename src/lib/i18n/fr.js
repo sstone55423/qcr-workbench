@@ -51,6 +51,7 @@ export default {
   "aip.ollamaUrl": "URL Ollama (local)",
   "aip.openaiKey": "Clé API OpenAI",
   "aip.qwenKey": "Clé API Qwen (DashScope)",
+  "aip.cerebrasKey": "Clé API Cerebras",
   "aip.testConnection": "Tester la connexion IA",
   "aip.testFailed": "Le test IA a échoué",
   "aip.title": "Fournisseur IA (analyses et mots-clés)",

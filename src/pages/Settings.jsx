@@ -22,7 +22,7 @@ export default function Settings() {
   const [contactEmail, setContactEmail] = useState('');
   const [emailShowOnLock, setEmailShowOnLock] = useState(false);
   const [emailShowInReport, setEmailShowInReport] = useState(false);
-  const [ai, setAi] = useState({ ai_provider: 'auto', anthropic_key: '', openai_key: '', gemini_key: '', qwen_key: '', ollama_url: '', ollama_model: '', webllm_model: '' });
+  const [ai, setAi] = useState({ ai_provider: 'auto', anthropic_key: '', openai_key: '', gemini_key: '', qwen_key: '', cerebras_key: '', ollama_url: '', ollama_model: '', webllm_model: '' });
   const [saving, setSaving] = useState(false);
   const [autoLockMin, setAutoLockMin] = useState(() => getAutoLockMinutes());
 
@@ -38,6 +38,7 @@ export default function Settings() {
         openai_key: s.openai_key || '',
         gemini_key: s.gemini_key || '',
         qwen_key: s.qwen_key || '',
+        cerebras_key: s.cerebras_key || '',
         ollama_url: s.ollama_url || '',
         ollama_model: s.ollama_model || '',
         webllm_model: s.webllm_model || '',
@@ -57,6 +58,7 @@ export default function Settings() {
       openai_key: ai.openai_key.trim(),
       gemini_key: ai.gemini_key.trim(),
       qwen_key: ai.qwen_key.trim(),
+      cerebras_key: ai.cerebras_key.trim(),
       ollama_url: ai.ollama_url.trim(),
       ollama_model: ai.ollama_model.trim(),
       webllm_model: ai.webllm_model || '',

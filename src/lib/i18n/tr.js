@@ -51,6 +51,7 @@ export default {
   "aip.ollamaUrl": "Ollama URL (yerel)",
   "aip.openaiKey": "OpenAI API Anahtarı",
   "aip.qwenKey": "Qwen (DashScope) API Anahtarı",
+  "aip.cerebrasKey": "Cerebras API Anahtarı",
   "aip.testConnection": "Yapay Zekâ Bağlantısını Test Et",
   "aip.testFailed": "Yapay zekâ testi başarısız",
   "aip.title": "Yapay Zekâ Sağlayıcısı (İçgörüler ve Anahtar Kelimeler)",

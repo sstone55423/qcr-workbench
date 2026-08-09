@@ -12,6 +12,7 @@ export const AI_PROVIDERS = [
   { id: 'gemini', label: 'Gemini (Google)' },
   { id: 'ollama', label: 'Local (Ollama)' },
   { id: 'qwen', label: 'Qwen (DashScope)' },
+  { id: 'cerebras', label: 'Cerebras' },
   // On-device, no key. Ranked last so a configured cloud key wins under "auto".
   { id: 'nano', label: 'Chrome Built-in (Gemini Nano)' },
   { id: 'webllm', label: 'Built-in AI (on-device)' },
@@ -23,6 +24,7 @@ export function hasCredentials(providerId, s) {
   if (providerId === 'gemini') return !!s.gemini_key;
   if (providerId === 'ollama') return !!s.ollama_url;
   if (providerId === 'qwen') return !!s.qwen_key;
+  if (providerId === 'cerebras') return !!s.cerebras_key;
   // 'nano' counts as "available" only when the browser reports it usable, so a
   // keyless user auto-defaults to it (and never to an unusable Nano).
   if (providerId === 'nano') return nanoUsable();
@@ -44,6 +46,7 @@ const PROVIDER_MODELS = {
   openai: () => 'gpt-4o',
   gemini: () => 'gemini-2.5-flash',
   qwen: () => 'qwen-plus',
+  cerebras: () => 'llama-3.3-70b',
   ollama: (s) => s.ollama_model || 'llama3.1',
   nano: () => 'Gemini Nano (on-device)',
   webllm: (s) => s.webllm_model || 'on-device model',
@@ -165,6 +168,13 @@ export async function invokeAI({ prompt, jsonSchema = null, settings = null, ski
       baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
       apiKey: s.qwen_key,
       model: 'qwen-plus',
+      prompt: fullPrompt,
+    });
+  } else if (provider === 'cerebras') {
+    text = await chatCompletions({
+      baseUrl: 'https://api.cerebras.ai/v1',
+      apiKey: s.cerebras_key,
+      model: 'llama-3.3-70b',
       prompt: fullPrompt,
     });
   } else if (provider === 'ollama') {

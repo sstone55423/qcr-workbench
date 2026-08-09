@@ -62,6 +62,10 @@ export default function AIProviderSettings({ value, onChange }) {
           <label className="text-sm font-medium mb-1.5 block">{t('aip.qwenKey')}</label>
           <Input value={value.qwen_key} onChange={set('qwen_key')} placeholder="sk-..." type="password" />
         </div>
+        <div>
+          <label className="text-sm font-medium mb-1.5 block">{t('aip.cerebrasKey')}</label>
+          <Input value={value.cerebras_key} onChange={set('cerebras_key')} placeholder="csk-..." type="password" />
+        </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="text-sm font-medium mb-1.5 block">{t('aip.ollamaUrl')}</label>
