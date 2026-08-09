@@ -6,19 +6,17 @@
   "name": "qcr-workbench-v2",
   "main": "worker/index.js",
   "compatibility_date": "2026-08-01",
-  // Keep the workers.dev URL on. wrangler 4 disables it by default once routes/
-  // custom domains are present; we want the public /mcp reachable at
-  // qcr-workbench-v2.<subdomain>.workers.dev.
+  // Keep the workers.dev URL on alongside the custom domains (wrangler 4 would
+  // otherwise disable it), so the public /mcp stays reachable there too.
   "workers_dev": true,
-  // Custom domains for the cutover — PARKED until the apex is detached from the
-  // v1 Pages project. Attaching qcr-workbench.org while Pages still owns its DNS
-  // fails with "hostname already has externally managed DNS records" [100117].
-  // Cutover: (1) add local.qcr-workbench.org to the v1 Pages project, (2) remove
-  // qcr-workbench.org from Pages, (3) uncomment below, (4) `npm run cf:deploy`.
-  // "routes": [
-  //   { "pattern": "qcr-workbench.org", "custom_domain": true },
-  //   { "pattern": "www.qcr-workbench.org", "custom_domain": true }
-  // ],
+  // Apex + www custom domains. Cloudflare provisions DNS + cert on deploy.
+  // REQUIRES first: (1) apex detached from the v1 Pages project, else deploy
+  // fails "externally managed DNS records" [100117]; (2) the orphaned www
+  // custom domain removed from this Worker so it re-attaches cleanly.
+  "routes": [
+    { "pattern": "qcr-workbench.org", "custom_domain": true },
+    { "pattern": "www.qcr-workbench.org", "custom_domain": true }
+  ],
   // Let the Worker bundle reuse the SPA's domain math via its '@/…' imports
   // (esbuild resolves the subpath alias, same as Vite/jsconfig do).
   "alias": { "@": "./src" },
