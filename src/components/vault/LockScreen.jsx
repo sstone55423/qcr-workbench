@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { BookOpen, Lock, ShieldCheck, Loader2, Upload, Plus, Database, Trash2, ChevronLeft, Eye, EyeOff } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { APP_SUPPORT_EMAIL } from '@/lib/citation';
 
 // Password input with a show/hide toggle.
 function PasswordField({ value, onChange, placeholder, autoFocus = false, show, setShow }) {
@@ -278,6 +279,12 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
           </a>
         </p>
         <p>Free and open source under the MIT License</p>
+        <p>
+          Support:{' '}
+          <a href={`mailto:${APP_SUPPORT_EMAIL}`} className="text-primary hover:underline">
+            {APP_SUPPORT_EMAIL}
+          </a>
+        </p>
       </footer>
 
       {/* ---- Delete confirmation ---- */}
