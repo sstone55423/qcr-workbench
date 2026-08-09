@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Database, Sparkles, Key, ExternalLink, Zap, ShieldCheck, FileText, LifeBuoy, GraduationCap } from 'lucide-react';
+import { BookOpen, Database, Sparkles, Key, ExternalLink, Zap, ShieldCheck, FileText, LifeBuoy, GraduationCap, Plug } from 'lucide-react';
 import { setTutorialState } from '@/lib/tutorial';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
@@ -18,6 +18,9 @@ import {
 // swapped in when a non-English language is active; English is the fallback.
 import privacyDoc from '../../DATA-PRIVACY.md?raw';
 import governanceDoc from '../../AI-GOVERNANCE.md?raw';
+// The MCP guide (v2 feature) ships English-only for now; it renders as-is for
+// every language and states that English is authoritative.
+import mcpGuideDoc from '../../docs/MCP-GUIDE.md?raw';
 
 const privacyTranslations = import.meta.glob('../../docs/i18n/DATA-PRIVACY.*.md', { query: '?raw', import: 'default' });
 const governanceTranslations = import.meta.glob('../../docs/i18n/AI-GOVERNANCE.*.md', { query: '?raw', import: 'default' });
@@ -38,6 +41,7 @@ const sections = [
   { icon: ShieldCheck, titleKey: 'help.s7Title', contentKey: 'help.s7' },
   { icon: Database, titleKey: 'help.s2Title', contentKey: 'help.s2' },
   { icon: Sparkles, titleKey: 'help.s3Title', contentKey: 'help.s3' },
+  { icon: Plug, titleKey: 'help.s8Title', contentKey: 'help.s8' },
   { icon: Key, titleKey: 'help.s4Title', contentKey: 'help.s4' },
   { icon: Zap, titleKey: 'help.s5Title', contentKey: 'help.s5' },
   { icon: ExternalLink, titleKey: 'help.s6Title', contentKey: 'help.s6' },
@@ -47,6 +51,7 @@ export default function Help() {
   const { t, language } = useI18n();
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [govOpen, setGovOpen] = useState(false);
+  const [mcpOpen, setMcpOpen] = useState(false);
   const [privacyText, setPrivacyText] = useState(privacyDoc);
   const [govText, setGovText] = useState(governanceDoc);
 
@@ -116,6 +121,15 @@ export default function Help() {
                 {t('help.aiGovLink')}
               </button>
             )}
+            {s.contentKey === 'help.s8' && (
+              <button
+                onClick={() => setMcpOpen(true)}
+                className="mt-3 inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                {t('help.mcpGuideLink')}
+              </button>
+            )}
           </div>
         ))}
         <div className="border border-border rounded-xl p-5">
@@ -154,6 +168,17 @@ export default function Help() {
           </DialogHeader>
           <div className="prose prose-sm dark:prose-invert max-w-none prose-table:text-xs">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{govText}</ReactMarkdown>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={mcpOpen} onOpenChange={setMcpOpen}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{t('help.s8Title')}</DialogTitle>
+          </DialogHeader>
+          <div className="prose prose-sm dark:prose-invert max-w-none prose-table:text-xs prose-pre:text-xs prose-pre:whitespace-pre-wrap">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{mcpGuideDoc}</ReactMarkdown>
           </div>
         </DialogContent>
       </Dialog>
