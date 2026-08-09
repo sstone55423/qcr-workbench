@@ -6,11 +6,15 @@
   "name": "qcr-workbench-v2",
   "main": "worker/index.js",
   "compatibility_date": "2026-08-01",
-  // Apex custom domain. Cloudflare provisions DNS + cert on deploy — but the
-  // apex must first be DETACHED from the v1 Pages project (a hostname can't be
-  // on both Pages and a Worker), or the deploy errors with a route conflict.
-  // See the cutover runbook. v1 moves to local.qcr-workbench.org (Pages side).
-  "routes": [{ "pattern": "qcr-workbench.org", "custom_domain": true }],
+  // Custom domains. Cloudflare provisions DNS + cert per hostname on deploy.
+  // The apex must first be DETACHED from the v1 Pages project (a hostname can't
+  // be on both Pages and a Worker), or the deploy errors with a route conflict;
+  // www is currently unconfigured so it attaches cleanly. See the cutover
+  // runbook. v1 moves to local.qcr-workbench.org (Pages side).
+  "routes": [
+    { "pattern": "qcr-workbench.org", "custom_domain": true },
+    { "pattern": "www.qcr-workbench.org", "custom_domain": true }
+  ],
   // Let the Worker bundle reuse the SPA's domain math via its '@/…' imports
   // (esbuild resolves the subpath alias, same as Vite/jsconfig do).
   "alias": { "@": "./src" },
