@@ -25,10 +25,11 @@
     "binding": "ASSETS",
     // SPA: unknown non-asset paths fall back to index.html (client router).
     "not_found_handling": "single-page-application",
-    // Hit the Worker first for the API, the MCP endpoint, and OAuth-discovery
-    // probes (so the Worker can 404 them for the no-auth MCP server instead of
-    // the SPA fallback answering with HTML). Everything else is a static asset.
-    "run_worker_first": ["/api/*", "/mcp", "/.well-known/*"]
+    // Run the Worker for EVERY request. Needed so the www → apex redirect and
+    // the OAuth-discovery 404s apply to page navigations too, not just /api. The
+    // Worker passes non-API paths straight to env.ASSETS.fetch, so static assets
+    // still serve normally (with SPA fallback + _headers) — just via the Worker.
+    "run_worker_first": true
   },
   "d1_databases": [
     {
