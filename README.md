@@ -69,7 +69,8 @@ not affiliated with or endorsed by the FAIR Institute.
 - **7 languages** (en, es, de, fr, pt, tr, ru) with enforced key parity.
 - **Offline-capable PWA** with a strict CSP.
 
-See `SECURITY.md` and `DATA-PRIVACY.md` for the full posture.
+See `ARCHITECTURE-AND-DESIGN.md` for the full architecture and design overview,
+and `SECURITY.md` and `DATA-PRIVACY.md` for the full posture.
 
 ## Development
 
