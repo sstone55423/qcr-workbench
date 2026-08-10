@@ -71,7 +71,7 @@ jobs:
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: ${{ steps.report.outputs.subject }}
-          to: sstone55423@hotmail.com
+          to: scs.archive@gmail.com
           from: QCR Dependency Monitor <${{ secrets.SMTP_USERNAME }}>
           html_body: file://report.html
           priority: normal
