@@ -20,6 +20,10 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    # Surface the SMTP host secret as an env var so the email step can be
+    # skipped cleanly until the secrets are configured (mirrors ci.yml deploy).
+    env:
+      SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
     steps:
       - uses: actions/checkout@v4
 
@@ -43,9 +47,20 @@ jobs:
         id: report
         run: node scripts/dep-report.mjs
 
+      - name: Upload report artifact
+        # Always keep the report, even if email isn't configured yet or fails —
+        # download it from the run's "Artifacts" section.
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-report
+          path: report.html
+          retention-days: 30
+
       - name: Email the report
-        # Third-party action. Consider pinning to a commit SHA for supply-chain
-        # hardening (Settings → this repo's security posture).
+        # Skips cleanly (no failure) until the SMTP secrets are configured, so
+        # the workflow is safe to merge before you add them. Third-party action —
+        # consider pinning to a commit SHA for supply-chain hardening.
+        if: ${{ env.SMTP_SERVER != '' }}
         uses: dawidd6/action-send-mail@v3
         with:
           # SMTP connection — all provided as repo secrets so you can point at
