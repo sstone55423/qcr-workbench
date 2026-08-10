@@ -31,6 +31,9 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
+      # Fail if any production dependency introduces a license outside the
+      # reviewed permissive allowlist (see package.json "licenses:check").
+      - run: npm run licenses:check
       - run: npm test
       - run: npm run build
       - uses: actions/upload-artifact@v4
