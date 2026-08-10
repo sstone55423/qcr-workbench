@@ -32,9 +32,10 @@ user-initiated:
    Ollama to keep even this on your machine.
 2. **On-device model download** (optional, once): enabling WebLLM downloads
    quantized model weights from its public CDN; the browser caches them.
-3. **Google Fonts**: the two UI typefaces load from Google's CDN.
-4. **Nothing else.** No telemetry, no analytics, no error reporting, no update
-   pings, no first-party API.
+3. **Nothing else.** No telemetry, no analytics, no error reporting, no update
+   pings, no first-party API. The UI fonts (Inter, Source Serif 4) are
+   **self-hosted** in the bundle — there is no Google Fonts request or any other
+   third-party asset fetch.
 
 ## Backups and exports
 

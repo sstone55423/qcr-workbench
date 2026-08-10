@@ -123,9 +123,9 @@
     --chart-4: 35 80% 55%;
     --chart-5: 350 65% 55%;
     --radius: 0.5rem;
-    --font-heading: 'Source Serif 4', Georgia, serif;
-    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Source Serif 4', Georgia, serif;
+    --font-heading: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif;
+    --font-body: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;

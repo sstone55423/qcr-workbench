@@ -26,8 +26,8 @@ import { fileURLToPath, URL } from 'node:url'
 const CSP = [
   "default-src 'self'",
   "script-src 'self' 'wasm-unsafe-eval'",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com data:",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' data:",
   "img-src 'self' data: blob: https:",
   "connect-src 'self' https: http://localhost:* http://127.0.0.1:*",
   "worker-src 'self' blob:",
@@ -95,24 +95,13 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/assets\//],
+        // Fonts are now self-hosted and precached via globPatterns (woff2), so
+        // the former Google Fonts runtime-caching rules are gone.
         runtimeCaching: [
           {
             urlPattern: /\/assets\/.*\.js$/,
             handler: 'CacheFirst',
             options: { cacheName: 'app-large-assets', expiration: { maxEntries: 20 } },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\//,
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'google-fonts-stylesheets' },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\//,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
-            },
           },
         ],
       },
