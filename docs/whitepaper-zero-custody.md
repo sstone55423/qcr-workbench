@@ -2,7 +2,7 @@
 
 **Author:** Scott Thomas Stone
 **Affiliation:** Metropolitan State University, College of Business and Management (COBM)
-**Contact:** scott.stone@my.metrostate.edu · ORCID [0000-0003-2718-6848](https://orcid.org/0000-0003-2718-6848) · GitHub [sstone55423](https://github.com/sstone55423)
+**Contact:** scott.stone@metrostate.edu · ORCID [0000-0003-2718-6848](https://orcid.org/0000-0003-2718-6848) · GitHub [sstone55423](https://github.com/sstone55423)
 **Date:** 2026
 **License:** Creative Commons Attribution 4.0 International (CC-BY-4.0)
 
