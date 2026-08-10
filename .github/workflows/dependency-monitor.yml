@@ -1,0 +1,77 @@
+name: Weekly dependency & vulnerability check
+
+# Checks React / Vite / Tailwind (and every other dependency) for newer
+# versions and for known vulnerabilities, then emails a digest.
+#
+# NOTE: a `schedule:` trigger only fires from the workflow file on the
+# repository's DEFAULT branch (main). This file must be merged to main to run.
+
+on:
+  schedule:
+    # 11:00 UTC every Monday. GitHub cron is UTC and has no daylight-saving
+    # awareness, so in America/Chicago this lands at 06:00 during CDT (summer)
+    # and 05:00 during CST (winter). For 06:00 in winter instead, use '0 12'.
+    - cron: '0 11 * * 1'
+  workflow_dispatch: {} # allow manual "Run workflow" for testing
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    # Surface the SMTP host secret as an env var so the email step can be
+    # skipped cleanly until the secrets are configured (mirrors ci.yml deploy).
+    env:
+      SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies (locked)
+        run: npm ci
+
+      - name: Collect outdated packages
+        # npm outdated exits 1 when anything is outdated — don't fail the job.
+        run: npm outdated --json > outdated.json || true
+
+      - name: Collect known vulnerabilities
+        # npm audit exits non-zero when vulnerabilities exist — same treatment.
+        run: npm audit --json > audit.json || true
+
+      - name: Build email report
+        id: report
+        run: node scripts/dep-report.mjs
+
+      - name: Upload report artifact
+        # Always keep the report, even if email isn't configured yet or fails —
+        # download it from the run's "Artifacts" section.
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-report
+          path: report.html
+          retention-days: 30
+
+      - name: Email the report
+        # Skips cleanly (no failure) until the SMTP secrets are configured, so
+        # the workflow is safe to merge before you add them. Third-party action —
+        # consider pinning to a commit SHA for supply-chain hardening.
+        if: ${{ env.SMTP_SERVER != '' }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # SMTP connection — all provided as repo secrets so you can point at
+          # any provider (Outlook/Hotmail, Gmail app password, Brevo, etc.).
+          server_address: ${{ secrets.SMTP_SERVER }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          secure: false # port 587 STARTTLS; set true only for port 465 SSL
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: ${{ steps.report.outputs.subject }}
+          to: sstone55423@hotmail.com
+          from: QCR Dependency Monitor <${{ secrets.SMTP_USERNAME }}>
+          html_body: file://report.html
+          priority: normal
