@@ -21,3 +21,13 @@ abstract: >-
   loss simulation, treatment economics, and executive reporting, with all data
   encrypted in the browser and optional bring-your-own-key or on-device AI
   assistance.
+references:
+  - type: article
+    authors:
+      - family-names: Stone
+        given-names: Scott Thomas
+        orcid: "https://orcid.org/0000-0003-2718-6848"
+    title: "Zero-Custody Architecture: Naming a Synthesis for Confidential- and Regulated-Data Web Applications"
+    year: 2026
+    url: "https://zenodo.org/"
+    note: "Architectural whitepaper describing the Zero-Custody pattern implemented in this software."

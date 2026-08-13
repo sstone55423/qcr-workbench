@@ -12,7 +12,9 @@
 
 ## Abstract
 
-Web applications that handle confidential or regulated data conventionally place that data in a vendor's custody, making the server both the compliance boundary and the breach surface. This paper names and articulates the **Zero-Custody architecture**: a coherent synthesis in which the server holds no user data at all. Its five defining properties are (1) 100% client-side computation over pure domain functions, (2) zero-knowledge local storage under a passphrase-derived key, (3) zero data custody by any server, (4) an edge-served static single-page application paired with a thin stateless Worker that reuses the *same* pure domain code to expose a machine (MCP) API, and (5) on-device or bring-your-own-key AI as a first-class citizen, with AI forbidden from computing figures. None of the ingredients are new: local-first software, end-to-end-encrypted web apps, browser-direct AI clients, in-browser inference, and edge-served static sites are all established. Following the naming tradition of "JAMstack" and "local-first," the contribution is the synthesis, its articulation, and its application to regulated domains. We ground the pattern in a reference implementation, the FAIR-based QCR Workbench.
+Web applications that handle confidential or regulated data conventionally place that data in a vendor's custody, making the server both the compliance boundary and the breach surface. This paper names and articulates the **Zero-Custody architecture**: a coherent synthesis in which the server holds no user data at all. Its five defining properties are (1) 100% client-side computation over pure domain functions, (2) zero-knowledge local storage under a passphrase-derived key, (3) zero data custody by any server, (4) an edge-served static single-page application paired with a thin stateless Worker that reuses the *same* pure domain code to expose a machine (MCP) API, and (5) on-device or bring-your-own-key AI as a first-class citizen, with AI forbidden from computing figures. None of the ingredients are new: local-first software, end-to-end-encrypted web apps, browser-direct AI clients, in-browser inference, and edge-served static sites are all established. Following the naming tradition of "JAMstack" and "local-first," the contribution is the synthesis, its articulation, and its application to regulated domains. We ground the pattern in a reference implementation, the FAIR-based QCR Workbench.[^1]
+
+[^1]: Live instance and source code available at https://www.qcr-workbench.org/
 
 ---
 
@@ -187,5 +189,6 @@ The call is modest and specific: when you are next asked to build a browser tool
 - Netlify. *JAMstack: Modern web architecture (static front end + serverless functions).* https://jamstack.org/
 - Cloudflare. *Workers and Pages — edge-served static assets and serverless functions.* https://developers.cloudflare.com/workers/
 - Anthropic. *Model Context Protocol (MCP) specification.* https://modelcontextprotocol.io/
+- Stone, S. T. (2026). *Measuring Cyber Risk: A Practical Quantitative Approach to Security Risk Analysis.* Stjarna Press, Minneapolis, MN. ISBN 979-8-9968997-2-2 (paperback), ISBN 979-8-9968997-7-7 (e-book).
 - Open Group / FAIR Institute. *Factor Analysis of Information Risk (FAIR) — an open standard for quantifying information risk.* https://www.fairinstitute.org/
 - Stone, S. T. (2026). *QCR Workbench: A local-first quantitative cyber risk workbench* (software). https://github.com/sstone55423/qcr-workbench
