@@ -37,8 +37,17 @@ nothing, and the user selects and credentials every model that is used.
 | Feature | Input sent | Output handling |
 |---|---|---|
 | Executive narrative draft | Scenario scoping text + computed figures | Stored with provenance + inputs hash; rendered with disclosure; appended to report export under an explicit disclosure heading |
-| Assumption suggestions | Scenario scoping text + existing assumptions | Staged; each suggestion requires explicit user acceptance |
-| Treatment suggestions | Scenario scoping text + computed baseline figures + existing treatment names | Staged; accepting a suggestion opens it pre-filled in the treatment form for the analyst to review, adjust, and explicitly save (audit-logged); treatment economics are always recomputed deterministically from what is saved |
+| Assumption suggestions | Scenario scoping text + existing assumptions + retrieved similar sample scenarios (bundled reference content) | Staged; each suggestion requires explicit user acceptance |
+| Treatment suggestions | Scenario scoping text + computed baseline figures + existing treatment names + retrieved control-catalog entries (bundled reference content) | Staged; accepting a suggestion opens it pre-filled in the treatment form for the analyst to review, adjust, and explicitly save (audit-logged); treatment economics are always recomputed deterministically from what is saved |
+
+Suggestion prompts are grounded by retrieval over reference content **bundled
+with the app** (sample scenarios and a curated control catalog with typical
+effectiveness ranges — planning heuristics, not measurements). Retrieval is
+deterministic lexical matching in the browser: no external knowledge service is
+called, nothing extra leaves the device, and retrieved text reaches the model
+only inside the same user-initiated prompt. Grounding does not change the
+rules above — drafted numbers remain drafts until a human reviews and saves
+them.
 
 ## What AI is **not** used for
 

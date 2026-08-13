@@ -6,6 +6,11 @@
 // client gets real, audited figures by calling the math instead of guessing.
 
 import { expectedLoss } from '@/lib/qcr/fair';
+import { searchDocs, excerptBody } from '@/lib/qcr/retrieval';
+import { COMPROMISE_TYPES } from '@/lib/qcr/compromiseTypes';
+import { kbForType } from '@/lib/qcr/knowledgeBase';
+import { CONTROL_CATALOG } from '@/data/controlCatalog';
+import { SAMPLE_LIBRARIES } from '@/data/sampleLibraries';
 import {
   simulateAnnualLoss, exceedanceCurve, DEFAULT_ITERATIONS, DEFAULT_SEED,
 } from '@/lib/qcr/simulation';
@@ -52,6 +57,47 @@ export const treatmentSchema = {
   },
   required: ['annual_cost'],
 };
+
+// ── Knowledge-base corpora for search_fair_kb ──────────────────────────────
+// Built once at module load from the same bundled reference content the app
+// itself uses (compromise-type knowledge base, control catalog, sample
+// scenarios), so remote MCP and in-page WebMCP search identical corpora and
+// the tool stays a pure sync function like every other entry here.
+const KB_CORPORA = {
+  compromise_types: COMPROMISE_TYPES.map((type) => {
+    const kb = kbForType(type.id);
+    return {
+      id: type.id,
+      title: type.name,
+      body: [
+        type.brief,
+        ...(kb?.inDepth || []),
+        ...(kb?.incidents || []).map((x) => `${x.name} (${x.year}): ${x.summary}`),
+      ].join('\n\n'),
+    };
+  }),
+  controls: CONTROL_CATALOG.map((control) => ({
+    id: control.id,
+    title: control.name,
+    body: [
+      control.keywords.join(' '),
+      control.description,
+      `Frameworks: ${control.frameworks.join('; ')}.`,
+      control.effectiveness_notes,
+      `Cost drivers: ${control.cost_notes}`,
+    ].join('\n\n'),
+  })),
+  sample_scenarios: SAMPLE_LIBRARIES.flatMap((library) =>
+    library.scenarios.map((sample) => ({
+      id: sample.id,
+      title: sample.name,
+      body: [
+        `${sample.description} Asset: ${sample.asset}. Threat: ${sample.threat}. Effect: ${sample.effect}.`,
+        `Assumptions: ${(sample.assumptions || []).join(' | ')}`,
+      ].join('\n\n'),
+    }))),
+};
+const KB_CORPUS_NAMES = Object.keys(KB_CORPORA);
 
 // ── Tools: { name, description, inputSchema, readOnly, run(args) → plain obj } ─
 export const QCR_TOOLS = [
@@ -129,6 +175,30 @@ export const QCR_TOOLS = [
     },
     readOnly: true,
     run: ({ lower, upper }) => ciToEstimate(lower, upper),
+  },
+  {
+    name: 'search_fair_kb',
+    description: 'Search the bundled FAIR knowledge base: compromise-type write-ups with real-world incident references, a curated control catalog (framework citations and typical effectiveness ranges — planning heuristics, not measurements), and the sample scenario library. Lexical keyword search; returns excerpted matches best-first.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Free-text query, e.g. "ransomware backups" or "payment fraud verification"' },
+        corpus: { type: 'string', enum: [...KB_CORPUS_NAMES, 'all'], description: 'Which corpus to search (default: all)' },
+        max_results: { type: 'integer', description: 'Maximum matches to return (default 5)' },
+      },
+      required: ['query'],
+    },
+    readOnly: true,
+    run: ({ query, corpus, max_results }) => {
+      const names = corpus && corpus !== 'all' ? [corpus] : KB_CORPUS_NAMES;
+      const max = Math.min(Math.max(max_results || 5, 1), 20);
+      const matches = names
+        .flatMap((name) => searchDocs(KB_CORPORA[name], query, max)
+          .map(({ doc, score }) => ({ corpus: name, id: doc.id, title: doc.title, score, excerpt: excerptBody(doc.body, query) })))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, max);
+      return { query, corpora_searched: names, matches };
+    },
   },
   {
     name: 'validate_model',

@@ -7,7 +7,10 @@ vi.mock('@/lib/ai', () => ({
 }));
 
 import { invokeAI } from '@/lib/ai';
-import { suggestScenarioTreatments } from '@/lib/qcr/aiFeatures';
+import {
+  suggestScenarioTreatments, suggestScenarioAssumptions, similarSampleScenarios, relevantControls,
+} from '@/lib/qcr/aiFeatures';
+import { findSampleById } from '@/data/sampleLibraries';
 
 const scenario = {
   name: 'Test scenario', description: 'Test risk.', asset: 'Asset', threat: 'Threat', effect: 'Effect',
@@ -48,5 +51,72 @@ describe('suggestScenarioTreatments', () => {
     expect(prompt).toContain('$100,000');
     expect(prompt).toContain('Existing control');
     expect(prompt).toContain('do not recompute');
+  });
+
+  it('grounds the prompt with relevant control-catalog entries', async () => {
+    invokeAI.mockResolvedValue({ suggestions: [] });
+    const ransomware = {
+      name: 'Ransomware outage', description: 'Ransomware encrypts servers and backups; operations halt.',
+      asset: 'Core servers', threat: 'Ransomware group', effect: 'Downtime and rebuild', assumptions: [],
+    };
+    await suggestScenarioTreatments({ scenario: ransomware, expected, treatments: [] });
+    const { prompt } = invokeAI.mock.calls.at(-1)[0];
+    expect(prompt).toContain('Reference control catalog');
+    expect(prompt).toContain('Immutable offline backups');
+    expect(prompt).toContain('planning heuristics');
+    expect(prompt).toMatch(/NIST CSF 2\.0/);
+  });
+});
+
+describe('relevantControls', () => {
+  it('surfaces scenario-appropriate controls', () => {
+    const controls = relevantControls({
+      name: 'Cattle Sale Payment Redirect',
+      description: 'Fraudsters impersonate a buyer over email and redirect auction proceeds by wire transfer.',
+      asset: 'Sale proceeds', threat: 'Business email compromise fraud group', effect: 'Diverted funds',
+    });
+    expect(controls.length).toBeGreaterThan(0);
+    expect(controls.length).toBeLessThanOrEqual(6);
+    expect(controls.map((c) => c.id)).toContain('payment-verification');
+  });
+});
+
+describe('similarSampleScenarios', () => {
+  const ransomwareScenario = {
+    name: 'Ransomware outage', description: 'Ransomware encrypts servers; operations halt during recovery.',
+    asset: 'Core servers', threat: 'Ransomware group', effect: 'Downtime and rebuild',
+  };
+
+  it('retrieves topically similar samples from the bundled libraries', () => {
+    const similar = similarSampleScenarios(ransomwareScenario);
+    expect(similar.length).toBeGreaterThan(0);
+    expect(similar.length).toBeLessThanOrEqual(2);
+    const text = similar.map((s) => `${s.name} ${s.description} ${s.threat}`.toLowerCase()).join(' ');
+    expect(text).toContain('ransom');
+    for (const sample of similar) expect(sample.assumptions.length).toBeGreaterThan(0);
+  });
+
+  it('never returns the sample the scenario was loaded from', () => {
+    const own = findSampleById('ranch-ransomware');
+    const similar = similarSampleScenarios({
+      ...own, sample_id: 'ranch-ransomware',
+    });
+    expect(similar.map((s) => s.id)).not.toContain('ranch-ransomware');
+  });
+});
+
+describe('suggestScenarioAssumptions', () => {
+  it('grounds the prompt with similar sample exemplars but forbids copying', async () => {
+    invokeAI.mockResolvedValue({ suggestions: [{ text: 'A', rationale: 'B' }] });
+    const scenario = {
+      name: 'Ransomware outage', description: 'Ransomware encrypts servers; operations halt during recovery.',
+      asset: 'Core servers', threat: 'Ransomware group', effect: 'Downtime and rebuild', assumptions: [],
+    };
+    const { suggestions, provenance } = await suggestScenarioAssumptions({ scenario });
+    const { prompt } = invokeAI.mock.calls.at(-1)[0];
+    expect(prompt).toContain('Reference examples');
+    expect(prompt).toContain('do not copy them verbatim');
+    expect(suggestions).toHaveLength(1);
+    expect(provenance.label).toBe('Mock AI');
   });
 });

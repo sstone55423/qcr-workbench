@@ -9,9 +9,16 @@ that share one registry ([`src/lib/mcp/tools.js`](../src/lib/mcp/tools.js)):
   callable by a WebMCP-capable browser agent. Tools run locally; nothing leaves
   the browser.
 
-The seven shared tools: `compute_ale`, `simulate_scenario`, `evaluate_treatment`,
-`optimize_controls`, `sensitivity_analysis`, `calibrate_estimate`, `validate_model`.
-WebMCP additionally exposes `list_scenarios` and `open_workbench_step`.
+The eight shared tools: `compute_ale`, `simulate_scenario`, `evaluate_treatment`,
+`optimize_controls`, `sensitivity_analysis`, `calibrate_estimate`, `search_fair_kb`,
+`validate_model`. WebMCP additionally exposes `list_scenarios` and `open_workbench_step`.
+
+`search_fair_kb` searches the bundled reference corpora (compromise-type
+write-ups with incident references, the control catalog with framework
+citations and typical effectiveness ranges, and the sample scenario library)
+with deterministic lexical matching — no network, identical results on both
+surfaces. The effectiveness ranges it returns are planning heuristics, not
+measurements.
 
 A sample FAIR model used in the examples below:
 

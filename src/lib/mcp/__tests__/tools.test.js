@@ -15,7 +15,7 @@ describe('QCR MCP tool registry', () => {
   it('exposes the expected tools', () => {
     expect(QCR_TOOLS.map((t) => t.name)).toEqual([
       'compute_ale', 'simulate_scenario', 'evaluate_treatment', 'optimize_controls',
-      'sensitivity_analysis', 'calibrate_estimate', 'validate_model',
+      'sensitivity_analysis', 'calibrate_estimate', 'search_fair_kb', 'validate_model',
     ]);
   });
 
@@ -53,6 +53,26 @@ describe('QCR MCP tool registry', () => {
   it('calibrate_estimate inverts a 90% CI to a PERT estimate', () => {
     expect(toolByName('calibrate_estimate').run({ lower: 1_000_000, upper: 4_000_000 }).most_likely)
       .toBeCloseTo(2_500_000, 6);
+  });
+
+  it('search_fair_kb finds relevant entries across corpora and respects filters', () => {
+    const all = toolByName('search_fair_kb').run({ query: 'ransomware backups recovery' });
+    expect(all.matches.length).toBeGreaterThan(0);
+    expect(all.matches.length).toBeLessThanOrEqual(5); // default max
+    // Best-first ordering.
+    for (let i = 1; i < all.matches.length; i++) {
+      expect(all.matches[i - 1].score).toBeGreaterThanOrEqual(all.matches[i].score);
+    }
+    // Both a compromise-type write-up and a control should surface for this query.
+    const corpora = new Set(all.matches.map((m) => m.corpus));
+    expect(corpora.has('compromise_types') || corpora.has('controls')).toBe(true);
+
+    const controlsOnly = toolByName('search_fair_kb').run({ query: 'mfa credential', corpus: 'controls', max_results: 3 });
+    expect(controlsOnly.corpora_searched).toEqual(['controls']);
+    expect(controlsOnly.matches.length).toBeLessThanOrEqual(3);
+    expect(controlsOnly.matches.every((m) => m.corpus === 'controls')).toBe(true);
+
+    expect(toolByName('search_fair_kb').run({ query: 'zzzz qqqq' }).matches).toHaveLength(0);
   });
 
   it('validate_model flags a bad factor ordering', () => {

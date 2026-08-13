@@ -4,6 +4,9 @@
 import { invokeAI, getLastAIRun } from '@/lib/ai';
 import { translate } from '@/lib/i18n';
 import { formatCurrency } from '@/lib/qcr/reporting';
+import { searchDocs } from '@/lib/qcr/retrieval';
+import { SAMPLE_LIBRARIES } from '@/data/sampleLibraries';
+import { CONTROL_CATALOG } from '@/data/controlCatalog';
 
 // The AI's prose already follows the UI language (invokeAI appends a language
 // directive); this default keeps the section labels English for callers that
@@ -80,14 +83,45 @@ const SUGGESTIONS_SCHEMA = {
   required: ['suggestions'],
 };
 
+// Retrieval corpus over the bundled sample libraries: one doc per sample
+// scenario, so suggestion prompts can be grounded with the most similar
+// professionally-written examples (few-shot exemplars, not data to copy).
+// Module-level so the retrieval token cache is computed once.
+const SAMPLE_DOCS = SAMPLE_LIBRARIES.flatMap((library) =>
+  library.scenarios.map((sample) => ({
+    id: sample.id,
+    title: `${sample.name} — ${sample.threat}`,
+    body: `${sample.description} ${sample.asset} ${sample.effect} ${(sample.assumptions || []).join(' ')}`,
+    sample,
+  })));
+
+// The most similar sample scenarios to this one (excluding the sample the
+// scenario itself was loaded from, so it never sees its own answers).
+export function similarSampleScenarios(scenario, max = 2) {
+  const query = [scenario.name, scenario.description, scenario.asset, scenario.threat, scenario.effect]
+    .filter(Boolean).join(' ');
+  return searchDocs(SAMPLE_DOCS.filter((doc) => doc.id !== scenario.sample_id), query, max)
+    .map((hit) => hit.doc.sample);
+}
+
 export async function suggestScenarioAssumptions({ scenario }) {
+  const exemplars = similarSampleScenarios(scenario);
+  const exemplarBlock = exemplars.length
+    ? '\n\nReference examples — well-scoped assumptions from similar scenarios in the bundled sample library. ' +
+      'Match their concision and coverage (scope boundaries, primary vs secondary loss, measurement basis); ' +
+      'do not copy them verbatim:\n' +
+      exemplars.map((sample) =>
+        `- ${sample.name} (${sample.threat}): ${sample.assumptions.join(' | ')}`).join('\n')
+    : '';
+
   const prompt =
     'You are helping scope a FAIR quantitative cyber risk scenario. Suggest 3-5 concise scoping assumptions ' +
     'that would make the estimates below defensible and reproducible (what is in/out of scope, which costs count ' +
     'as primary vs secondary loss, measurement boundaries). Do not repeat existing assumptions.\n\n' +
     `Scenario: ${scenario.name} — ${scenario.description}\n` +
     `Asset: ${scenario.asset}; Threat: ${scenario.threat}; Effect: ${scenario.effect}\n` +
-    `Existing assumptions: ${scenario.assumptions?.length ? scenario.assumptions.join(' | ') : '(none)'}`;
+    `Existing assumptions: ${scenario.assumptions?.length ? scenario.assumptions.join(' | ') : '(none)'}` +
+    exemplarBlock;
 
   const result = await invokeAI({ prompt, jsonSchema: SUGGESTIONS_SCHEMA });
   return { suggestions: result.suggestions || [], provenance: getLastAIRun() };
@@ -124,11 +158,56 @@ const TREATMENT_SUGGESTIONS_SCHEMA = {
   required: ['suggestions'],
 };
 
+// Retrieval corpus over the control catalog, keyed the same way as the sample
+// corpus. Keywords and effectiveness notes go in the body so scenario
+// vocabulary ("ransomware", "wire", "bucket") finds the right controls.
+const CONTROL_DOCS = CONTROL_CATALOG.map((control) => ({
+  id: control.id,
+  title: control.name,
+  body: `${control.keywords.join(' ')} ${control.description} ${control.effectiveness_notes}`,
+  control,
+}));
+
+// The catalog controls most relevant to this scenario, for prompt grounding.
+export function relevantControls(scenario, max = 6) {
+  const query = [scenario.name, scenario.description, scenario.asset, scenario.threat, scenario.effect]
+    .filter(Boolean).join(' ');
+  return searchDocs(CONTROL_DOCS, query, max).map((hit) => hit.doc.control);
+}
+
+const FACTOR_LABELS = {
+  frequency: 'threat event frequency',
+  vulnerability: 'vulnerability',
+  primary_loss: 'primary loss',
+  secondary_loss: 'secondary loss',
+};
+const describeReductions = (typical) =>
+  Object.entries(typical)
+    .map(([factor, [lo, hi]]) => `${FACTOR_LABELS[factor]} −${Math.round(lo * 100)}–${Math.round(hi * 100)}%`)
+    .join(', ');
+const renderControl = (control) =>
+  `- ${control.name} [${control.frameworks.join('; ')}]\n` +
+  `  ${control.description}\n` +
+  `  Typical reductions (planning heuristics): ${describeReductions(control.typical_reductions)}. ${control.effectiveness_notes}\n` +
+  `  Cost drivers: ${control.cost_notes}`;
+
 // Draft candidate treatments for the scenario. The drafts are starting points
 // only: they open pre-filled in the treatment form for the analyst to review
 // and adjust, and the treatment economics are always recomputed
-// deterministically from whatever the analyst actually saves.
+// deterministically from whatever the analyst actually saves. The prompt is
+// grounded with the most relevant control-catalog entries so drafted costs and
+// reduction fractions anchor on curated reference ranges instead of free
+// invention (and cite a recognized framework in the rationale).
 export async function suggestScenarioTreatments({ scenario, expected, treatments }) {
+  const catalog = relevantControls(scenario);
+  const catalogBlock = catalog.length
+    ? '\n\nReference control catalog — curated entries relevant to this scenario. Prefer drawing candidates from ' +
+      'it when they fit, cite the control name and one framework reference in the rationale, and keep reduction ' +
+      'fractions within the typical ranges unless the rationale explains why this environment differs. You may ' +
+      'propose a control that is not in the catalog when it clearly fits better — say so in the rationale.\n' +
+      catalog.map(renderControl).join('\n')
+    : '';
+
   const prompt =
     'You are helping a CISO shortlist risk treatments (security controls) for the FAIR quantitative cyber risk ' +
     'scenario below. Suggest 3-4 realistic candidate treatments. For each, draft a rough annual cost in USD and the ' +
@@ -140,7 +219,8 @@ export async function suggestScenarioTreatments({ scenario, expected, treatments
     `Computed baseline (do not recompute): annualized loss expectancy ${formatCurrency(expected.ale)}, ` +
     `${expected.lef.toFixed(2)} loss events/year expected, ${formatCurrency(expected.lossMagnitude)} per event.\n` +
     `Key assumptions: ${scenario.assumptions?.length ? scenario.assumptions.join(' | ') : '(none)'}\n` +
-    `Existing treatments: ${treatments?.length ? treatments.map((x) => x.name).join(' | ') : '(none)'}`;
+    `Existing treatments: ${treatments?.length ? treatments.map((x) => x.name).join(' | ') : '(none)'}` +
+    catalogBlock;
 
   const result = await invokeAI({ prompt, jsonSchema: TREATMENT_SUGGESTIONS_SCHEMA });
   const clamp01 = (x) => Math.min(Math.max(Number(x) || 0, 0), 1);

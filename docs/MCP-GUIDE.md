@@ -42,6 +42,7 @@ the open project's scenarios, and jump to a workbench step.
 | `optimize_controls` | Best control mix under a budget |
 | `sensitivity_analysis` | Which input drives the risk (tornado) |
 | `calibrate_estimate` | Turn a 90% confidence range into a PERT estimate |
+| `search_fair_kb` | Search the bundled knowledge base: compromise-type write-ups with incident references, the control catalog (framework citations, typical effectiveness ranges), and sample scenarios |
 | `validate_model` | Check that a FAIR model is well-formed |
 
 ## A worked example
