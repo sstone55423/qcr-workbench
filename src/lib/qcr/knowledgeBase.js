@@ -1,5 +1,5 @@
-// Curated knowledge base backing the "Learn more" screen: for each compromise
-// type in compromiseTypes.js, a deeper write-up (`inDepth`) and a few widely
+// Curated knowledge base backing the "Learn more" screen: for each of the 21
+// compromise types in compromiseTypes.js, a deeper write-up (`inDepth`) and a few widely
 // reported real-world incidents (`incidents`). Static reference content — no
 // AI, no network — retrieved by compromise-type id and searchable through
 // src/lib/qcr/retrieval.js (and the search_fair_kb MCP tool).
@@ -146,6 +146,18 @@ export const KNOWLEDGE_BASE = [
       { name: 'Capital One', year: '2019', summary: 'A former cloud-provider employee exploited a misconfigured WAF role via SSRF to pull ~106 million credit applications from S3; costs included an $80 million regulatory penalty and a $190 million settlement.' },
       { name: 'Microsoft Power Apps portals', year: '2021', summary: 'A default permission setting left OData APIs public across thousands of portals, exposing 38 million records including COVID-contact-tracing and job-applicant data before coordinated disclosure.' },
       { name: 'Toyota connected-car data exposure', year: '2023', summary: 'Toyota disclosed that a cloud misconfiguration had left vehicle-location data of about 2.15 million customers publicly accessible for roughly a decade without detected misuse.' },
+    ],
+  },
+  {
+    typeId: 'ot-cyber-physical',
+    inDepth: [
+      'Operational technology inverts IT\'s priorities: availability and safety come first, confidentiality last. The equipment — PLCs, SCADA servers, building controllers, networked medical devices, radio systems — runs for decades, often cannot be patched without a maintenance outage, and speaks protocols designed with no authentication at all. Attackers rarely start in OT: they arrive through the IT network, a remote-access path built for convenience, or a vendor\'s standing connection, then cross a boundary that segmentation was supposed to protect. Once there, doing damage requires little sophistication because the systems trust whatever reaches them.',
+      'For FAIR estimates, frequency is low but rising, driven by sector (utilities, manufacturing, healthcare), geopolitical exposure, and how much of the control surface is remotely reachable — internet-exposed HMIs move a scenario into a different frequency class entirely. Vulnerability turns on IT/OT segmentation quality, remote-access hygiene, and whether anyone monitors the OT network at all. Primary loss is dominated by production or service downtime and manual-operations cost, with equipment damage in the tail; secondary loss covers safety and environmental consequences, sector regulators (NERC CIP, FDA, state utility commissions), and insurance repricing. Scoping assumptions should state whether safety-instrumented systems and physical damage are in or out of the modeled scenario.',
+    ],
+    incidents: [
+      { name: 'Maroochy Shire sewage spill', year: '2000', summary: 'A rejected contractor used stolen radio equipment to issue commands to sewage pumping stations in Queensland, releasing roughly a million liters of raw sewage — the canonical early cyber-physical attack, and an insider one.' },
+      { name: 'Ukraine power grid attacks', year: '2015–2016', summary: 'Russian military hackers switched off substations serving ~230,000 Ukrainians in 2015 (BlackEnergy) and repeated it in 2016 with Industroyer, the first malware built to speak grid control protocols directly.' },
+      { name: 'Triton / Trisis', year: '2017', summary: 'Malware at a Saudi petrochemical plant targeted the safety instrumented systems — the last line of defense against explosions — and triggered emergency shutdowns when a flaw in the attack code tripped the controllers.' },
     ],
   },
   {
