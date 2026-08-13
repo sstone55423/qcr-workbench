@@ -1,0 +1,67 @@
+[
+  {
+    "id": "ec-card-skimming", "name": "Checkout Card-Skimming Compromise",
+    "description": "Malicious script injected into the online checkout harvests payment cards for weeks before detection, triggering PCI forensics, fines, and reissuance costs.",
+    "asset": "Online checkout and customer payment data", "threat": "Magecart-style web skimming group", "effect": "Card data exposure and PCI penalties", "owner": "E-commerce Platform Lead",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.8, "maximum": 2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 80000, "most_likely": 350000, "maximum": 1800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 40000, "most_likely": 220000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.6, "maximum": 0.85, "unit": "probability"}
+    },
+    "assumptions": ["Skimming persists undetected for two to eight weeks; exposure scales with checkout volume.", "Primary loss covers forensics, card-brand assessments, and remediation.", "Secondary loss covers churn, chargeback disputes, and processor relationship damage."]
+  },
+  {
+    "id": "ec-credential-stuffing", "name": "Customer Account Takeover Wave",
+    "description": "Credential-stuffing campaigns replay breached passwords against customer accounts, draining stored value and loyalty points and abusing saved cards.",
+    "asset": "Customer accounts, stored payment methods, and loyalty balances", "threat": "Credential-stuffing operators with breached password lists", "effect": "Fraudulent orders and account lockouts", "owner": "Head of Digital Trust & Safety",
+    "fair": {
+      "threat_event_frequency": {"minimum": 4, "most_likely": 12, "maximum": 40, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 55000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 8000, "most_likely": 45000, "maximum": 280000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["A campaign counts as a loss event when it defeats rate-limiting and takes over accounts at scale.", "Primary loss covers fraud reimbursement and support surge per successful campaign.", "Secondary loss covers customer churn and payment-provider scrutiny after visible waves."]
+  },
+  {
+    "id": "ec-ddos-peak", "name": "DDoS During Holiday Peak",
+    "description": "Volumetric and application-layer floods hit the storefront during the highest-revenue trading days, degrading checkout until mitigation engages.",
+    "asset": "Storefront availability during peak trading", "threat": "DDoS-for-hire operators and extortionists", "effect": "Lost sales during outage windows", "owner": "Site Reliability Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 8, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.4, "unit": "probability"},
+      "primary_loss": {"minimum": 25000, "most_likely": 140000, "maximum": 750000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 35000, "maximum": 200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["Attempts concentrate around promotional events; loss counts only user-visible degradation.", "Primary loss is margin on abandoned carts during the outage window, not full revenue.", "Secondary loss covers ad spend wasted on unreachable landing pages and SLA credits."]
+  },
+  {
+    "id": "ec-ransomware", "name": "Ransomware Halts Fulfillment",
+    "description": "Ransomware encrypts warehouse management and order routing; orders queue while systems are rebuilt and backlog is cleared by hand.",
+    "asset": "Warehouse management and order-routing systems", "threat": "Ransomware affiliate via phished credentials", "effect": "Fulfillment stoppage and backlog", "owner": "VP of Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 60000, "most_likely": 280000, "maximum": 1400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 110000, "maximum": 650000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Storefront stays up; the loss is fulfillment downtime, expedited shipping, and rebuild labor.", "Backups restore within days; no ransom payment is modeled.", "Secondary loss covers refunds, marketplace penalties, and seller-rating damage."]
+  },
+  {
+    "id": "ec-vendor-platform", "name": "Third-Party Plugin Supply-Chain Breach",
+    "description": "A compromised analytics or personalization plugin ships malicious code into the storefront, exposing session data across every page it loads on.",
+    "asset": "Storefront third-party integrations and session data", "threat": "Supply-chain attacker compromising a SaaS plugin vendor", "effect": "Session and personal data exposure", "owner": "E-commerce Platform Lead",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.8, "maximum": 2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 160000, "maximum": 850000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 140000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Frequency reflects the count of third-party scripts with checkout-page access.", "Primary loss covers emergency plugin removal, forensics, and notification mechanics.", "Secondary loss covers regulatory exposure and churn tied to disclosed session data."]
+  }
+]

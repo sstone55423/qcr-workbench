@@ -1,0 +1,67 @@
+[
+  {
+    "id": "stf-candidate-pii", "name": "Candidate Database Breach",
+    "description": "An intrusion exposes the candidate database — resumes, Social Security numbers, background-check results, and salary histories for hundreds of thousands of applicants.",
+    "asset": "Candidate PII and background-check records", "threat": "Intruder monetizing bulk PII", "effect": "Mass candidate data exposure", "owner": "Chief Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.7, "maximum": 1.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 80000, "most_likely": 350000, "maximum": 1600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 60000, "most_likely": 300000, "maximum": 1800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.4, "most_likely": 0.6, "maximum": 0.85, "unit": "probability"}
+    },
+    "assumptions": ["Record count spans years of retained applications, not just active candidates.", "Primary loss covers forensics, notification, and credit monitoring at scale.", "Secondary loss covers client contract losses and state AG enforcement."]
+  },
+  {
+    "id": "stf-payroll-diversion", "name": "Contractor Payroll Diversion",
+    "description": "Attackers phish contractor portal credentials or spoof HR to change direct-deposit details, diverting weekly payroll across many placed workers.",
+    "asset": "Contractor payroll and direct-deposit flows", "threat": "Payroll-diversion fraud ring", "effect": "Diverted wages and make-whole costs", "owner": "Payroll Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 3, "most_likely": 10, "maximum": 30, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.03, "most_likely": 0.1, "maximum": 0.25, "unit": "probability"},
+      "primary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 150000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 3000, "most_likely": 15000, "maximum": 80000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"}
+    },
+    "assumptions": ["Weekly pay cycles cap the diverted amount per event; the agency makes workers whole.", "High placement volume makes lures routine; attempts track workforce size.", "Secondary loss covers client-site friction and worker attrition after incidents."]
+  },
+  {
+    "id": "stf-ats-takeover", "name": "Client Portal Account Takeover",
+    "description": "Credential attacks take over client hiring-manager accounts in the ATS portal, exposing requisitions, rates, and candidate files across accounts.",
+    "asset": "Applicant tracking system and client portal", "threat": "Credential-stuffing operators", "effect": "Client and candidate data exposure", "owner": "VP of Technology",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 8, "maximum": 24, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 220000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 8000, "most_likely": 45000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["A campaign counts when it takes over at least one client account with data access.", "Primary loss covers investigation, resets, and per-client disclosure.", "Secondary loss covers contract penalties under client data-protection addenda."]
+  },
+  {
+    "id": "stf-ransomware", "name": "Ransomware Disrupts Placement Operations",
+    "description": "Ransomware encrypts the ATS, payroll, and onboarding systems in the middle of the placement week; recruiters work from spreadsheets and phones.",
+    "asset": "ATS, payroll, and onboarding systems", "threat": "Opportunistic ransomware", "effect": "Placement and payroll disruption", "owner": "VP of Technology",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 200000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 90000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Missing a payroll run is the loss driver; emergency manual payroll is assumed to work.", "Backups restore core systems within three business days.", "Secondary loss covers client defections to competing agencies mid-engagement."]
+  },
+  {
+    "id": "stf-insider-poach", "name": "Departing Recruiter Takes the Book",
+    "description": "A departing recruiter exports client contacts, requisitions, rates, and candidate pipelines to launch a competing desk.",
+    "asset": "Client relationships and candidate pipeline data", "threat": "Departing employee joining a competitor", "effect": "Lost placements and competitive harm", "owner": "General Counsel",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Frequency tracks recruiter turnover; vulnerability reflects export monitoring and offboarding speed.", "Primary loss is margin on placements moved within the first year.", "Secondary loss covers enforcement litigation against non-solicit breaches."]
+  }
+]

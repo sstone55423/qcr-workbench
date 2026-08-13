@@ -1,0 +1,67 @@
+[
+  {
+    "id": "mssp-soc-platform", "name": "SOC Platform Compromise",
+    "description": "An attacker breaches the multi-tenant SIEM and monitoring platform, gaining visibility into client environments, detections, and response playbooks.",
+    "asset": "Multi-tenant SIEM and client telemetry", "threat": "Sophisticated intruder targeting the security supply chain", "effect": "Client security telemetry exposure", "owner": "Chief Information Security Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.35, "maximum": 1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 450000, "maximum": 2200000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 80000, "most_likely": 400000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.4, "most_likely": 0.65, "maximum": 0.9, "unit": "probability"}
+    },
+    "assumptions": ["Any confirmed platform breach requires notifying every tenant regardless of proven access.", "Primary loss covers forensics, per-client investigation support, and rebuild.", "Secondary loss covers client attrition and liability claims under service agreements."]
+  },
+  {
+    "id": "mssp-remote-tooling", "name": "Remote-Access Tooling Abused Into Clients",
+    "description": "Attackers compromise the RMM/remote-access tooling used for client response and ride it into customer environments, echoing the MSP supply-chain pattern.",
+    "asset": "Remote management tooling and standing client access", "threat": "Ransomware group targeting MSP tooling", "effect": "Client environments compromised through the MSSP", "owner": "VP of Security Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.4, "maximum": 1.2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 150000, "most_likely": 700000, "maximum": 3500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 100000, "most_likely": 500000, "maximum": 3000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.5, "most_likely": 0.7, "maximum": 0.9, "unit": "probability"}
+    },
+    "assumptions": ["Loss scales with the number of clients reachable from the compromised tooling tier.", "Primary loss covers incident response across affected clients at the MSSP's cost.", "Secondary loss covers contract terminations, litigation, and reputational collapse risk."]
+  },
+  {
+    "id": "mssp-insider-client-data", "name": "Analyst Misuses Client Security Data",
+    "description": "A SOC analyst with broad tenant access exports client vulnerability data and incident histories — a sellable map of every client's weaknesses.",
+    "asset": "Client vulnerability and incident data", "threat": "Malicious insider with privileged SOC access", "effect": "Client weakness data exfiltration", "owner": "Chief Information Security Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.9, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 180000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 40000, "most_likely": 200000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["Frequency reflects SOC headcount, turnover, and the breadth of standing tenant access.", "Primary loss covers investigation and mandatory client disclosure.", "Secondary loss covers client losses and claims if exposed weaknesses are exploited."]
+  },
+  {
+    "id": "mssp-ransomware", "name": "Ransomware on Internal Business Systems",
+    "description": "Ransomware hits the MSSP's own corporate systems — ticketing, billing, knowledge base — an operational and deeply reputational incident for a security firm.",
+    "asset": "Internal ticketing, billing, and knowledge systems", "threat": "Opportunistic ransomware", "effect": "Service disruption and credibility damage", "owner": "Chief Operating Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.15, "most_likely": 0.4, "maximum": 1.1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 180000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 30000, "most_likely": 180000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["SOC delivery continues on segregated infrastructure; the loss is corporate-side.", "Primary loss covers rebuild and SLA make-goods for delayed deliverables.", "Secondary loss is dominated by competitive damage — a breached security vendor loses deals."]
+  },
+  {
+    "id": "mssp-cred-vault", "name": "Client Credential Vault Exposure",
+    "description": "The vault holding privileged client credentials for managed response is targeted; exposure would hand attackers keys to dozens of environments.",
+    "asset": "Privileged client credentials under management", "threat": "Targeted intrusion against the credential vault", "effect": "Privileged client credentials at risk", "owner": "VP of Security Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.45, "unit": "probability"},
+      "primary_loss": {"minimum": 80000, "most_likely": 400000, "maximum": 2000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 80000, "most_likely": 450000, "maximum": 2800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.45, "most_likely": 0.65, "maximum": 0.9, "unit": "probability"}
+    },
+    "assumptions": ["Every credential in the vault rotates on suspicion of exposure — cost scales with client count.", "Primary loss covers emergency rotation, client coordination, and forensics.", "Secondary loss covers liability where rotation lags allow client-side compromise."]
+  }
+]

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "tel-core-intrusion", "name": "Core Network Intrusion",
+    "description": "A state-linked actor establishes persistent access in core routing and provisioning systems, positioning to intercept traffic and survive eviction attempts.",
+    "asset": "Core routing, provisioning, and lawful-intercept systems", "threat": "State-sponsored intrusion group", "effect": "Persistent compromise of core infrastructure", "owner": "Chief Technology Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.6, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 150000, "most_likely": 700000, "maximum": 3500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 80000, "most_likely": 400000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.6, "maximum": 0.85, "unit": "probability"}
+    },
+    "assumptions": ["Detection is assumed to come from external notification; dwell time exceeds six months.", "Primary loss covers multi-quarter eviction, rebuild, and outside forensics.", "Secondary loss covers regulatory proceedings and national-security reporting obligations."]
+  },
+  {
+    "id": "tel-ddos-infra", "name": "DDoS Against Subscriber Infrastructure",
+    "description": "Volumetric attacks against DNS, CGNAT, and edge routers degrade service for whole towns until upstream scrubbing absorbs the traffic.",
+    "asset": "Subscriber-facing DNS and edge infrastructure", "threat": "Botnet operators and extortionists", "effect": "Regional service degradation", "owner": "Network Operations Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 6, "maximum": 20, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 70000, "maximum": 350000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Only attacks producing subscriber-visible degradation count as loss events.", "Primary loss covers mitigation capacity, overtime, and outage credits.", "Secondary loss covers churn in competitive service areas and PUC complaints."]
+  },
+  {
+    "id": "tel-billing-breach", "name": "Subscriber Billing Data Breach",
+    "description": "An intrusion into billing and CRM systems exposes subscriber names, addresses, call records, and partial payment data.",
+    "asset": "Billing system and subscriber records", "threat": "Intruder exfiltrating subscriber data", "effect": "Subscriber data exposure", "owner": "Director of Information Security",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.7, "maximum": 1.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 70000, "most_likely": 300000, "maximum": 1400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 50000, "most_likely": 250000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["CPNI protections make call-record exposure a regulatory event regardless of misuse.", "Primary loss covers forensics, notification, and FCC-mandated remediation.", "Secondary loss covers FCC enforcement, class actions, and churn."]
+  },
+  {
+    "id": "tel-sim-swap", "name": "SIM-Swap Fraud Through Store Channels",
+    "description": "Fraudsters socially engineer or bribe retail and support staff to execute unauthorized SIM swaps used to defeat customers' bank MFA.",
+    "asset": "Number-porting and SIM-change processes", "threat": "SIM-swap fraud rings targeting store staff", "effect": "Customer account takeovers via hijacked numbers", "owner": "VP of Customer Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 4, "most_likely": 12, "maximum": 36, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.4, "unit": "probability"},
+      "primary_loss": {"minimum": 5000, "most_likely": 25000, "maximum": 120000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["The carrier's direct loss is remediation and goodwill; victims' bank losses arrive as claims.", "Attempts track subscriber count and dark-web demand for target numbers.", "Secondary loss covers FCC scrutiny and liability claims from downstream fraud."]
+  },
+  {
+    "id": "tel-ransomware", "name": "Ransomware in Business Support Systems",
+    "description": "Ransomware encrypts OSS/BSS servers — provisioning, billing, and support tooling — leaving the network running but unmanageable.",
+    "asset": "Operations and business support systems", "threat": "Ransomware affiliate", "effect": "Provisioning and billing outage", "owner": "Chief Technology Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 60000, "most_likely": 280000, "maximum": 1300000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 100000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Subscriber traffic keeps flowing; the loss is management-plane paralysis and billing delay.", "New activations and truck rolls halt during the outage window.", "Secondary loss covers delayed revenue recognition and regulatory reporting."]
+  }
+]

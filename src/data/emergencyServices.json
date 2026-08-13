@@ -1,0 +1,67 @@
+[
+  {
+    "id": "ems-cad-ransomware", "name": "Ransomware Takes Down Dispatch CAD",
+    "description": "Ransomware encrypts the regional CAD serving 911 dispatch for police, fire, and EMS; dispatchers fall back to cards and radio for days.",
+    "asset": "Computer-aided dispatch for regional 911", "threat": "Ransomware affiliate", "effect": "Manual dispatch operations", "owner": "Executive Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 250000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 30000, "most_likely": 160000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Call-taking continues; manual dispatch runs at reduced tempo with mutual-aid backup.", "Primary loss covers restoration, overtime across member agencies, and vendor response.", "Secondary loss covers liability exposure where response delays are alleged in claims."]
+  },
+  {
+    "id": "ems-tdos", "name": "Telephony Denial of Service on 911 Trunks",
+    "description": "Automated call floods jam 911 trunks, delaying legitimate emergency calls until carriers filter the traffic.",
+    "asset": "911 call-taking capacity", "threat": "TDoS attacker flooding emergency lines", "effect": "Delayed emergency call answering", "owner": "Operations Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 1, "maximum": 3, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Carrier-level filtering ends most events within hours; overflow routing absorbs some calls.", "Primary loss covers response, carrier coordination, and after-action work.", "Secondary loss covers claims tied to delayed call answering during the flood."]
+  },
+  {
+    "id": "ems-radio-compromise", "name": "Radio and Paging System Compromise",
+    "description": "An intruder reaches the trunked radio controller and paging systems, risking jammed talkgroups and false dispatches across responder agencies.",
+    "asset": "Trunked radio and paging infrastructure", "threat": "Intruder manipulating responder communications", "effect": "Degraded responder communications", "owner": "Radio System Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.7, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 25000, "most_likely": 120000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 100000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Conventional fallback channels are drilled; the loss is degraded coordination, not silence.", "Primary loss covers system re-keying, vendor forensics, and interim operations.", "Secondary loss covers responder-safety claims and member-agency cost recovery."]
+  },
+  {
+    "id": "ems-caller-data", "name": "911 Call Data Breach",
+    "description": "An intrusion exposes 911 call recordings, locations, and CAD narratives — including medical details and domestic-violence addresses.",
+    "asset": "Call recordings and incident narratives", "threat": "Intruder exfiltrating call data", "effect": "Sensitive caller data exposure", "owner": "Executive Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.15, "most_likely": 0.4, "maximum": 1.1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 140000, "maximum": 650000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 150000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["Protected-address and medical content triggers duties beyond standard PII notification.", "Primary loss covers forensics, notification, and victim-protection coordination.", "Secondary loss covers civil liability for endangered callers and HIPAA-adjacent exposure."]
+  },
+  {
+    "id": "ems-vendor-outage", "name": "CAD Cloud Vendor Breach Outage",
+    "description": "A breach at the hosted CAD vendor forces a precautionary multi-day platform shutdown across all its customer dispatch centers, including this one.",
+    "asset": "Hosted CAD service continuity", "threat": "Attacker breaching the CAD vendor", "effect": "Vendor-driven dispatch outage", "owner": "Executive Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.35, "maximum": 1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.3, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 110000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["The center cannot prevent the vendor event; vulnerability reflects dependence without a warm alternative.", "Primary loss covers manual operations and recovery coordination for the outage duration.", "Secondary loss covers contract remedies pursued against vendor caps and exclusions."]
+  }
+]

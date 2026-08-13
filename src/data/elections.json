@@ -1,0 +1,67 @@
+[
+  {
+    "id": "elx-registration-breach", "name": "Voter Registration Data Breach",
+    "description": "An intrusion exposes the voter registration database — names, addresses, birthdates, and partial IDs — weeks before a general election.",
+    "asset": "Voter registration database", "threat": "Intruder exfiltrating voter rolls", "effect": "Voter data exposure and confidence damage", "owner": "County Elections Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 180000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 30000, "most_likely": 170000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["Much of the roll is public record; the breach story, not the data, drives confidence damage.", "Primary loss covers forensics, notification, and state/federal coordination.", "Secondary loss covers public-communication campaigns and litigation over roll integrity."]
+  },
+  {
+    "id": "elx-results-defacement", "name": "Results Website Defacement",
+    "description": "Attackers deface the unofficial results page or seed manipulated numbers on election night, fueling disinformation even though official tallies are unaffected.",
+    "asset": "Public results reporting website", "threat": "Influence-motivated attacker", "effect": "Public misinformation on election night", "owner": "County Elections Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 1, "maximum": 3, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.45, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 90000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.4, "most_likely": 0.6, "maximum": 0.85, "unit": "probability"}
+    },
+    "assumptions": ["Official canvass results are on separate systems; the harm is public perception.", "Primary loss covers restoration, forensics, and emergency communications.", "Secondary loss covers sustained public-trust remediation and legislative inquiries."]
+  },
+  {
+    "id": "elx-ransomware", "name": "Ransomware Near an Election",
+    "description": "Ransomware hits election-office systems in the pre-election window, disrupting pollbook preparation, mail-ballot processing, and staff scheduling.",
+    "asset": "Election office administrative systems", "threat": "Ransomware affiliate indifferent to election timing", "effect": "Pre-election operations disruption", "owner": "County IT Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.15, "most_likely": 0.4, "maximum": 1.1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 200000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 140000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Voting equipment is air-gapped; the loss is administrative recovery under deadline pressure.", "State and federal partners provide surge support, reflected in the estimates.", "Secondary loss covers emergency procedures litigation and confidence repair."]
+  },
+  {
+    "id": "elx-ddos-night", "name": "Election Night DDoS",
+    "description": "DDoS attacks hit results reporting and the county site on election night, exactly when public and media attention peaks.",
+    "asset": "Results reporting availability on election night", "threat": "DDoS operators timed to the election", "effect": "Results reporting outage at peak attention", "owner": "County IT Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 4, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 8000, "most_likely": 40000, "maximum": 200000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["Attacks cluster on a handful of predictable nights per cycle.", "Primary loss covers mitigation and manual media briefings during the outage.", "Secondary loss reflects disinformation traction while official numbers are unreachable."]
+  },
+  {
+    "id": "elx-staff-phishing", "name": "Spear Phishing of Election Officials",
+    "description": "Targeted phishing against election staff seeks credentials for election-adjacent systems, echoing documented campaigns against county officials.",
+    "asset": "Election staff accounts and adjacent systems", "threat": "State-aligned phishing operators", "effect": "Compromised staff accounts", "owner": "County Elections Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 6, "maximum": 20, "unit": "campaigns/year"},
+      "vulnerability": {"minimum": 0.03, "most_likely": 0.1, "maximum": 0.25, "unit": "probability"},
+      "primary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 150000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 8000, "most_likely": 50000, "maximum": 350000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Campaigns intensify in election years; staff emails are public records.", "Primary loss covers response, resets, and mandatory incident reporting.", "Secondary loss covers federal notification duties and public-disclosure fallout."]
+  }
+]

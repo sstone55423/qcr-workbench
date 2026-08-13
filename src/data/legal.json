@@ -1,0 +1,67 @@
+[
+  {
+    "id": "law-client-files", "name": "Client Matter Files Exfiltrated",
+    "description": "An intrusion exfiltrates privileged matter files — deal documents, litigation strategy, and client confidences — with extortion over publication.",
+    "asset": "Privileged client matter files", "threat": "Extortion group targeting law firms", "effect": "Privileged material exposure", "owner": "Managing Partner",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.7, "maximum": 1.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 80000, "most_likely": 350000, "maximum": 1600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 60000, "most_likely": 350000, "maximum": 2200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.4, "most_likely": 0.6, "maximum": 0.85, "unit": "probability"}
+    },
+    "assumptions": ["Deal-sensitive and litigation-strategy material drives the high-end estimates.", "Primary loss covers forensics, client-by-client disclosure, and ethics-driven remediation.", "Secondary loss covers client departures, malpractice claims, and bar scrutiny."]
+  },
+  {
+    "id": "law-bec-settlement", "name": "Settlement Wire Redirected",
+    "description": "Fraudsters monitoring a compromised mailbox strike at closing time, redirecting a settlement or escrow wire with authentic-looking instructions.",
+    "asset": "Client trust accounts and settlement wires", "threat": "Business email compromise fraud group", "effect": "Diverted client funds", "owner": "Chief Operating Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 6, "maximum": 18, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.07, "maximum": 0.18, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 250000, "maximum": 1500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 100000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Attempts cluster around closings and settlement dates visible in correspondence.", "The firm makes clients whole for diverted trust funds; recovery offsets are uncertain.", "Secondary loss covers malpractice premiums, bar complaints, and client loss."]
+  },
+  {
+    "id": "law-ransomware", "name": "Ransomware Locks Document Management",
+    "description": "Ransomware encrypts the document management system and billing platform mid-trial-calendar; attorneys work from email attachments and paper.",
+    "asset": "Document management and billing systems", "threat": "Ransomware affiliate", "effect": "Practice disruption and deadline risk", "owner": "Director of Information Technology",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 60000, "most_likely": 260000, "maximum": 1200000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 130000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Billable-hour loss and rebuild dominate primary loss; no ransom payment is modeled.", "Court deadlines are protected by extensions in most but not all matters.", "Secondary loss covers matters where deadline failures create malpractice exposure."]
+  },
+  {
+    "id": "law-insider-privilege", "name": "Staff Misuse of Privileged Information",
+    "description": "A staff member with broad matter access trades on or leaks confidential client information — insider risk with professional-responsibility consequences.",
+    "asset": "Confidential client information", "threat": "Insider misusing matter access", "effect": "Confidentiality breach and ethics exposure", "owner": "General Counsel",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.9, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 140000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 150000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Frequency reflects staff count with unrestricted matter access and turnover.", "Primary loss covers investigation, client notification, and regulatory response.", "Secondary loss covers client departures and disciplinary or SEC involvement."]
+  },
+  {
+    "id": "law-vendor-ediscovery", "name": "E-Discovery Vendor Breach",
+    "description": "A breach at the firm's e-discovery vendor exposes hosted review databases holding the most sensitive documents from active litigation.",
+    "asset": "Hosted review databases at the vendor", "threat": "Intruder breaching the litigation-support vendor", "effect": "Client litigation data exposure", "owner": "Litigation Support Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.3, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 180000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 30000, "most_likely": 180000, "maximum": 1100000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["The firm owes clients notification regardless of the vendor's contractual duties.", "Primary loss covers cross-matter impact assessment and client communication.", "Secondary loss covers protective-order violations and vendor-recovery shortfalls."]
+  }
+]

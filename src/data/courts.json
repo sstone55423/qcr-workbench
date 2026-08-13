@@ -1,0 +1,67 @@
+[
+  {
+    "id": "crt-ransomware", "name": "Ransomware Locks Case Management",
+    "description": "Ransomware encrypts the case management system across the district; hearings proceed from paper files while clerks rebuild dockets.",
+    "asset": "Case management and docketing systems", "threat": "Ransomware affiliate targeting courts", "effect": "Docket disruption and manual operations", "owner": "District Court Administrator",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.6, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 60000, "most_likely": 300000, "maximum": 1400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 130000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Hearings continue on paper; the loss is docket reconstruction and delay administration.", "Judicial-branch policy prohibits ransom payment.", "Secondary loss covers speedy-trial and statutory-deadline consequences."]
+  },
+  {
+    "id": "crt-sealed-records", "name": "Sealed and Expunged Records Exposure",
+    "description": "An intrusion exposes sealed case files, juvenile records, and expunged matters — the records the court is most strictly obligated to protect.",
+    "asset": "Sealed, juvenile, and expunged records", "threat": "Intruder exfiltrating restricted records", "effect": "Restricted records exposure", "owner": "Court Information Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.15, "most_likely": 0.4, "maximum": 1.1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 220000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 40000, "most_likely": 220000, "maximum": 1300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["Protected-party safety (protective orders, juveniles) drives the high-end estimates.", "Primary loss covers investigation, notification, and protective measures.", "Secondary loss covers civil liability and legislative or supreme-court oversight."]
+  },
+  {
+    "id": "crt-efiling-outage", "name": "E-Filing Platform Outage",
+    "description": "Attacks on the e-filing portal block filings near statutory deadlines, forcing emergency deadline orders and paper fallback.",
+    "asset": "E-filing portal availability", "threat": "Attacker disrupting the filing system", "effect": "Blocked filings at deadlines", "owner": "Judicial Branch IT Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 5, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.45, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 8000, "most_likely": 40000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Standing administrative orders toll deadlines during declared outages.", "Primary loss covers restoration, clerk overtime, and emergency communications.", "Secondary loss covers disputes over prejudiced filings despite tolling orders."]
+  },
+  {
+    "id": "crt-jury-data", "name": "Juror Information Breach",
+    "description": "The jury management system is breached, exposing juror questionnaires with home addresses and employment details across trial pools.",
+    "asset": "Juror questionnaires and pool data", "threat": "Intruder accessing juror records", "effect": "Juror privacy exposure", "owner": "Jury Commissioner",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.35, "maximum": 1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 100000, "maximum": 450000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 90000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["High-profile trial pools raise both attacker interest and consequence severity.", "Primary loss covers notification, juror support, and pool re-qualification.", "Secondary loss covers mistrial motions and juror-safety measures in active trials."]
+  },
+  {
+    "id": "crt-payment-fraud", "name": "Fines and Fees Payment System Fraud",
+    "description": "Attackers compromise the online fines-and-fees payment flow, skimming cards and redirecting settlement batches from the payment processor.",
+    "asset": "Court payment portal and remittance flows", "threat": "Payment-fraud actors targeting the portal", "effect": "Skimmed payments and diverted remittances", "owner": "Court Finance Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.6, "maximum": 1.6, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["The processor bears card losses; the court's loss is response, reconciliation, and refunds.", "Primary loss covers forensics and payer notification.", "Secondary loss covers restitution-tracking corrections and state auditor findings."]
+  }
+]

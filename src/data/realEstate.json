@@ -1,0 +1,67 @@
+[
+  {
+    "id": "re-closing-fraud", "name": "Closing Wire Fraud",
+    "description": "Fraudsters inside a compromised transaction thread send buyers altered wiring instructions days before closing, diverting down payments and payoff wires.",
+    "asset": "Closing funds and transaction communications", "threat": "Business email compromise fraud group", "effect": "Diverted closing funds", "owner": "Designated Broker",
+    "fair": {
+      "threat_event_frequency": {"minimum": 3, "most_likely": 9, "maximum": 30, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.06, "maximum": 0.15, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 200000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 450000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Attempts track transaction volume; listing data makes closing dates public.", "Primary loss reflects the brokerage's share of unrecovered funds and settlements.", "Secondary loss covers litigation over duty of care and reputational damage in the market."]
+  },
+  {
+    "id": "re-tenant-data", "name": "Tenant Application Data Breach",
+    "description": "An intrusion into property management systems exposes tenant applications — SSNs, income documents, and background screening results.",
+    "asset": "Tenant and applicant PII", "threat": "Intruder exfiltrating applicant records", "effect": "Tenant data exposure", "owner": "Director of Property Management",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.25, "most_likely": 0.6, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.65, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 180000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Retention of years of applications multiplies exposed records beyond current tenants.", "Primary loss covers forensics, notification, and credit monitoring.", "Secondary loss covers state privacy enforcement and class-action exposure."]
+  },
+  {
+    "id": "re-ransomware", "name": "Ransomware Hits Property Operations",
+    "description": "Ransomware encrypts property management and accounting systems; rent processing, maintenance dispatch, and owner statements stall during rebuild.",
+    "asset": "Property management and accounting systems", "threat": "Opportunistic ransomware", "effect": "Operations and rent-processing disruption", "owner": "Chief Operating Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 150000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 350000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Rent obligations survive the outage; the loss is processing delay and rebuild labor.", "Backups restore within a week; no ransom payment is modeled.", "Secondary loss covers owner-client attrition and trust-account audit costs."]
+  },
+  {
+    "id": "re-building-systems", "name": "Smart Building Systems Compromise",
+    "description": "Attackers reach networked access control, HVAC, and elevator systems across managed commercial properties, disrupting building operations.",
+    "asset": "Building automation and access control systems", "threat": "Intruder via building-vendor remote access", "effect": "Building operations disruption", "owner": "Director of Facilities",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.35, "maximum": 1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Life-safety systems fail safe; the loss is disruption, manual staffing, and re-securing.", "Vendor remote-access accounts are the assumed entry path.", "Secondary loss covers tenant SLA claims and lease-renewal friction."]
+  },
+  {
+    "id": "re-agent-takeover", "name": "Agent Email Account Takeovers",
+    "description": "Phishing takes over agent mailboxes, seeding future closing fraud and exposing client financial documents circulating in transactions.",
+    "asset": "Agent mailboxes and transaction documents", "threat": "Phishing operators harvesting broker credentials", "effect": "Compromised transactions and client documents", "owner": "Managing Broker",
+    "fair": {
+      "threat_event_frequency": {"minimum": 6, "most_likely": 18, "maximum": 50, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.12, "maximum": 0.3, "unit": "probability"},
+      "primary_loss": {"minimum": 5000, "most_likely": 25000, "maximum": 120000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 200000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Independent-contractor agents on personal devices raise both frequency and vulnerability.", "Primary loss covers response, client notification, and monitoring per takeover.", "Secondary loss captures takeovers that seed later wire fraud, modeled separately."]
+  }
+]

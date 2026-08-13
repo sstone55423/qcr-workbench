@@ -1,0 +1,67 @@
+[
+  {
+    "id": "ps-ransomware", "name": "Ransomware Hits Records and Jail Systems",
+    "description": "Ransomware encrypts records management and jail management systems; deputies fall back to paper booking while systems are rebuilt from backups.",
+    "asset": "Records and jail management systems", "threat": "Ransomware affiliate targeting local government", "effect": "Manual booking and records outage", "owner": "Sheriff's Office IT Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.3, "most_likely": 0.7, "maximum": 1.8, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.45, "maximum": 0.75, "unit": "probability"},
+      "primary_loss": {"minimum": 60000, "most_likely": 300000, "maximum": 1400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Public-safety response continues; the loss is administrative rebuild and overtime.", "County policy prohibits ransom payment; recovery is from backups.", "Secondary loss covers case-processing delays and legal exposure from missed deadlines."]
+  },
+  {
+    "id": "ps-cad-outage", "name": "Dispatch System Disruption",
+    "description": "An attack on computer-aided dispatch forces radio-and-paper dispatching, slowing response coordination until the system is restored.",
+    "asset": "Computer-aided dispatch availability", "threat": "Attacker disrupting emergency coordination", "effect": "Degraded dispatch operations", "owner": "Communications Division Commander",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.35, "maximum": 1, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 140000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 100000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Manual dispatch procedures are drilled quarterly and sustain operations at reduced tempo.", "Primary loss covers restoration, overtime, and mutual-aid costs.", "Secondary loss covers liability exposure if response delays are alleged in litigation."]
+  },
+  {
+    "id": "ps-evidence-integrity", "name": "Evidence System Tampering",
+    "description": "Unauthorized access to the digital evidence management system raises chain-of-custody challenges across active prosecutions.",
+    "asset": "Digital evidence management and chain of custody", "threat": "Insider or intruder altering evidence records", "effect": "Compromised prosecutions", "owner": "Undersheriff",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.7, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 180000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 30000, "most_likely": 150000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["A single confirmed tampering event taints every case touching the affected storage.", "Primary loss covers forensic audit and re-validation of evidence handling.", "Secondary loss covers dismissed cases, civil liability, and public-trust damage."]
+  },
+  {
+    "id": "ps-records-breach", "name": "Criminal Justice Records Exposure",
+    "description": "An intrusion exposes CJIS-protected records including victim, witness, and informant details held in investigative files.",
+    "asset": "Criminal justice information and investigative files", "threat": "Intruder exfiltrating protected records", "effect": "Protected records exposure", "owner": "Sheriff's Office IT Director",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.3, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 200000, "maximum": 900000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 40000, "most_likely": 200000, "maximum": 1100000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["Exposure of informant or witness data drives the high-end estimates.", "Primary loss covers investigation, notification, and CJIS-mandated remediation.", "Secondary loss covers protective measures for exposed persons and civil claims."]
+  },
+  {
+    "id": "ps-bec-procurement", "name": "Procurement Payment Fraud",
+    "description": "Fraudsters impersonate equipment and construction vendors to redirect county public-safety procurement payments.",
+    "asset": "Procurement payment process", "threat": "Business email compromise fraud group", "effect": "Diverted procurement funds", "owner": "Business Services Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 4, "maximum": 12, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.08, "maximum": 0.2, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 150000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.45, "unit": "probability"}
+    },
+    "assumptions": ["Public bid records make vendor relationships and payment timing visible to fraudsters.", "Primary loss is unrecovered funds after bank and insurance recovery.", "Secondary loss covers audit findings and state oversight remediation."]
+  }
+]

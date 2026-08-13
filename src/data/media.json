@@ -1,0 +1,67 @@
+[
+  {
+    "id": "med-ransomware", "name": "Ransomware Hits Newsroom and Playout",
+    "description": "Ransomware encrypts newsroom systems and broadcast playout automation; stations improvise programming while engineers rebuild.",
+    "asset": "Newsroom systems and broadcast automation", "threat": "Ransomware affiliate targeting media", "effect": "Broadcast and publishing disruption", "owner": "Chief Technology Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.55, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 60000, "most_likely": 280000, "maximum": 1300000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 110000, "maximum": 650000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["On-air continuity is maintained with degraded programming; the loss is production and rebuild.", "Ad make-goods for missed spots are counted in primary loss.", "Secondary loss covers advertiser and affiliate relationship damage."]
+  },
+  {
+    "id": "med-malvertising", "name": "Malvertising Through the Ad Stack",
+    "description": "Malicious creatives slip through programmatic ad partners and serve malware to readers, triggering blocklisting and advertiser fallout.",
+    "asset": "Ad-serving stack and audience trust", "threat": "Malvertising operators abusing programmatic channels", "effect": "Readers served malicious ads", "owner": "VP of Digital Revenue",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 4, "maximum": 12, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 8000, "most_likely": 40000, "maximum": 200000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 8000, "most_likely": 45000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Frequency tracks programmatic volume and the number of demand partners.", "Primary loss covers response, partner remediation, and revenue during ad-stack pauses.", "Secondary loss covers browser blocklisting and premium-advertiser attrition."]
+  },
+  {
+    "id": "med-subscriber-data", "name": "Subscriber Data Breach",
+    "description": "An intrusion exposes subscriber accounts and payment tokens across news, streaming, and events products.",
+    "asset": "Subscriber accounts and payment data", "threat": "Intruder exfiltrating subscriber records", "effect": "Subscriber data exposure", "owner": "Chief Information Security Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.25, "most_likely": 0.6, "maximum": 1.6, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 220000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 30000, "most_likely": 170000, "maximum": 1000000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Payment data is tokenized; exposure is account data plus token-replay remediation.", "Primary loss covers forensics, notification, and support surge.", "Secondary loss covers churn across subscription products and state AG inquiries."]
+  },
+  {
+    "id": "med-account-takeover", "name": "Publishing Account Takeover",
+    "description": "Attackers hijack CMS or verified social accounts to publish fake stories under the outlet's brand, from market-moving fabrications to defacement.",
+    "asset": "CMS and verified distribution accounts", "threat": "Attacker publishing under the outlet's identity", "effect": "False content under the brand", "owner": "Executive Editor",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.5, "most_likely": 1.5, "maximum": 5, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.18, "maximum": 0.4, "unit": "probability"},
+      "primary_loss": {"minimum": 10000, "most_likely": 60000, "maximum": 300000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 100000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.35, "most_likely": 0.55, "maximum": 0.8, "unit": "probability"}
+    },
+    "assumptions": ["Editorial credibility is the asset at risk; retraction speed bounds the damage.", "Primary loss covers response, corrections, and platform account recovery.", "Secondary loss covers audience-trust erosion and defamation exposure from fake stories."]
+  },
+  {
+    "id": "med-event-ddos", "name": "DDoS During Marquee Coverage",
+    "description": "DDoS attacks target the site and streaming platform during elections, championships, and breaking news — the traffic the business is built on.",
+    "asset": "Site and streaming availability at peak events", "threat": "DDoS operators timed to marquee events", "effect": "Outage during peak audience", "owner": "VP of Engineering",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 9, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.4, "unit": "probability"},
+      "primary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 400000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 8000, "most_likely": 45000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Attempts cluster on a handful of predictable high-traffic dates.", "Primary loss covers lost ad impressions and streaming revenue during the outage.", "Secondary loss covers audience defection to competitors mid-event."]
+  }
+]

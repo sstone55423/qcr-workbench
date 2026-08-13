@@ -1,0 +1,67 @@
+[
+  {
+    "id": "frt-ransomware", "name": "Ransomware Idles the Fleet",
+    "description": "Ransomware takes down dispatch, load planning, and ELD back-office systems; trucks sit or run on paper while systems are rebuilt.",
+    "asset": "Dispatch, load planning, and fleet management systems", "threat": "Ransomware affiliate via remote-access foothold", "effect": "Idled trucks and manual dispatch", "owner": "Director of Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.6, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 80000, "most_likely": 350000, "maximum": 1600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 25000, "most_likely": 120000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.3, "maximum": 0.55, "unit": "probability"}
+    },
+    "assumptions": ["Revenue loss counts idled capacity and missed pickup windows, not parked-asset value.", "Manual dispatch sustains roughly half of normal load volume.", "Secondary loss covers shipper contract penalties and lost lane awards."]
+  },
+  {
+    "id": "frt-bec-fuel", "name": "Vendor Invoice Redirect Fraud",
+    "description": "Fraudsters impersonate fuel, maintenance, or insurance vendors and redirect large recurring payments to attacker-controlled accounts.",
+    "asset": "Accounts-payable process and vendor payment flows", "threat": "Business email compromise fraud group", "effect": "Diverted vendor payments", "owner": "Controller",
+    "fair": {
+      "threat_event_frequency": {"minimum": 2, "most_likely": 6, "maximum": 18, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.08, "maximum": 0.2, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 90000, "maximum": 450000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 25000, "maximum": 120000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"}
+    },
+    "assumptions": ["Large recurring fuel and insurance payments make convincing lures; attempts track vendor count.", "Primary loss is the unrecovered diverted amount after bank clawback.", "Secondary loss covers vendor relationship strain and audit remediation."]
+  },
+  {
+    "id": "frt-telematics-tamper", "name": "Telematics Platform Compromise",
+    "description": "An attacker reaches the telematics and ELD platform, exposing fleet location history and risking tampered hours-of-service and remote vehicle commands.",
+    "asset": "Telematics, ELD, and fleet location data", "threat": "Intruder via telematics vendor or stolen credentials", "effect": "Location data exposure and compliance risk", "owner": "Fleet Technology Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.4, "maximum": 1.2, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 20000, "most_likely": 110000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 450000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Safety-critical remote commands are rate-limited by the vendor; the loss is data and compliance.", "Primary loss covers investigation, device re-provisioning, and downtime for affected units.", "Secondary loss covers FMCSA compliance exposure and customer-confidence damage."]
+  },
+  {
+    "id": "frt-cargo-fraud", "name": "Fictitious Pickup via Broker Account Takeover",
+    "description": "Criminals take over load-board and broker accounts to book fictitious pickups, stealing high-value cargo with convincing paperwork.",
+    "asset": "Load-board identities and brokered cargo", "threat": "Organized cargo-theft ring using stolen broker credentials", "effect": "Stolen loads and liability disputes", "owner": "Director of Safety & Claims",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 4, "maximum": 12, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 120000, "maximum": 600000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 10000, "most_likely": 50000, "maximum": 250000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Attempts track posted high-value lanes; success requires defeating identity checks at booking.", "Primary loss is cargo value net of insurance recovery and deductibles.", "Secondary loss covers premium increases and shipper relationship fallout."]
+  },
+  {
+    "id": "frt-customer-data", "name": "Shipment and Customer Data Breach",
+    "description": "An intrusion into the TMS exposes customer contracts, rates, and shipment histories — commercially sensitive data competitors and thieves both value.",
+    "asset": "Transportation management system and customer rate data", "threat": "Intruder monetizing commercial data", "effect": "Confidential rate and shipment exposure", "owner": "IT Manager",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.5, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 25000, "most_likely": 100000, "maximum": 450000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 90000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Exposure is contract and rate data; little regulated personal data is held.", "Primary loss covers forensics, containment, and customer notifications.", "Secondary loss covers lost bids where leaked rates weaken negotiating position."]
+  }
+]

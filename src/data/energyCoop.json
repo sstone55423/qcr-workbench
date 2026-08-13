@@ -1,0 +1,67 @@
+[
+  {
+    "id": "util-ot-intrusion", "name": "SCADA Intrusion Threatens Grid Operations",
+    "description": "An attacker pivots from IT into the SCADA environment controlling substations and distribution automation, forcing manual grid operations during eviction.",
+    "asset": "SCADA and distribution automation systems", "threat": "State-aligned actor pre-positioning in OT", "effect": "Manual grid operations and outage risk", "owner": "Director of Grid Operations",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.05, "most_likely": 0.2, "maximum": 0.6, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 100000, "most_likely": 500000, "maximum": 2500000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 60000, "most_likely": 300000, "maximum": 1800000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.3, "most_likely": 0.5, "maximum": 0.75, "unit": "probability"}
+    },
+    "assumptions": ["Load keeps flowing under manual operations; the loss is response, not blackout damages.", "Primary loss covers OT forensics, manual staffing, and segmented rebuild.", "Secondary loss covers NERC/state reporting, member trust, and insurance repricing."]
+  },
+  {
+    "id": "util-ransomware", "name": "Ransomware Hits Member Billing Systems",
+    "description": "Ransomware encrypts member billing, outage management, and the member portal; crews work from radios and printed maps while IT rebuilds.",
+    "asset": "Billing, outage management, and member portal", "threat": "Ransomware affiliate targeting utilities", "effect": "Billing outage and manual operations", "owner": "Manager of Information Technology",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.25, "most_likely": 0.6, "maximum": 1.6, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.7, "unit": "probability"},
+      "primary_loss": {"minimum": 50000, "most_likely": 240000, "maximum": 1100000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 90000, "maximum": 500000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"}
+    },
+    "assumptions": ["Power delivery is unaffected; the loss is administrative downtime and delayed cash flow.", "Cooperative policy prohibits ransom payment; recovery is from backups.", "Secondary loss covers member complaints, board scrutiny, and state filings."]
+  },
+  {
+    "id": "util-smart-meter", "name": "AMI Metering Network Tampering",
+    "description": "Attackers exploit the advanced metering infrastructure head-end to falsify reads or issue disconnects, corrupting billing data across the service territory.",
+    "asset": "AMI head-end and meter data management", "threat": "Intruder manipulating metering infrastructure", "effect": "Corrupted reads and improper disconnects", "owner": "Manager of Engineering",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.1, "most_likely": 0.3, "maximum": 0.9, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.1, "most_likely": 0.25, "maximum": 0.5, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 150000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 15000, "most_likely": 80000, "maximum": 450000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.2, "most_likely": 0.4, "maximum": 0.65, "unit": "probability"}
+    },
+    "assumptions": ["Mass remote disconnect is rate-limited by design; the modeled loss is data integrity.", "Primary loss covers re-reads, billing corrections, and head-end rebuild.", "Secondary loss covers member reimbursement claims and regulatory attention."]
+  },
+  {
+    "id": "util-bec-construction", "name": "Construction Project Payment Fraud",
+    "description": "Fraudsters impersonate line-construction and substation contractors to redirect large progress payments on capital projects.",
+    "asset": "Capital project payment flows", "threat": "Business email compromise fraud group", "effect": "Diverted construction payments", "owner": "Chief Financial Officer",
+    "fair": {
+      "threat_event_frequency": {"minimum": 1, "most_likely": 3, "maximum": 10, "unit": "attempts/year"},
+      "vulnerability": {"minimum": 0.02, "most_likely": 0.08, "maximum": 0.2, "unit": "probability"},
+      "primary_loss": {"minimum": 30000, "most_likely": 150000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 5000, "most_likely": 30000, "maximum": 150000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.05, "most_likely": 0.15, "maximum": 0.35, "unit": "probability"}
+    },
+    "assumptions": ["Progress-payment schedules on public capital projects are visible and predictable.", "Primary loss is the unrecovered payment after bank and insurance recovery.", "Secondary loss covers project delay costs and co-op board governance fallout."]
+  },
+  {
+    "id": "util-member-data", "name": "Member Data Breach",
+    "description": "An intrusion exposes member account data — names, addresses, usage histories, and bank details for autopay members.",
+    "asset": "Member PII and payment enrollment data", "threat": "Intruder exfiltrating member records", "effect": "Member data exposure", "owner": "Manager of Information Technology",
+    "fair": {
+      "threat_event_frequency": {"minimum": 0.2, "most_likely": 0.5, "maximum": 1.4, "unit": "events/year"},
+      "vulnerability": {"minimum": 0.15, "most_likely": 0.35, "maximum": 0.6, "unit": "probability"},
+      "primary_loss": {"minimum": 40000, "most_likely": 180000, "maximum": 800000, "unit": "USD/event"},
+      "secondary_loss": {"minimum": 20000, "most_likely": 120000, "maximum": 700000, "unit": "USD/event"},
+      "secondary_loss_probability": {"minimum": 0.25, "most_likely": 0.45, "maximum": 0.7, "unit": "probability"}
+    },
+    "assumptions": ["Autopay bank details drive notification duties beyond basic PII.", "Primary loss covers forensics, notification, and credit monitoring for members.", "Secondary loss covers member attrition where competitive choice exists, and litigation."]
+  }
+]
