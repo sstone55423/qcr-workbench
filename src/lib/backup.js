@@ -1,5 +1,5 @@
 import { db, importRecords, appSettings, getActiveStoreName } from '@/lib/localdb/store';
-import { deriveKey, encryptJSON, decryptJSON, randomSalt } from '@/lib/localdb/crypto';
+import { deriveKey, encryptJSON, decryptJSON, randomSalt, CURRENT_ITERATIONS, LEGACY_ITERATIONS } from '@/lib/localdb/crypto';
 
 // Filename-safe version of a store name.
 function sanitizeName(name) {
@@ -42,13 +42,14 @@ export async function createBackup(passphrase) {
     AppSettings: await appSettings.get(),
   };
   const salt = randomSalt();
-  const key = await deriveKey(passphrase, salt);
+  const key = await deriveKey(passphrase, salt, CURRENT_ITERATIONS);
   const { iv, data } = await encryptJSON(key, dump);
   return JSON.stringify({
     format: 'qcr-backup',
     version: 1,
     created: new Date().toISOString(),
     salt: bufToB64(salt),
+    iterations: CURRENT_ITERATIONS,
     iv: bufToB64(iv),
     data: bufToB64(data),
   });
@@ -96,7 +97,8 @@ export function inspectBackup(fileText) {
 export async function readBackupDump(fileText, passphrase) {
   const { encrypted, parsed } = inspectBackup(fileText);
   if (!encrypted) return parsed.data || {};
-  const key = await deriveKey(passphrase, b64ToBuf(parsed.salt));
+  // Backups written before iteration counts were stored used the legacy factor.
+  const key = await deriveKey(passphrase, b64ToBuf(parsed.salt), parsed.iterations ?? LEGACY_ITERATIONS);
   try {
     return await decryptJSON(key, { iv: b64ToBuf(parsed.iv), data: b64ToBuf(parsed.data) });
   } catch {

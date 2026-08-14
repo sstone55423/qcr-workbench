@@ -1,4 +1,4 @@
-import { deriveKey, encryptJSON, decryptJSON, randomSalt } from '@/lib/localdb/crypto';
+import { deriveKey, encryptJSON, decryptJSON, randomSalt, CURRENT_ITERATIONS, LEGACY_ITERATIONS } from '@/lib/localdb/crypto';
 import { idbGet, idbPut, idbDelete, idbGetRange, idbPutMany, idbDeleteMany, setActiveDbName, getActiveDbName } from '@/lib/localdb/idb';
 
 let cryptoKey = null;
@@ -25,15 +25,16 @@ export async function createVault(passphrase) {
   const existing = await idbGet('meta', 'vault');
   if (existing) throw new Error('A vault already exists on this device. Reload the page and unlock it instead.');
   const salt = randomSalt();
-  cryptoKey = await deriveKey(passphrase, salt);
+  cryptoKey = await deriveKey(passphrase, salt, CURRENT_ITERATIONS);
   const check = await encryptJSON(cryptoKey, { check: CHECK_TEXT });
-  await idbPut('meta', 'vault', { salt, check });
+  await idbPut('meta', 'vault', { salt, check, iterations: CURRENT_ITERATIONS });
 }
 
 export async function unlockVault(passphrase) {
   const meta = await idbGet('meta', 'vault');
   if (!meta) throw new Error('No vault exists');
-  const key = await deriveKey(passphrase, meta.salt);
+  // Vaults created before iteration counts were stored used the legacy factor.
+  const key = await deriveKey(passphrase, meta.salt, meta.iterations ?? LEGACY_ITERATIONS);
   try {
     const obj = await decryptJSON(key, meta.check);
     if (obj.check !== CHECK_TEXT) return false;
