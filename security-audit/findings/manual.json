@@ -1,0 +1,56 @@
+{
+  "covered": "First-run triage of the automated layers for qcr-workbench (2026-08-14). Dependencies: clean (npm audit, 0). Secrets: clean (0). Code-patterns: all matches reviewed — one false positive (keyword in a comment) was resolved by teaching the scanner to strip comments, the rest were Monte Carlo iteration counts in test files now excluded from scope. Dynamic: no external egress (94/94 requests local), empty console, all scripts/CSS loaded; the only dynamic finding was missing security headers on the `vite preview` server, which does not reflect production. Hardening applied this pass: PBKDF2 raised from 250k to 600k iterations (backward compatible — the count is now stored per vault/backup and legacy data still unlocks at 250k). Not yet reviewed: post-unlock runtime behavior (dynamic.setupFlow is empty), and deep white-box review of the vault crypto, the RAG/LLM prompt paths, injection into the exported executive report, and the public /mcp Worker surface — add those findings here as they are confirmed.",
+  "limitations": [
+    "The static code-pattern layer re-emits the accepted false positives below on every run (it has no per-id suppression); consult this file when reading the report.",
+    "Post-unlock dynamic checks did not run (setupFlow empty): storage-at-rest with real data, lock lifecycle, stored XSS in fields and the exported report, and hostile-model-output handling are code-review items, not yet runtime-proven.",
+    "semgrep is not installed, so static coverage is the built-in rule set only."
+  ],
+  "findings": [
+    {
+      "id": "fp-eval-in-comment-viteconfig",
+      "title": "False positive: 'Dynamic code execution' matched the word eval() inside a comment",
+      "severity": "High",
+      "severityRationale": "Downgraded to accepted: the code-eval pattern rule does not strip comments, so it matched a // comment in vite.config.js that explains wasm-unsafe-eval does NOT enable eval. No eval()/new Function() is called anywhere in the app.",
+      "confidence": "Confirmed",
+      "owasp": "A03:2021 Injection",
+      "cwe": "CWE-95",
+      "location": "vite.config.js:22",
+      "evidence": "Line 22 is a comment: '// — it does NOT re-enable JS eval() or inline scripts, so the load-bearing'. The production CSP is script-src 'self' 'wasm-unsafe-eval'; wasm-unsafe-eval permits only WASM compilation, not JS eval.",
+      "exploit": "None — no dynamic code execution sink exists.",
+      "impact": "None.",
+      "remediation": "Tool improvement: have the code-pattern scanner ignore matches inside // comments.",
+      "status": "fixed",
+      "fixedNote": "Resolved: static.mjs now strips // and /* */ comments (quote-aware) before matching, so keywords inside comments no longer fire. The automated layer no longer emits this."
+    },
+    {
+      "id": "fp-kdf-iterations-montecarlo",
+      "title": "False positive: 'weak KDF iterations' matched FAIR Monte Carlo iteration counts",
+      "severity": "High",
+      "severityRationale": "Downgraded to accepted: the weak-kdf-iterations rule fires on any `iterations: <n>` below 100000, colliding with this app's Monte Carlo simulation counts (iterations: 1000/2000) in test files. Excluded from scope via the __tests__ ignore entry.",
+      "confidence": "Confirmed",
+      "owasp": "A02:2021 Cryptographic Failures",
+      "cwe": "CWE-916",
+      "location": "src/lib/qcr/__tests__/*, src/lib/mcp/__tests__/*",
+      "evidence": "The only real KDF is src/lib/localdb/crypto.js: PBKDF2-SHA256, 250000 iterations, SHA-256 — above the rule threshold and correctly not flagged. All other 'iterations' matches are Monte Carlo simulation counts, not key derivation.",
+      "exploit": "None — no weak KDF exists.",
+      "impact": "None. The real PBKDF2 has been raised from 250k to 600k (OWASP 2023) this pass; the remaining matches are Monte Carlo iteration counts in excluded test files.",
+      "remediation": "Accepted scoping decision (test dirs ignored). Real-KDF hardening to 600k is done; Argon2id remains a future option.",
+      "status": "accepted"
+    },
+    {
+      "id": "fp-preview-missing-headers",
+      "title": "False positive (preview only): missing CSP/X-Frame-Options/Referrer-Policy headers",
+      "severity": "Medium",
+      "severityRationale": "Downgraded to accepted: the dynamic phase drives `vite preview`, which does not send security headers. Production on Cloudflare does.",
+      "confidence": "Confirmed",
+      "owasp": "A05:2021 Security Misconfiguration",
+      "cwe": "CWE-693",
+      "location": "http://127.0.0.1:4173 (vite preview server)",
+      "evidence": "Live https://qcr-workbench.org/ returns Strict-Transport-Security, content-security-policy: frame-ancestors 'none', x-frame-options: DENY, x-content-type-options: nosniff, referrer-policy: strict-origin-when-cross-origin, and permissions-policy. The full CSP also ships as a build-injected <meta> tag (vite.config.js cspMetaPlugin).",
+      "exploit": "None against production.",
+      "impact": "None in production. The preview server is a local dev artifact.",
+      "remediation": "Accepted. Optionally re-point the dynamic baseUrl at the production host for a header check that reflects reality, or serve preview behind the same header config.",
+      "status": "accepted"
+    }
+  ]
+}

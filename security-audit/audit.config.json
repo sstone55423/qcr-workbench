@@ -1,0 +1,69 @@
+{
+  "app": {
+    "name": "qcr-workbench",
+    "description": "Local-first React SPA for FAIR-based quantitative cyber risk analysis. v2 adds a thin stateless Cloudflare Worker (edge assets + a public no-auth MCP server + optional Workers AI proxy); user data stays local-first (D1 dormant).",
+    "languages": ["javascript"],
+    "frameworks": ["react", "cloudflare-worker"],
+    "buildTool": "vite",
+    "hasBackend": true,
+    "entryPoints": ["index.html", "src/main.jsx", "worker/index.js", "worker/mcp.js"],
+    "dataStores": [
+      "IndexedDB (AES-256-GCM encrypted via passphrase-derived vault key; PBKDF2-SHA256 250k iterations)",
+      "localStorage (theme, store registry, auto-lock minutes, qcr.webmcp opt-in flag — no secrets by design)",
+      "Cloudflare D1 (qcr-workbench-db; schema present but data path largely unimplemented/dormant)"
+    ],
+    "authModel": "Passphrase-derived vault key (PBKDF2 -> AES-GCM) for local data; no accounts. Worker API rows scoped by Cf-Access-Authenticated-User-Email header (falls back to dev@localhost when absent). The /mcp server is public and unauthenticated by design (read-only pure-function tools).",
+    "thirdPartyServices": [
+      "Anthropic / OpenAI / Gemini / Qwen / Cerebras / Ollama (user-supplied keys in the encrypted vault, opt-in, browser-direct)",
+      "Cloudflare Workers AI (keyless, via the Worker /api/ai proxy)",
+      "WebLLM model weights (CDN download, user-initiated on-device inference)"
+    ],
+    "trustBoundaries": [
+      "User free-text fields (scenario/treatment/assumption text) rendered back into the UI and into the exported executive report",
+      "Imported/restored backup files and imported scenario CSVs",
+      "Responses from AI providers (untrusted model output rendered as narrative)",
+      "App data composed into LLM prompts, including bundled reference content retrieved for grounding (prompt-injection surface)",
+      "The user-supplied Ollama base URL (arbitrary request destination / SSRF-shaped)",
+      "The public unauthenticated /mcp JSON-RPC endpoint and its tool arguments (worker/mcp.js, src/lib/mcp/tools.js)",
+      "Worker HTTP surface: /api/ai proxy and /api/projects D1 access keyed off the Cf-Access-Authenticated-User-Email request header",
+      "WebMCP tools registered in-page via navigator.modelContext when qcr.webmcp is enabled"
+    ]
+  },
+  "scope": [
+    "src",
+    "worker",
+    "index.html",
+    "package.json",
+    "vite.config.js",
+    "wrangler.jsonc",
+    "jsconfig.json"
+  ],
+  "ignore": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".git",
+    "security-audit/evidence",
+    "src/lib/i18n",
+    "src/data",
+    "src/lib/qcr/knowledgeBase.js",
+    "src/lib/qcr/compromiseTypes.js",
+    "src/data/controlCatalog.js",
+    "__tests__",
+    "e2e"
+  ],
+  "ignoreNote": "Test directories (__tests__, e2e) are excluded from the static scan: this app's FAIR Monte Carlo uses `iterations: <n>` counts that collide with the KDF-iteration rule, producing false positives, and test files do not ship to production. The real PBKDF2 site (src/lib/localdb/crypto.js, 250k iterations) is in scope and correctly passes. i18n/sample-data/knowledge-base files are excluded as static reference content, not executable logic.",
+  "dynamic": {
+    "enabled": true,
+    "startCommand": "npm run build && npm run preview -- --host 127.0.0.1 --port 4173 --strictPort",
+    "devCommand": "npm run dev",
+    "baseUrlNote": "Drives the PRODUCTION preview build: the CSP is injected only at build time (vite.config.js cspMetaPlugin), so header/CSP checks against `npm run dev` would be meaningless.",
+    "baseUrl": "http://127.0.0.1:4173",
+    "readySelector": "#root > *",
+    "allowedHosts": ["localhost", "127.0.0.1"],
+    "setupFlow": [],
+    "setupFlowNote": "Empty: post-unlock checks do not run. To enable them, add ordered steps matching this app's create-store/vault screen, e.g. {\"action\":\"fill\",\"selector\":\"input[type=password]\",\"value\":\"$CANARY_PASS\"} then {\"action\":\"click\",\"selector\":\"button:has-text('Create')\"}. A full page reload re-locks the vault (module-level key) by design, so any flow must stay client-side.",
+    "canaryPrefix": "CANARY"
+  }
+}

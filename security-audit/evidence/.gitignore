@@ -1,0 +1,4 @@
+# Runtime evidence from dynamic scans (screenshots, request/console/storage
+# dumps) is regenerated each run and can contain canary data — do not commit it.
+*
+!.gitignore

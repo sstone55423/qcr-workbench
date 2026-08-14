@@ -12,6 +12,8 @@
     "preview": "npx vite preview",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "security-audit": "node security-audit/index.mjs",
+    "security-audit:all": "node security-audit/index.mjs --all",
     "licenses:check": "npx --yes license-checker-rseidelsohn@4 --production --excludePrivatePackages --onlyAllow \"MIT;ISC;Apache-2.0;BSD-2-Clause;BSD-3-Clause;0BSD;OFL-1.1;CC0-1.0;Unlicense;MIT AND ISC\"",
     "licenses:doc": "npx --yes license-checker-rseidelsohn@4 --production --excludePrivatePackages --json | node scripts/gen-licenses.mjs",
     "cf:dev": "npm run build && npx wrangler dev",
