@@ -32,8 +32,10 @@ test('vault → sample library → workbench reference numbers hold', async ({ p
   await page.getByRole('dialog').getByRole('button', { name: 'Create' }).click();
 
   // 4. Load the manufacturing sample library (holds the ransomware scenario).
+  //    "Load sample scenarios" opens the industry-example gallery; pick the
+  //    Stella Polaris card.
   await page.getByRole('button', { name: 'Load sample scenarios' }).first().click();
-  await page.getByRole('menuitem', { name: /Stella Polaris/ }).click();
+  await page.getByRole('button', { name: /Stella Polaris/ }).click();
 
   // The card already carries an ALE badge — a first cheap sanity check.
   await expect(page.getByText('Ransomware Disrupts Manufacturing')).toBeVisible();

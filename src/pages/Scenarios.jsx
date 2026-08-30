@@ -8,9 +8,7 @@ import {
 } from '@/lib/qcr/scenarioStore';
 import { scenariosToCsv, parseScenariosCsv } from '@/lib/qcr/scenarioCsv';
 import { SAMPLE_LIBRARIES } from '@/data/sampleLibraries';
-import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import SampleGalleryDialog from '@/components/scenarios/SampleGalleryDialog';
 import { downloadText } from '@/lib/download';
 import { logAudit } from '@/lib/auditLog';
 import { expectedLoss } from '@/lib/qcr/fair';
@@ -53,10 +51,18 @@ export default function Scenarios() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [saving, setSaving] = useState(false);
   const [loadingSamples, setLoadingSamples] = useState(false);
+  const [pendingLibraryId, setPendingLibraryId] = useState(null);
+  const [galleryOpen, setGalleryOpen] = useState(autoOpenSamples);
   const [importing, setImporting] = useState(false);
   const fileInputRef = useRef(null);
 
   if (!currentProject) return <NoProject />;
+
+  // Libraries already represented in this project, so the gallery can mark them.
+  const presentSampleIds = new Set(scenarios.map((s) => s.sample_id).filter(Boolean));
+  const loadedLibraryIds = new Set(
+    SAMPLE_LIBRARIES.filter((lib) => lib.scenarios.some((s) => presentSampleIds.has(s.id))).map((lib) => lib.id),
+  );
 
   const handleExportCsv = () => {
     if (scenarios.length === 0) {
@@ -141,6 +147,7 @@ export default function Scenarios() {
 
   const handleLoadSamples = async (libraryId) => {
     setLoadingSamples(true);
+    setPendingLibraryId(libraryId);
     try {
       const added = await loadSampleScenarios(currentProject.id, t, libraryId);
       toast({
@@ -153,25 +160,28 @@ export default function Scenarios() {
       toast({ title: t('scenarios.samplesFailed'), description: err.message, variant: 'destructive' });
     } finally {
       setLoadingSamples(false);
+      setPendingLibraryId(null);
     }
   };
 
-  const sampleMenu = (triggerClass = 'gap-2', opts = {}) => (
-    <DropdownMenu defaultOpen={opts.autoOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button variant={opts.primary ? 'default' : 'outline'} disabled={loadingSamples} className={triggerClass}>
-          {loadingSamples ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-          {t('scenarios.loadSamples')}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="max-h-[60vh] overflow-y-auto">
-        {SAMPLE_LIBRARIES.map((library) => (
-          <DropdownMenuItem key={library.id} onClick={() => handleLoadSamples(library.id)}>
-            {t(library.labelKey)}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+  // Close the gallery on pick and reveal the loaded scenarios behind it. The
+  // "Loaded" badges still help when the gallery is reopened to add more.
+  const handleGallerySelect = (libraryId) => {
+    setGalleryOpen(false);
+    handleLoadSamples(libraryId);
+  };
+
+  const sampleButton = (props = {}) => (
+    <Button
+      variant={props.primary ? 'default' : 'outline'}
+      size={props.size}
+      onClick={() => setGalleryOpen(true)}
+      disabled={loadingSamples}
+      className="gap-2"
+    >
+      {loadingSamples ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+      {t('scenarios.loadSamples')}
+    </Button>
   );
 
   return (
@@ -190,7 +200,7 @@ export default function Scenarios() {
           <Button variant="outline" size="sm" onClick={handleExportCsv} className="gap-2">
             <Download className="w-3.5 h-3.5" /> {t('scenarios.exportCsv')}
           </Button>
-          {sampleMenu()}
+          {sampleButton()}
           <Button onClick={() => setShowCreate(true)} className="gap-2">
             <Plus className="w-4 h-4" /> {t('scenarios.newScenario')}
           </Button>
@@ -207,7 +217,7 @@ export default function Scenarios() {
             {t('scenarios.emptyDesc', { count: SAMPLE_LIBRARIES.length })}
           </p>
           <div className="flex gap-2 justify-center flex-wrap">
-            {sampleMenu('gap-2', { primary: true, autoOpen: autoOpenSamples })}
+            {sampleButton({ primary: true })}
             <Button variant="outline" onClick={() => setShowCreate(true)} className="gap-2">
               <Plus className="w-4 h-4" /> {t('scenarios.newScenario')}
             </Button>
@@ -248,6 +258,15 @@ export default function Scenarios() {
           ))}
         </div>
       )}
+
+      <SampleGalleryDialog
+        open={galleryOpen}
+        onClose={() => setGalleryOpen(false)}
+        onSelect={handleGallerySelect}
+        loading={loadingSamples}
+        pendingId={pendingLibraryId}
+        loadedIds={loadedLibraryIds}
+      />
 
       <ScenarioFormDialog
         open={showCreate}

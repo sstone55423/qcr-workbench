@@ -48,7 +48,10 @@ Critical gotchas:
 
 ## Flows worth driving
 
-1. Vault create → project → "Load sample scenarios" (5 cards with ALE badges).
+1. Vault create → project → "Load sample scenarios" opens the industry-example
+   gallery → pick a card (e.g. Stella Polaris) → 5 scenario cards with ALE badges.
+   (Home's empty state also has a one-click "Start with an industry example" that
+   creates a project and opens the gallery.)
 2. Walk the 7 steps via stepper; run simulation; add treatment; download the
    report (`page.waitForEvent('download')`) and grep it for the ALE table.
 3. Invalidation probe: edit an estimate on Assumptions → Apply → Simulation
