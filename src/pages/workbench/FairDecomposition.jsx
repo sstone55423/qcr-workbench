@@ -42,8 +42,8 @@ export default function FairDecomposition() {
         </div>
       </div>
 
-      <div className="border border-border rounded-xl overflow-hidden">
-        <table className="w-full text-sm">
+      <div className="border border-border rounded-xl overflow-x-auto">
+        <table className="w-full min-w-[32rem] text-sm">
           <thead>
             <tr className="border-b border-border bg-muted/50 text-left text-xs text-muted-foreground">
               <th className="px-4 py-2.5 font-medium">{t('fair.colFactor')}</th>

@@ -1589,6 +1589,8 @@ export default {
 
   // sidebar
   "sidebar.collapse": "Свернуть боковую панель",
+  "sidebar.openMenu": "Открыть меню",
+  "sidebar.closeMenu": "Закрыть меню",
   "sidebar.darkMode": "Тёмная тема",
   "sidebar.expand": "Развернуть боковую панель",
   "sidebar.idiom": "Язык",

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { useI18n } from '@/lib/I18nContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { formatCurrency, formatCompactCurrency, formatPercent } from '@/lib/qcr/format';
 import { AXIS_PROPS, TOOLTIP_STYLE } from '@/components/charts/chartTheme';
 
@@ -10,6 +11,7 @@ const COLORS = ['--chart-1', '--chart-2', '--chart-3', '--chart-4', '--chart-5']
 // rows (already sorted descending).
 export default function ScenarioAleBars({ rows }) {
   const { t } = useI18n();
+  const isMobile = useIsMobile();
   const data = useMemo(() => rows.map((row) => ({ ...row })), [rows]);
   const height = Math.max(160, 44 * data.length + 40);
   return (
@@ -17,7 +19,7 @@ export default function ScenarioAleBars({ rows }) {
       <BarChart data={data} layout="vertical" margin={{ left: 8, right: 16 }}>
         <CartesianGrid strokeDasharray="3 3" className="stroke-border" horizontal={false} />
         <XAxis type="number" tickFormatter={formatCompactCurrency} {...AXIS_PROPS} />
-        <YAxis type="category" dataKey="name" width={180} {...AXIS_PROPS} />
+        <YAxis type="category" dataKey="name" width={isMobile ? 100 : 180} {...AXIS_PROPS} />
         <Tooltip
           contentStyle={TOOLTIP_STYLE}
           formatter={(value, name, item) => [

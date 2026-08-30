@@ -72,7 +72,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
+    <div className="max-w-2xl mx-auto p-4 md:p-8">
       <div className="flex items-center gap-2 mb-1">
         <SettingsIcon className="w-5 h-5 text-primary" />
         <h1 className="text-2xl font-heading font-bold tracking-tight">{t('nav.settings')}</h1>

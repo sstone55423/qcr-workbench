@@ -1589,6 +1589,8 @@ export default {
 
   // sidebar
   "sidebar.collapse": "Réduire la barre latérale",
+  "sidebar.openMenu": "Ouvrir le menu",
+  "sidebar.closeMenu": "Fermer le menu",
   "sidebar.darkMode": "Mode sombre",
   "sidebar.expand": "Développer la barre latérale",
   "sidebar.idiom": "Langue",

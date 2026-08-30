@@ -1588,6 +1588,8 @@ export default {
 
   // sidebar
   "sidebar.collapse": "Kenar çubuğunu daralt",
+  "sidebar.openMenu": "Menüyü aç",
+  "sidebar.closeMenu": "Menüyü kapat",
   "sidebar.darkMode": "Karanlık mod",
   "sidebar.expand": "Kenar çubuğunu genişlet",
   "sidebar.idiom": "Dil",

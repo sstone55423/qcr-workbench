@@ -1588,6 +1588,8 @@ export default {
 
   // sidebar
   "sidebar.collapse": "Seitenleiste einklappen",
+  "sidebar.openMenu": "Menü öffnen",
+  "sidebar.closeMenu": "Menü schließen",
   "sidebar.darkMode": "Dunkelmodus",
   "sidebar.expand": "Seitenleiste ausklappen",
   "sidebar.idiom": "Sprache",

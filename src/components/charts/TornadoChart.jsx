@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from 'recharts';
 import { useI18n } from '@/lib/I18nContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { formatCurrency, formatCompactCurrency } from '@/lib/qcr/format';
 import { AXIS_PROPS, TOOLTIP_STYLE } from '@/components/charts/chartTheme';
 
@@ -9,6 +10,7 @@ import { AXIS_PROPS, TOOLTIP_STYLE } from '@/components/charts/chartTheme';
 // Rendered as a stacked horizontal bar (invisible offset + visible span).
 export default function TornadoChart({ baseline, rows }) {
   const { t } = useI18n();
+  const isMobile = useIsMobile();
   const data = useMemo(
     () => rows.map((row) => ({
       label: t(row.labelKey),
@@ -24,7 +26,7 @@ export default function TornadoChart({ baseline, rows }) {
       <BarChart data={data} layout="vertical" margin={{ left: 8, right: 16 }}>
         <CartesianGrid strokeDasharray="3 3" className="stroke-border" horizontal={false} />
         <XAxis type="number" tickFormatter={formatCompactCurrency} {...AXIS_PROPS} />
-        <YAxis type="category" dataKey="label" width={200} {...AXIS_PROPS} />
+        <YAxis type="category" dataKey="label" width={isMobile ? 108 : 200} {...AXIS_PROPS} />
         <Tooltip
           contentStyle={TOOLTIP_STYLE}
           formatter={(value, name, item) =>

@@ -6,9 +6,10 @@ import { useVault } from '@/lib/VaultContext';
 import { useI18n } from '@/lib/I18nContext';
 import { LANGUAGES } from '@/lib/i18n';
 import useScenarios from '@/hooks/useScenarios';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   ShieldAlert, Database, Settings, HelpCircle, Sun, Moon, ChevronDown, Plus,
-  FolderOpen, PanelLeftClose, PanelLeft, Lock, ClipboardList, Languages, Crosshair, FolderKanban, ChartPie
+  FolderOpen, PanelLeftClose, PanelLeft, Lock, ClipboardList, Languages, Crosshair, FolderKanban, ChartPie, X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,9 +27,10 @@ const navSections = [
   { labelKey: 'nav.help', icon: HelpCircle, path: '/help' },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ mobileOpen = false, onClose = () => {} }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   // Sidebar renders in the layout route, above the :scenarioId route, so
   // useParams can't see the id — match it from the location instead.
   const scenarioId = useMatch('/scenarios/:scenarioId/*')?.params.scenarioId;
@@ -38,6 +40,9 @@ export default function Sidebar() {
   const { lock, currentStore } = useVault();
   const { t, language, setLanguage } = useI18n();
   const [collapsed, setCollapsed] = useState(false);
+  // The rail-collapse is a desktop affordance; on mobile the drawer always
+  // shows full width with labels, so ignore `collapsed` there.
+  const showCollapsed = collapsed && !isMobile;
 
   // Cycle to the next language, wrapping from the last back to the first.
   const cycleLanguage = () => {
@@ -51,22 +56,27 @@ export default function Sidebar() {
   const activeScenario = scenarios.find(s => s.id === scenarioId);
 
   return (
-    <aside className={`h-screen sticky top-0 flex flex-col bg-card border-r border-border transition-all duration-200 ${collapsed ? 'w-16' : 'w-64'}`}>
+    <aside className={`fixed inset-y-0 left-0 z-50 h-screen w-64 flex flex-col bg-card border-r border-border transition-all duration-200 md:sticky md:top-0 md:z-auto md:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} ${showCollapsed ? 'md:w-16' : 'md:w-64'}`}>
       {/* Header */}
       <div className="p-4 border-b border-border flex items-center gap-2">
-        {!collapsed && (
-          <Link to="/" className="flex items-center gap-2 flex-1 min-w-0">
+        {!showCollapsed && (
+          <Link to="/" onClick={onClose} className="flex items-center gap-2 flex-1 min-w-0">
             <ShieldAlert className="w-5 h-5 text-primary shrink-0" />
             <span className="font-heading font-bold text-lg tracking-tight truncate" title="Quantitative Cyber Risk Workbench">QCR Workbench</span>
           </Link>
         )}
-        <Button variant="ghost" size="icon" className="shrink-0" aria-label={collapsed ? t('sidebar.expand') : t('sidebar.collapse')} onClick={() => setCollapsed(!collapsed)}>
+        {/* Rail collapse — desktop only. */}
+        <Button variant="ghost" size="icon" className="shrink-0 hidden md:inline-flex" aria-label={collapsed ? t('sidebar.expand') : t('sidebar.collapse')} onClick={() => setCollapsed(!collapsed)}>
           {collapsed ? <PanelLeft className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+        </Button>
+        {/* Close drawer — mobile only. */}
+        <Button variant="ghost" size="icon" className="shrink-0 md:hidden" aria-label={t('sidebar.closeMenu')} onClick={onClose}>
+          <X className="w-4 h-4" />
         </Button>
       </div>
 
       {/* Project + scenario switchers */}
-      {!collapsed && (
+      {!showCollapsed && (
         <div className="p-3 border-b border-border space-y-2">
           {currentStore && (
             <p className="text-[11px] text-muted-foreground mb-1.5 flex items-center gap-1 truncate" title={currentStore.name}>
@@ -82,13 +92,13 @@ export default function Sidebar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-56">
               {projects.map(p => (
-                <DropdownMenuItem key={p.id} onClick={() => selectProject(p)}>
+                <DropdownMenuItem key={p.id} onClick={() => { selectProject(p); onClose(); }}>
                   <FolderOpen className="w-3.5 h-3.5 mr-2 opacity-50" />
                   <span className="truncate">{p.name}</span>
                 </DropdownMenuItem>
               ))}
               <DropdownMenuItem asChild>
-                <Link to="/" className="flex items-center">
+                <Link to="/" onClick={onClose} className="flex items-center">
                   <Plus className="w-3.5 h-3.5 mr-2 opacity-50" />
                   {t('sidebar.manageProjects')}
                 </Link>
@@ -108,7 +118,7 @@ export default function Sidebar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56">
                 {scenarios.map(s => (
-                  <DropdownMenuItem key={s.id} onClick={() => navigate(`/scenarios/${s.id}/scoping`)}>
+                  <DropdownMenuItem key={s.id} onClick={() => { navigate(`/scenarios/${s.id}/scoping`); onClose(); }}>
                     <span className="truncate">{s.name}</span>
                   </DropdownMenuItem>
                 ))}
@@ -124,6 +134,7 @@ export default function Sidebar() {
           <Link
             key={item.path}
             to={item.path}
+            onClick={onClose}
             className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
               isActive(item.path)
                 ? 'bg-primary text-primary-foreground font-medium'
@@ -131,28 +142,28 @@ export default function Sidebar() {
             }`}
           >
             <item.icon className="w-4 h-4 shrink-0" />
-            {!collapsed && <span>{t(item.labelKey)}</span>}
+            {!showCollapsed && <span>{t(item.labelKey)}</span>}
           </Link>
         ))}
       </nav>
 
       {/* Footer */}
       <div className="p-3 border-t border-border space-y-0.5">
-        <QuickBackup collapsed={collapsed} />
-        <Button variant="ghost" size={collapsed ? "icon" : "sm"} onClick={cycleLanguage} title={`${t('sidebar.idiom')} — ${currentLangLabel}`} className={collapsed ? '' : 'w-full justify-start gap-2'}>
+        <QuickBackup collapsed={showCollapsed} />
+        <Button variant="ghost" size={showCollapsed ? "icon" : "sm"} onClick={cycleLanguage} title={`${t('sidebar.idiom')} — ${currentLangLabel}`} className={showCollapsed ? '' : 'w-full justify-start gap-2'}>
           <Languages className="w-4 h-4" />
-          {!collapsed && <span className="flex-1 text-left">{t('sidebar.idiom')}</span>}
-          {!collapsed && <span className="text-xs text-muted-foreground">{currentLangLabel}</span>}
+          {!showCollapsed && <span className="flex-1 text-left">{t('sidebar.idiom')}</span>}
+          {!showCollapsed && <span className="text-xs text-muted-foreground">{currentLangLabel}</span>}
         </Button>
-        <Button variant="ghost" size={collapsed ? "icon" : "sm"} onClick={toggleTheme} className={collapsed ? '' : 'w-full justify-start gap-2'}>
+        <Button variant="ghost" size={showCollapsed ? "icon" : "sm"} onClick={toggleTheme} className={showCollapsed ? '' : 'w-full justify-start gap-2'}>
           {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          {!collapsed && (theme === 'light' ? t('sidebar.darkMode') : t('sidebar.lightMode'))}
+          {!showCollapsed && (theme === 'light' ? t('sidebar.darkMode') : t('sidebar.lightMode'))}
         </Button>
-        <Button variant="ghost" size={collapsed ? "icon" : "sm"} onClick={lock} className={collapsed ? '' : 'w-full justify-start gap-2'}>
+        <Button variant="ghost" size={showCollapsed ? "icon" : "sm"} onClick={lock} className={showCollapsed ? '' : 'w-full justify-start gap-2'}>
           <Lock className="w-4 h-4" />
-          {!collapsed && t('sidebar.lockVault')}
+          {!showCollapsed && t('sidebar.lockVault')}
         </Button>
-        <ExitButton collapsed={collapsed} />
+        <ExitButton collapsed={showCollapsed} />
       </div>
     </aside>
   );

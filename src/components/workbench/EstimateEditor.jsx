@@ -47,7 +47,7 @@ export default function EstimateEditor({ labelKey, helpKey, estimate, onChange }
         </h4>
         {estimate.unit && <span className="text-xs text-muted-foreground">{estimate.unit}</span>}
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {[
           ['minimum', 'assumptions.minimum'],
           ['most_likely', 'assumptions.mostLikely'],

@@ -1588,6 +1588,8 @@ export default {
 
   // sidebar
   "sidebar.collapse": "Contraer barra lateral",
+  "sidebar.openMenu": "Abrir menú",
+  "sidebar.closeMenu": "Cerrar menú",
   "sidebar.darkMode": "Modo oscuro",
   "sidebar.expand": "Expandir barra lateral",
   "sidebar.idiom": "Idioma",
