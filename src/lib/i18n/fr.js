@@ -261,6 +261,8 @@ export default {
   // home
   "home.createFailed": "Échec de la création du projet",
   "home.createProject": "Créer le projet",
+  "home.examplesProjectName": "Évaluation d'exemple",
+  "home.startExamples": "Commencer avec un exemple sectoriel",
   "home.deleteDesc": "Ce projet sera définitivement supprimé avec tous ses scénarios et traitements. Cette action est irréversible.",
   "home.deleteFailed": "Échec de la suppression du projet",
   "home.deleteTitle": "Supprimer « {name} » ?",
@@ -1520,7 +1522,7 @@ export default {
   "scenarios.deleteFailed": "Échec de la suppression du scénario",
   "scenarios.deleteTitle": "Supprimer « {name} » ?",
   "scenarios.editTitle": "Modifier le scénario",
-  "scenarios.emptyDesc": "Créez un scénario de zéro, ou chargez les exemples Stella Polaris pour explorer le flux de travail.",
+  "scenarios.emptyDesc": "Vous débutez ? Chargez l'un des {count} exemples sectoriels prêts à l'emploi pour explorer l'ensemble du flux de travail en 7 étapes, ou créez votre propre scénario de zéro.",
   "scenarios.emptyTitle": "Aucun scénario pour l'instant",
   "scenarios.exportCsv": "Exporter CSV",
   "scenarios.fieldAsset": "Actif ou service à risque",
@@ -1733,6 +1735,7 @@ export default {
   // welcome
   "welcome.cite": "S'il contribue à vos travaux de recherche publiés, merci d'envisager de le citer. Vous trouverez à tout moment des formats de citation prêts à l'emploi dans l'Aide.",
   "welcome.free": "Ce logiciel est gratuit pour la recherche, l'enseignement et l'usage personnel. Vos données de risque restent chiffrées sur cet appareil — rien n'est téléversé vers un serveur.",
+  "welcome.samples": "Nouveau dans le risque quantitatif ? Après avoir créé un projet, chargez un exemple sectoriel prêt à l'emploi pour explorer l'ensemble du flux de travail.",
   "welcome.start": "Commencer",
   "welcome.title": "Bienvenue dans {name}",
 

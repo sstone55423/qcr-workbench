@@ -261,6 +261,8 @@ export default {
   // home
   "home.createFailed": "Proje oluşturulamadı",
   "home.createProject": "Proje oluştur",
+  "home.examplesProjectName": "Örnek Değerlendirme",
+  "home.startExamples": "Bir sektör örneğiyle başlayın",
   "home.deleteDesc": "Bu, projeyi tüm senaryoları ve önlemleriyle birlikte kalıcı olarak siler. Bu işlem geri alınamaz.",
   "home.deleteFailed": "Proje silinemedi",
   "home.deleteTitle": "“{name}” silinsin mi?",
@@ -1519,7 +1521,7 @@ export default {
   "scenarios.deleteFailed": "Senaryo silinemedi",
   "scenarios.deleteTitle": "“{name}” silinsin mi?",
   "scenarios.editTitle": "Senaryoyu düzenle",
-  "scenarios.emptyDesc": "Sıfırdan bir senaryo oluşturun veya iş akışını keşfetmek için Stella Polaris örneklerini yükleyin.",
+  "scenarios.emptyDesc": "Buraya yeni mi geldiniz? Tam 7 adımlı iş akışını keşfetmek için {count} hazır sektör örneğinden birini yükleyin veya kendi senaryonuzu sıfırdan oluşturun.",
   "scenarios.emptyTitle": "Henüz senaryo yok",
   "scenarios.exportCsv": "CSV dışa aktar",
   "scenarios.fieldAsset": "Risk altındaki varlık veya hizmet",
@@ -1732,6 +1734,7 @@ export default {
   // welcome
   "welcome.cite": "Yayımlanmış araştırmanıza katkıda bulunursa lütfen atıfta bulunmayı düşünün. Hazır atıf biçimlerini her zaman Yardım altında bulabilirsiniz.",
   "welcome.free": "Bu yazılım araştırma, eğitim ve kişisel kullanım için ücretsizdir. Risk verileriniz bu cihazda şifreli kalır — hiçbir şey bir sunucuya yüklenmez.",
+  "welcome.samples": "Nicel risk konusunda yeni misiniz? Bir proje oluşturduktan sonra, tüm iş akışını keşfetmek için hazır bir sektör örneği yükleyin.",
   "welcome.start": "Başla",
   "welcome.title": "{name} uygulamasına hoş geldiniz",
 

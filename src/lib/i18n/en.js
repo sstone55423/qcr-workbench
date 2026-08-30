@@ -261,6 +261,8 @@ export default {
   // home
   "home.createFailed": "Failed to create project",
   "home.createProject": "Create project",
+  "home.examplesProjectName": "Example Assessment",
+  "home.startExamples": "Start with an industry example",
   "home.deleteDesc": "This will permanently delete this project with all its scenarios and treatments. This cannot be undone.",
   "home.deleteFailed": "Failed to delete project",
   "home.deleteTitle": "Delete “{name}”?",
@@ -1520,7 +1522,7 @@ export default {
   "scenarios.deleteFailed": "Failed to delete scenario",
   "scenarios.deleteTitle": "Delete “{name}”?",
   "scenarios.editTitle": "Edit scenario",
-  "scenarios.emptyDesc": "Create a scenario from scratch, or load the Stella Polaris samples to explore the workflow.",
+  "scenarios.emptyDesc": "New here? Load one of {count} ready-made industry examples to explore the full 7-step workflow — or create your own scenario from scratch.",
   "scenarios.emptyTitle": "No scenarios yet",
   "scenarios.exportCsv": "Export CSV",
   "scenarios.fieldAsset": "Asset or service at risk",
@@ -1733,6 +1735,7 @@ export default {
   // welcome
   "welcome.cite": "If it contributes to your published research, please consider citing it. You can find ready-made citation formats any time under Help.",
   "welcome.free": "This software is free for research, education, and personal use. Your risk data stays encrypted on this device — nothing is uploaded to a server.",
+  "welcome.samples": "New to quantitative risk? After creating a project, load a ready-made industry example to explore the entire workflow.",
   "welcome.start": "Get started",
   "welcome.title": "Welcome to {name}",
 

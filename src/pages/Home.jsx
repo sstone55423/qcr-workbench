@@ -3,7 +3,7 @@ import { useProject } from '@/lib/ProjectContext';
 import { useI18n } from '@/lib/I18nContext';
 import { db } from '@/lib/localdb/store';
 import { useNavigate } from 'react-router-dom';
-import { Plus, FolderOpen, Trash2, Pencil, ShieldAlert } from 'lucide-react';
+import { Plus, FolderOpen, Trash2, Pencil, ShieldAlert, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -95,6 +95,25 @@ export default function Home() {
     navigate('/scenarios');
   };
 
+  // One-click onboarding: create a starter project and land on the scenarios
+  // page with the industry-example picker already open. The project can be
+  // renamed later; this is the fastest path from an empty store to a worked
+  // example for a first-time user.
+  const startWithExamples = async () => {
+    if (saving) return;
+    setSaving(true);
+    try {
+      const created = await db.entities.Project.create({ name: t('home.examplesProjectName'), description: '' });
+      await loadProjects();
+      selectProject(created);
+      navigate('/scenarios', { state: { openSamples: true } });
+    } catch (err) {
+      toast({ title: t('home.createFailed'), description: err.message, variant: 'destructive' });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -116,13 +135,18 @@ export default function Home() {
       </div>
 
       {projects.length === 0 ? (
-        <div className="text-center py-24 border-2 border-dashed border-border rounded-xl">
+        <div className="text-center py-20 px-4 border-2 border-dashed border-border rounded-xl">
           <ShieldAlert className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
           <h2 className="text-lg font-medium mb-2">{t('home.noProjectsYet')}</h2>
-          <p className="text-muted-foreground text-sm mb-6">{t('home.noProjectsDesc')}</p>
-          <Button onClick={() => { setName(''); setDescription(''); setShowCreate(true); }} className="gap-2">
-            <Plus className="w-4 h-4" /> {t('home.createProject')}
-          </Button>
+          <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">{t('home.noProjectsDesc')}</p>
+          <div className="flex gap-2 justify-center flex-wrap">
+            <Button onClick={startWithExamples} disabled={saving} className="gap-2">
+              <Sparkles className="w-4 h-4" /> {t('home.startExamples')}
+            </Button>
+            <Button variant="outline" onClick={() => { setName(''); setDescription(''); setShowCreate(true); }} className="gap-2">
+              <Plus className="w-4 h-4" /> {t('home.createProject')}
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

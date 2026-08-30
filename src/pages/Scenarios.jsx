@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useProject } from '@/lib/ProjectContext';
 import { useI18n } from '@/lib/I18nContext';
 import useScenarios from '@/hooks/useScenarios';
@@ -17,7 +17,7 @@ import { expectedLoss } from '@/lib/qcr/fair';
 import { formatCurrency } from '@/lib/qcr/format';
 import NoProject from '@/components/NoProject';
 import ScenarioFormDialog from '@/components/scenarios/ScenarioFormDialog';
-import { Crosshair, Plus, Trash2, Pencil, Sparkles, Loader2, User, Download, Upload } from 'lucide-react';
+import { Plus, Trash2, Pencil, Sparkles, Loader2, User, Download, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -43,6 +43,11 @@ export default function Scenarios() {
   const { t } = useI18n();
   const { toast } = useToast();
   const navigate = useNavigate();
+  // Home's "Start with an industry example" routes here with this flag so the
+  // sample picker opens on arrival — the fastest path from an empty store to a
+  // populated worked example.
+  const location = useLocation();
+  const autoOpenSamples = !!location.state?.openSamples;
   const [showCreate, setShowCreate] = useState(false);
   const [editTarget, setEditTarget] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
@@ -151,15 +156,15 @@ export default function Scenarios() {
     }
   };
 
-  const sampleMenu = (triggerClass = 'gap-2') => (
-    <DropdownMenu>
+  const sampleMenu = (triggerClass = 'gap-2', opts = {}) => (
+    <DropdownMenu defaultOpen={opts.autoOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" disabled={loadingSamples} className={triggerClass}>
+        <Button variant={opts.primary ? 'default' : 'outline'} disabled={loadingSamples} className={triggerClass}>
           {loadingSamples ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
           {t('scenarios.loadSamples')}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="max-h-[60vh] overflow-y-auto">
         {SAMPLE_LIBRARIES.map((library) => (
           <DropdownMenuItem key={library.id} onClick={() => handleLoadSamples(library.id)}>
             {t(library.labelKey)}
@@ -195,13 +200,15 @@ export default function Scenarios() {
       {loading ? (
         <div className="flex justify-center py-20"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>
       ) : scenarios.length === 0 ? (
-        <div className="text-center py-24 border-2 border-dashed border-border rounded-xl">
-          <Crosshair className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
+        <div className="text-center py-20 px-4 border-2 border-dashed border-border rounded-xl">
+          <Sparkles className="w-12 h-12 mx-auto text-primary/60 mb-4" />
           <h2 className="text-lg font-medium mb-2">{t('scenarios.emptyTitle')}</h2>
-          <p className="text-muted-foreground text-sm mb-6">{t('scenarios.emptyDesc')}</p>
-          <div className="flex gap-2 justify-center">
-            {sampleMenu()}
-            <Button onClick={() => setShowCreate(true)} className="gap-2">
+          <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">
+            {t('scenarios.emptyDesc', { count: SAMPLE_LIBRARIES.length })}
+          </p>
+          <div className="flex gap-2 justify-center flex-wrap">
+            {sampleMenu('gap-2', { primary: true, autoOpen: autoOpenSamples })}
+            <Button variant="outline" onClick={() => setShowCreate(true)} className="gap-2">
               <Plus className="w-4 h-4" /> {t('scenarios.newScenario')}
             </Button>
           </div>

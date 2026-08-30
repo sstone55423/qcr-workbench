@@ -261,6 +261,8 @@ export default {
   // home
   "home.createFailed": "Projekt konnte nicht erstellt werden",
   "home.createProject": "Projekt erstellen",
+  "home.examplesProjectName": "Beispielbewertung",
+  "home.startExamples": "Mit einem Branchenbeispiel starten",
   "home.deleteDesc": "Dies löscht dieses Projekt mit allen zugehörigen Szenarien und Maßnahmen dauerhaft. Dies kann nicht rückgängig gemacht werden.",
   "home.deleteFailed": "Projekt konnte nicht gelöscht werden",
   "home.deleteTitle": "„{name}“ löschen?",
@@ -1519,7 +1521,7 @@ export default {
   "scenarios.deleteFailed": "Szenario konnte nicht gelöscht werden",
   "scenarios.deleteTitle": "„{name}“ löschen?",
   "scenarios.editTitle": "Szenario bearbeiten",
-  "scenarios.emptyDesc": "Erstellen Sie ein Szenario von Grund auf, oder laden Sie die Stella-Polaris-Beispiele, um den Workflow zu erkunden.",
+  "scenarios.emptyDesc": "Neu hier? Laden Sie eines von {count} fertigen Branchenbeispielen, um den gesamten 7-Schritte-Workflow zu erkunden – oder erstellen Sie Ihr eigenes Szenario von Grund auf.",
   "scenarios.emptyTitle": "Noch keine Szenarien",
   "scenarios.exportCsv": "CSV exportieren",
   "scenarios.fieldAsset": "Gefährdetes Asset oder gefährdeter Dienst",
@@ -1732,6 +1734,7 @@ export default {
   // welcome
   "welcome.cite": "Wenn sie zu Ihrer veröffentlichten Forschung beiträgt, denken Sie bitte daran, sie zu zitieren. Fertige Zitationsformate finden Sie jederzeit unter Hilfe.",
   "welcome.free": "Diese Software ist für Forschung, Lehre und den persönlichen Gebrauch kostenlos. Ihre Risikodaten bleiben verschlüsselt auf diesem Gerät — nichts wird auf einen Server hochgeladen.",
+  "welcome.samples": "Neu bei quantitativem Risiko? Laden Sie nach dem Erstellen eines Projekts ein fertiges Branchenbeispiel, um den gesamten Workflow zu erkunden.",
   "welcome.start": "Loslegen",
   "welcome.title": "Willkommen bei {name}",
 

@@ -35,6 +35,7 @@ export default function WelcomeNotice() {
         </DialogHeader>
         <div className="text-sm text-muted-foreground space-y-2 leading-relaxed">
           <p>{t('welcome.free')}</p>
+          <p className="text-foreground">{t('welcome.samples')}</p>
           <p>{t('welcome.cite')}</p>
         </div>
         <DialogFooter>

@@ -261,6 +261,8 @@ export default {
   // home
   "home.createFailed": "Falha ao criar o projeto",
   "home.createProject": "Criar projeto",
+  "home.examplesProjectName": "Avaliação de exemplo",
+  "home.startExamples": "Começar com um exemplo do setor",
   "home.deleteDesc": "Isto excluirá permanentemente este projeto com todos os seus cenários e tratamentos. Esta ação não pode ser desfeita.",
   "home.deleteFailed": "Falha ao excluir o projeto",
   "home.deleteTitle": "Excluir “{name}”?",
@@ -1519,7 +1521,7 @@ export default {
   "scenarios.deleteFailed": "Falha ao excluir o cenário",
   "scenarios.deleteTitle": "Excluir “{name}”?",
   "scenarios.editTitle": "Editar cenário",
-  "scenarios.emptyDesc": "Crie um cenário do zero ou carregue os exemplos Stella Polaris para explorar o fluxo de trabalho.",
+  "scenarios.emptyDesc": "É a sua primeira vez? Carregue um dos {count} exemplos do setor prontos para usar e explore o fluxo de trabalho completo de 7 etapas, ou crie o seu próprio cenário do zero.",
   "scenarios.emptyTitle": "Nenhum cenário ainda",
   "scenarios.exportCsv": "Exportar CSV",
   "scenarios.fieldAsset": "Ativo ou serviço em risco",
@@ -1732,6 +1734,7 @@ export default {
   // welcome
   "welcome.cite": "Se ele contribuir para sua pesquisa publicada, considere citá-lo. Você encontra formatos de citação prontos a qualquer momento em Ajuda.",
   "welcome.free": "Este software é gratuito para pesquisa, educação e uso pessoal. Seus dados de risco permanecem criptografados neste dispositivo — nada é enviado a um servidor.",
+  "welcome.samples": "Novo na análise quantitativa de risco? Depois de criar um projeto, carregue um exemplo do setor pronto para usar e explore todo o fluxo de trabalho.",
   "welcome.start": "Começar",
   "welcome.title": "Boas-vindas ao {name}",
 
