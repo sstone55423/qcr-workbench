@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Cpu, CheckCircle2, Download, Chrome } from 'lucide-react';
+import { Loader2, Cpu, CheckCircle2, Download, Globe } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { useI18n } from '@/lib/I18nContext';
 import { appSettings } from '@/lib/localdb/store';
@@ -86,7 +86,7 @@ export default function OnDeviceAI({ value, onChange }) {
       {/* Chrome built-in (Gemini Nano) */}
       <div className={`rounded-lg border border-border p-3 mb-3 ${nanoOk ? '' : 'opacity-60'}`}>
         <div className="flex items-center gap-2 mb-1">
-          <Chrome className="w-3.5 h-3.5 text-muted-foreground" />
+          <Globe className="w-3.5 h-3.5 text-muted-foreground" />
           <span className="text-sm font-medium">{t('od.nanoTitle')}</span>
         </div>
         {!nanoOk ? (
