@@ -49,8 +49,10 @@ Audit trail** — are stored in the browser's **IndexedDB as AES-GCM-256
 ciphertext**. The encryption key is never stored; it is *derived from your
 passphrase* each time you unlock:
 
-- **PBKDF2-SHA-256, 250,000 iterations, random 16-byte salt** → a 256-bit
-  AES-GCM key (`src/lib/localdb/crypto.js`).
+- **PBKDF2-SHA-256 over a random 16-byte salt** → a 256-bit AES-GCM key
+  (`src/lib/localdb/crypto.js`). New vaults use **600,000 iterations**; each
+  vault stores its own iteration count in metadata, so vaults created before
+  that change still unlock at their original 250,000.
 - Each record is encrypted with a **fresh random 12-byte IV**; AES-GCM is
   authenticated, so tampering is detectable.
 - The derived key lives **only in memory** while the vault is unlocked. Locking

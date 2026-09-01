@@ -18,9 +18,12 @@ keys while the vault is unlocked.
 ## Data-layer cryptography (sound — do not "fix" downward)
 
 - `src/lib/localdb/crypto.js`: AES-GCM-256 (authenticated) with a random 12-byte
-  IV per encryption, key derived via PBKDF2-SHA-256 with 250,000 iterations and a
-  random 16-byte salt. Keys are never persisted in plaintext and exist in memory
-  only while the vault is unlocked.
+  IV per encryption, key derived via PBKDF2-SHA-256 over a random 16-byte salt.
+  New vaults derive at 600,000 iterations (`CURRENT_ITERATIONS`, current OWASP
+  guidance); each vault stores its own iteration count, so vaults predating that
+  change still unlock at 250,000 (`LEGACY_ITERATIONS`). Do not remove the legacy
+  constant — it is the migration path, not dead code. Keys are never persisted in
+  plaintext and exist in memory only while the vault is unlocked.
 - API keys are stored **encrypted in IndexedDB**, not in localStorage or plaintext.
 
 ## Content-Security-Policy
