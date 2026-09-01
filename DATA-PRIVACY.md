@@ -8,7 +8,7 @@ data lives and every path it can travel.
 
 | Data | Location | Protection |
 |---|---|---|
-| Projects, scenarios, estimates, treatments, audit trail | Browser IndexedDB | AES-GCM-256, key derived from your passphrase (PBKDF2-SHA-256, 250,000 iterations, random salt) |
+| Projects, scenarios, estimates, treatments, audit trail | Browser IndexedDB | AES-GCM-256, key derived from your passphrase (PBKDF2-SHA-256, 600,000 iterations for new vaults, random salt) |
 | App settings incl. AI API keys | Same encrypted store (`AppSettings` record) | Same encryption; never in localStorage or plaintext |
 | Store registry (workspace names, optional hints) | localStorage | Not secret by design; contains **no** passphrases and **no** risk data |
 | Theme, language-independent UI prefs, auto-lock minutes | localStorage | Not secret; needed before the vault unlocks |
