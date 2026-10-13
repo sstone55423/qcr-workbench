@@ -19,7 +19,9 @@ export function VaultProvider({ children }) {
     (async () => {
       // Register any pre-existing legacy vault as the default store (read-only),
       // then show the picker.
-      await ensureDefaultStore();
+      // If IndexedDB is unavailable this rejects; still show the picker (from
+      // the localStorage registry) rather than spinning forever.
+      try { await ensureDefaultStore(); } catch { /* surfaced on unlock/create */ }
       setStores(getStores());
       setStatus('picker');
     })();

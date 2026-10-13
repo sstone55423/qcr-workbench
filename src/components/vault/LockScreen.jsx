@@ -54,8 +54,14 @@ export default function LockScreen({ stores, onUnlock, onCreate, onRestore, onDe
   const handleUnlock = async (e) => {
     e.preventDefault();
     setError(''); setBusy(true);
-    const ok = await onUnlock(selected.id, passphrase);
-    if (!ok) { setError('Incorrect passphrase.'); setBusy(false); }
+    try {
+      const ok = await onUnlock(selected.id, passphrase);
+      // On success the provider unlocks and this screen unmounts.
+      if (!ok) { setError('Incorrect passphrase.'); setBusy(false); }
+    } catch (err) {
+      setError(err?.message || 'Could not open this store.');
+      setBusy(false);
+    }
   };
 
   const handleCreate = async (e) => {

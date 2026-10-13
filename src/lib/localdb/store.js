@@ -32,7 +32,9 @@ export async function createVault(passphrase) {
 
 export async function unlockVault(passphrase) {
   const meta = await idbGet('meta', 'vault');
-  if (!meta) throw new Error('No vault exists');
+  // The store is listed (localStorage) but its database is gone — e.g. site
+  // data was partly cleared or evicted by the browser.
+  if (!meta) throw new Error('This store’s data is no longer in this browser (site data may have been cleared). Restore it from a backup, or remove it from the list.');
   // Vaults created before iteration counts were stored used the legacy factor.
   const key = await deriveKey(passphrase, meta.salt, meta.iterations ?? LEGACY_ITERATIONS);
   try {
