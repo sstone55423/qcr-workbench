@@ -19,18 +19,46 @@ export function getActiveDbName() {
   return currentDbName;
 }
 
+// Some browsers (notably WebKit) occasionally never fire any event on
+// indexedDB.open; without a deadline the caller would wait forever.
+const OPEN_TIMEOUT_MS = 10000;
+
 export function openDB() {
   if (!dbPromise) {
-    dbPromise = new Promise((resolve, reject) => {
-      const req = indexedDB.open(currentDbName, DB_VERSION);
+    const p = new Promise((resolve, reject) => {
+      let settled = false;
+      const fail = (err) => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        reject(err);
+      };
+      const timer = setTimeout(() => fail(new Error(
+        'The browser’s local database did not respond. Close other QCR Workbench tabs, then reload and try again.'
+      )), OPEN_TIMEOUT_MS);
+      let req;
+      try { req = indexedDB.open(currentDbName, DB_VERSION); } catch (err) { fail(err); return; }
       req.onupgradeneeded = () => {
         const db = req.result;
         if (!db.objectStoreNames.contains('records')) db.createObjectStore('records');
         if (!db.objectStoreNames.contains('meta')) db.createObjectStore('meta');
       };
-      req.onsuccess = () => { openDbHandle = req.result; resolve(req.result); };
-      req.onerror = () => reject(req.error);
+      req.onsuccess = () => {
+        // Opened after we already gave up: don't leak the connection.
+        if (settled) { try { req.result.close(); } catch { /* already closing */ } return; }
+        settled = true;
+        clearTimeout(timer);
+        openDbHandle = req.result;
+        resolve(req.result);
+      };
+      req.onerror = () => fail(req.error || new Error('Could not open the browser’s local database.'));
+      req.onblocked = () => fail(new Error(
+        'The local database is in use by another QCR Workbench tab. Close other tabs, then try again.'
+      ));
     });
+    dbPromise = p;
+    // A failed open must not be cached, or every later attempt fails instantly.
+    p.catch(() => { if (dbPromise === p) dbPromise = null; });
   }
   return dbPromise;
 }

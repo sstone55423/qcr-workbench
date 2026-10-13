@@ -86,3 +86,16 @@ describe('collection read cache', () => {
     expect(await db.entities.Treatment.list()).toHaveLength(0);
   });
 });
+
+describe('unlock', () => {
+  it('rejects with a clear message when the store database is gone', async () => {
+    lockVault();
+    __idbState.stores.meta.clear(); // registry still lists it; site data was cleared
+    await expect(unlockVault('test-passphrase')).rejects.toThrow(/no longer in this browser/);
+  });
+
+  it('returns false (does not throw) for a wrong passphrase', async () => {
+    lockVault();
+    expect(await unlockVault('wrong-passphrase')).toBe(false);
+  });
+});
